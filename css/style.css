@@ -1,0 +1,11 @@
+
+
+/* Medium and up */
+@media only screen and (min-width: 40em) { /* <-- min-width 640px - medium screens and up */
+
+}
+
+/* Large and up */
+@media only screen and (min-width: 64em) { /* <-- min-width 1024px - large screens and up */
+
+}

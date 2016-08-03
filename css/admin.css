@@ -1,0 +1,8 @@
+#wpadminbar #wp-admin-bar-root-default .bb .ab-item, #wpadminbar #wp-admin-bar-root-default .bb .ab-item:hover {color: white;}
+#wpadminbar #wp-admin-bar-root-default .bb.dev .ab-item, #wpadminbar #wp-admin-bar-root-default .bb.dev .ab-item:hover,
+#wpadminbar #wp-admin-bar-root-default .bb.broken .ab-item, #wpadminbar #wp-admin-bar-root-default .bb.broken .ab-item:hover {background-color: red;}
+#wpadminbar #wp-admin-bar-root-default .bb.stage .ab-item, #wpadminbar #wp-admin-bar-root-default .bb.stage .ab-item:hover,
+#wpadminbar #wp-admin-bar-root-default .bb.wip .ab-item, #wpadminbar #wp-admin-bar-root-default .bb.wip .ab-item:hover {background-color: darkorange;}
+#wpadminbar #wp-admin-bar-root-default .bb.prod .ab-item, #wpadminbar #wp-admin-bar-root-default .bb.prod .ab-item:hover,
+#wpadminbar #wp-admin-bar-root-default .bb.stable .ab-item, #wpadminbar #wp-admin-bar-root-default .bb.stable .ab-item:hover {background-color: green;}
+.bb.css a::before {content: ""; top: 2px;}

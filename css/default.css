@@ -1,0 +1,87 @@
+body {position: static !important;}
+
+a:link:hover {opacity: 0.75;}
+
+.hero {min-height: 350px; background-size: cover; background-position: center center;}
+
+.uppercase {text-transform: uppercase;}
+.lowercase {text-transform: lowercase;}
+.title {display: block; width: 100%;}
+.sticky {position: inherit; transform: none; z-index: auto;}
+.gallery-caption {}
+.bypostauthor {}
+
+hr.clear {background: rgba(0, 0, 0, 0) none repeat scroll 0 0; border: medium none; clear: both; display: block; height: 0; margin: 0; width: 100%;}
+
+.no-padding {padding: 0px;}
+.no-padding-top {padding-top: 0px;}
+.no-padding-right {padding-right: 0px;}
+.no-padding-bottom {padding-bottom: 0px;}
+.no-padding-left {padding-left: 0px;}
+
+.text-white {color:#fff;}
+.text-black {color:#000;} 
+.htext-white:hover {color:#fff;} 
+.htext-black:hover {color:#000;}
+.bg-white {background-color:#fff;} 
+.bg-black {background-color:#000;} 
+.hbg-white:hover {background-color:#fff;} 
+.hbg-black:hover {background-color:#000;}
+
+#template-name {background-color: rgba(255, 255, 255, 0.25); bottom: 0; display: inline-block; opacity: 0.5; padding: 1rem; position: fixed; right: 0;}
+
+/* Default WP styles */
+img.alignnone {margin: 0.25rem 1.25rem 1.25rem 0;}
+img.alignright {float: right; margin: 0.25rem 0 1.25rem 1.25rem;}
+img.alignleft {float: left; margin: 0.25rem 1.25rem 1.25rem 0;}
+img.aligncenter {display: block; margin: 0.25rem auto 0;}
+.alignnone {margin: 0.25rem 1.25rem 1.25rem 0;}
+.alignright {float: right; margin: 0.25rem 0 1.25rem 1.25rem;}
+.alignleft {float: left; margin: 0.25rem 1.25rem 1.25rem 0;}
+.aligncenter, div.aligncenter {display: block; margin: 0.25rem auto;}
+
+.wp-caption {background: #fff; border: 1px solid #f0f0f0; max-width: 96%; padding: 0.25rem 0.125rem 0.625rem; text-align: center;}
+.wp-caption.alignnone {margin: 0.25rem 1.25rem 1.25rem 0;}
+.wp-caption.alignleft {margin: 0.25rem 1.25rem 1.25rem 0;}
+.wp-caption.alignright {margin: 0.25rem 0 1.25rem 1.25rem;}
+.wp-caption img {border: 0 none; height: auto; margin: 0; max-width: 98.5%; padding: 0; width: auto;}
+.wp-caption p.wp-caption-text {font-size: 11px; line-height: 17px; margin: 0; padding: 0 0.25rem 0.25rem;}
+
+/* Text meant only for screen readers. */
+.screen-reader-text {clip: rect(1px, 1px, 1px, 1px); position: absolute !important; height: 1px; width: 1px; overflow: hidden;}
+.screen-reader-text:focus {background-color: #f1f1f1; border-radius: 3px; box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6); clip: auto !important; color: #21759b; display: block; font-size: 14px; font-size: 0.875rem; font-weight: bold; height: auto; left: 0.25rem; line-height: normal; padding: 10.25rem 1.5rem 0.875rem; text-decoration: none; top: 0.25rem; width: auto; z-index: 100000; /* Above WP toolbar. */}
+
+/* Admin bar indicators */
+#wpadminbar #wp-admin-bar-root-default .bb .ab-item, #wpadminbar #wp-admin-bar-root-default .bb .ab-item:hover {color: white;}
+#wpadminbar #wp-admin-bar-root-default .bb.dev .ab-item, #wpadminbar #wp-admin-bar-root-default .bb.dev .ab-item:hover,
+#wpadminbar #wp-admin-bar-root-default .bb.broken .ab-item, #wpadminbar #wp-admin-bar-root-default .bb.broken .ab-item:hover {background-color: red;}
+#wpadminbar #wp-admin-bar-root-default .bb.stage .ab-item, #wpadminbar #wp-admin-bar-root-default .bb.stage .ab-item:hover,
+#wpadminbar #wp-admin-bar-root-default .bb.wip .ab-item, #wpadminbar #wp-admin-bar-root-default .bb.wip .ab-item:hover {background-color: darkorange;}
+#wpadminbar #wp-admin-bar-root-default .bb.prod .ab-item, #wpadminbar #wp-admin-bar-root-default .bb.prod .ab-item:hover,
+#wpadminbar #wp-admin-bar-root-default .bb.stable .ab-item, #wpadminbar #wp-admin-bar-root-default .bb.stable .ab-item:hover {background-color: green;}
+.bb.css a::before {content: ""; top: 2px;}
+
+/* List Posts */
+.bb_posts_wrapper {list-style: none;}
+.bb_posts_item {text-align: center;}
+.bb_posts_item img {border-radius: 50%; padding: 2rem;}
+
+/* Some tweaks to help GF and Zurb play nicely together */
+span>[type=text], span>[type=password], span>[type=date], span>[type=datetime], span>[type=datetime-local], span>[type=month], span>[type=week], span>[type=email], span>[type=tel], span>[type=time], span>[type=url], span>[type=color], span>[type=number], span>[type=search], span>textarea {margin-bottom: 0.25rem;}
+label.gfield_label {font-size: 1rem;}
+body .gform_wrapper .gfield_date_day label, body .gform_wrapper .gfield_date_month label, body .gform_wrapper .gfield_date_year label, body .gform_wrapper .gfield_time_ampm label, body .gform_wrapper .gfield_time_hour label, body .gform_wrapper .gfield_time_minute label, body .gform_wrapper .ginput_complex label, body .gform_wrapper .instruction {margin-bottom: 1.5rem;}
+
+/* Add support for multi-column Gravity Forms */
+.gform_wrapper .two-column .gsection:not(.empty), .gform_wrapper .three-column .gsection:not(.empty) {display: none;}
+
+@media only screen and (min-width: 40.063em) { /* <-- min-width 641px, medium screens */
+    .gform_wrapper ul.gform_column {float:left; display:inline-block; padding: 0.5rem 1.5rem; min-height: 100%;}
+    .gform_wrapper .two-column .gform_column {width: 49.5%;}
+    .gform_wrapper .three-column .gform_column {width: 33%;}
+    .gform_wrapper .gsection {margin: 0;}
+    .gform_wrapper .two-column .gform_column:nth-of-type(3), .gform_wrapper .three-column .gform_column:nth-of-type(4) {float: right;} /* Extra 1 because there's an empty one at the start */
+}
+
+/* Children as paragraphs */
+aside .menu.vertical > li > a {padding-left: 0; padding-right: 0;}
+aside .sticky {background-color: white;}
