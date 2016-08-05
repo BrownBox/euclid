@@ -30,6 +30,8 @@ hr.clear {background: rgba(0, 0, 0, 0) none repeat scroll 0 0; border: medium no
 
 #template-name {background-color: rgba(255, 255, 255, 0.25); bottom: 0; display: inline-block; opacity: 0.5; padding: 1rem; position: fixed; right: 0;}
 
+.notouch {background:transparent; position:relative; z-index: 10;}
+
 /* Default WP styles */
 img.alignnone {margin: 0.25rem 1.25rem 1.25rem 0;}
 img.alignright {float: right; margin: 0.25rem 0 1.25rem 1.25rem;}
