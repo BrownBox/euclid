@@ -13,7 +13,7 @@ if (has_post_thumbnail()) {
 <?php
 }
 ?>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 <?php
 $favicon = bb_get_theme_mod(ns_.'favicon');
 if($favicon) echo '        <link rel="icon" href="'.$favicon.'" type="image/png">'."\n";
