@@ -196,6 +196,45 @@ class bb_theme {
         }
     }
 
+    /**
+     * Generates an image element with srcset attribute
+     * @param array|string $args {
+     *     @type string     $src    Primary/fallback image source. Required.
+     *     @type string     $s      Image source for small screens. Defaults to value of $src.
+     *     @type string     $m      Image source for medium screens. Defaults to value of $src.
+     *     @type string     $l      Image source for large screens. Defaults to value of $src.
+     *     @type boolean    $echo   Whether to echo the result. Default true.
+     *     @type string     $id     Value of id attribute. Default is a randomly generated string.
+     *     @type string     $alt    Value of alt attribute. Default empty.
+     * }
+     * @return string HTML image element if $echo is false, else null.
+     */
+    static function srcset($args) {
+        $defaults = array(
+                'id' => wp_generate_password(8, false),
+                'alt' => '',
+                'echo' => true,
+        );
+        $args = wp_parse_args($args, $defaults);
+
+        if (empty($args['s'])) {
+            $args['s'] = $args['src'];
+        }
+        if (empty($args['m'])) {
+            $args['m'] = $args['src'];
+        }
+        if (empty($args['l'])) {
+            $args['l'] = $args['src'];
+        }
+
+        $img = '<img id='.$args['id'].' src="'.$args['src'].'" srcset="'.$args['s'].' 639w, '.$args['m'].' 1024w, '.$args['l'].' 1600w" alt="'.$args['alt'].'">';
+        if ($echo) {
+            echo $img;
+        } else {
+            return $img;
+        }
+    }
+
     static function onclick($args) {
         $defaults = array(
                 'echo' => true,
@@ -258,8 +297,8 @@ class bb_theme {
                 }
                 if ($default && !$value)
                     $value = $default;
-                echo '	<label for="' . $field_name . '">' . "\n";
-                echo '   	<sub style="color:rgba(0,0,0,0.75);display:block;">' . $title . '</sub>' . "\n";
+                echo '    <label for="' . $field_name . '">' . "\n";
+                echo '       <sub style="color:rgba(0,0,0,0.75);display:block;">' . $title . '</sub>' . "\n";
                 echo '   </label>' . "\n";
                 if (!is_array($size))
                     $size = explode(',', $size);
@@ -271,20 +310,20 @@ class bb_theme {
 
                 // expects an $options array of arrays as follows
                 // $options = array (
-                //		array ( 'label' => 'aaa', 'value' => '1' ),
-                //		array ( 'label' => 'aaa', 'value' => '1' ),
-                //		);
+                //        array ( 'label' => 'aaa', 'value' => '1' ),
+                //        array ( 'label' => 'aaa', 'value' => '1' ),
+                //        );
                 $current = get_post_meta($_GET[post], $field_name, true);
-                echo '	<sub style="color:rgba(0,0,0,0.75);display:block;width:100%;max-width:' . $max_width . ';">' . $title . '</sub>' . "\n";
-                echo '  	<select name="' . $field_name . '" id="' . $field_name . '">' . "\n";
+                echo '    <sub style="color:rgba(0,0,0,0.75);display:block;width:100%;max-width:' . $max_width . ';">' . $title . '</sub>' . "\n";
+                echo '      <select name="' . $field_name . '" id="' . $field_name . '">' . "\n";
                 foreach ($options as $option)
-                    echo '		<option value="' . $option['value'] . '" ' . selected($option['value'], $current, false) . '>' . $option['label'] . '</option>' . "\n";
-                echo '	</select>' . "\n";
+                    echo '        <option value="' . $option['value'] . '" ' . selected($option['value'], $current, false) . '>' . $option['label'] . '</option>' . "\n";
+                echo '    </select>' . "\n";
                 break;
 
             case 'color-picker':
-                echo '	<label for="meta-color" class="prfx-row-title" style="display:block;width:100%;max-width:' . $max_width . ';">' . $title . '</label>' . "\n";
-                echo '	<input name="' . $field_name . '" type="text" value="' . get_post_meta($_GET[post], $field_name, true) . '" class="meta-color" />' . "\n";
+                echo '    <label for="meta-color" class="prfx-row-title" style="display:block;width:100%;max-width:' . $max_width . ';">' . $title . '</label>' . "\n";
+                echo '    <input name="' . $field_name . '" type="text" value="' . get_post_meta($_GET[post], $field_name, true) . '" class="meta-color" />' . "\n";
                 break;
 
             case 'wp-editor':
@@ -309,9 +348,9 @@ class bb_theme {
                 }
                 if ($default && !$value)
                     $value = $default;
-                echo '	<label for="' . $field_name . '">' . "\n";
-                echo '		<sub style="color:rgba(0,0,0,0.75);display:block;">' . $title . '</sub>' . "\n";
-                echo '	</label>' . "\n";
+                echo '    <label for="' . $field_name . '">' . "\n";
+                echo '        <sub style="color:rgba(0,0,0,0.75);display:block;">' . $title . '</sub>' . "\n";
+                echo '    </label>' . "\n";
                 echo '   <input type="' . $type . '" id="' . $field_name . '" name="' . $field_name . '" style="display:block;max-width:' . $max_width . ';width:' . $size . ';" placeholder="' . $placeholder . '" value="' . esc_attr($value) . '" />' . "\n";
                 break;
         }
@@ -434,8 +473,8 @@ class bb_theme {
     }
 
     static function imagelink_default() {
-    	if (get_option('image_default_link_type') !== 'none') {
-    		update_option('image_default_link_type', 'none');
-    	}
+        if (get_option('image_default_link_type') !== 'none') {
+            update_option('image_default_link_type', 'none');
+        }
     }
 }
