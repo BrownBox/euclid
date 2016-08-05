@@ -5,7 +5,6 @@ define('THEME_TEXTDOMAIN', ns_.'theme');
 $theme_files = array(
     // Theme elements
     array('file' => 'customizer.php',           'dir' => 'theme'), // <-- our customizer fields & settings
-    array('file' => 'fonts.php',                'dir' => 'theme'), // <-- lets us link up to three google fonts
     array('file' => 'functions.php',            'dir' => 'theme'), // <-- our theme functions
     array('file' => 'menus.php',                'dir' => 'theme'), // <-- registers our menus
     array('file' => 'scripts.php',              'dir' => 'theme'), // <-- enqueues our styles and scripts

@@ -4,15 +4,9 @@ add_editor_style('css/default.css');
 add_editor_style('css/dynamic.css');
 add_editor_style('css/style.css');
 add_editor_style('css/editor.css');
-$theme_fonts = get_option('theme_fonts');
-if ($theme_fonts[ns_.'gf1']) {
-    add_editor_style($theme_fonts[ns_.'gf1']);
-}
-if ($theme_fonts[ns_.'gf2']) {
-    add_editor_style($theme_fonts[ns_.'gf2']);
-}
-if ($theme_fonts[ns_.'gf3']) {
-    add_editor_style($theme_fonts[ns_.'gf3']);
+$google_fonts = bb_get_theme_mod('gf');
+if (!empty($google_fonts)) {
+    add_editor_style($google_fonts);
 }
 
 add_action('admin_enqueue_scripts', array('bb_enqueue', 'admin_scripts'));
@@ -26,16 +20,10 @@ class bb_enqueue {
         // Core styles
         wp_enqueue_style('foundation', get_stylesheet_directory_uri().'/css/foundation.min.css');
 
-        // Custom fonts (configured under Appearance -> Fonts)
-        $theme_fonts = get_option('theme_fonts');
-        if ($theme_fonts[ns_.'gf1']) {
-            wp_enqueue_style(ns_.'gf1', $theme_fonts[ns_.'gf1']);
-        }
-        if ($theme_fonts[ns_.'gf2']) {
-            wp_enqueue_style(ns_.'gf2', $theme_fonts[ns_.'gf2']);
-        }
-        if ($theme_fonts[ns_.'gf3']) {
-            wp_enqueue_style(ns_.'gf3', $theme_fonts[ns_.'gf3']);
+        // Google fonts (configured through Customizer)
+        $google_fonts = bb_get_theme_mod('gf');
+        if (!empty($google_fonts)) {
+            wp_enqueue_style(ns_.'gf', $google_fonts);
         }
 
         // Theme styles

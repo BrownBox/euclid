@@ -53,11 +53,10 @@ function bb_theme_customizer(WP_Customize_Manager $wp_customize) {
             'priority' => 40,
     )));
 
-    // Palette
-    $wp_customize->add_section(ns_.'palette', array(
-            'title' => __('Theme Palette', ns_),
-            'description' => 'Enter number of colours. Click save and reload the page.',
-            'priority' => 50,
+    // Fonts
+    $wp_customize->add_section(ns_.'fonts', array(
+            'title' => __('Fonts', ns_),
+            'priority' => 45,
     ));
     $wp_customize->add_setting(ns_.'font', array(
             'default' => 'Raleway',
@@ -66,9 +65,37 @@ function bb_theme_customizer(WP_Customize_Manager $wp_customize) {
     ));
     $wp_customize->add_control(ns_.'font', array(
             'label' => __('Primary Font', ns_),
-            'section' => ns_.'palette',
+            'section' => ns_.'fonts',
             'type' => 'text',
             'priority' => 5,
+    ));
+    $wp_customize->add_setting(ns_.'gf', array(
+            'default' => esc_url('//fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i|Raleway:400,400i,700,700i'),
+            'sanitize_callback' => 'esc_url_raw',
+            'type' => 'option',
+    ));
+    $wp_customize->add_control(ns_.'gf', array(
+            'label' => __('Google Fonts URL', ns_),
+            'section' => ns_.'fonts',
+            'type' => 'text',
+            'priority' => 10,
+    ));
+    $wp_customize->add_setting(ns_.'typekit', array(
+            'sanitize_callback' => 'sanitize_text_field',
+            'type' => 'option',
+    ));
+    $wp_customize->add_control(ns_.'typekit', array(
+            'label' => __('Adobe TypeKit ID', ns_),
+            'section' => ns_.'fonts',
+            'type' => 'text',
+            'priority' => 15,
+    ));
+
+    // Palette
+    $wp_customize->add_section(ns_.'palette', array(
+            'title' => __('Theme Palette', ns_),
+            'description' => 'Enter number of colours. Click save and reload the page.',
+            'priority' => 50,
     ));
     $wp_customize->add_setting(ns_.'colours', array(
             'default' => BB_DEFAULT_COLOUR_COUNT,

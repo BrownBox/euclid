@@ -25,10 +25,10 @@ bb_theme::section('name=footer&file=footer.php&inner_class=row&type=footer');
         	}
         </script>
 <?php
-// Include TypeKit font if configured (under Appearance -> Fonts)
-$theme_fonts = get_option('theme_fonts');
-if (!empty($theme_fonts[ns_.'typekit'])) {
-    echo '<script src="https://use.typekit.net/'.$theme_fonts[ns_.'typekit'].'.js"></script><script>try{Typekit.load({ async: true });}catch(e){}</script>'."\n";
+// Include TypeKit font if configured (in Customizer)
+$typekit_id = bb_get_theme_mod('typekit');
+if (!empty($typekit_id)) {
+    echo '<script src="https://use.typekit.net/'.$typekit_id.'.js"></script><script>try{Typekit.load({ async: true });}catch(e){}</script>'."\n";
 }
 ?>
 	</body>
