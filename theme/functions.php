@@ -163,7 +163,7 @@ class bb_theme {
     /**
      * Generates a Zurb Interchange HTML element
      * @see http://foundation.zurb.com/sites/docs/interchange.html
-     * @param array $args
+     * @param array|string $args
      * @param boolean $echo
      * @return void|string
      */
@@ -197,17 +197,13 @@ class bb_theme {
     }
 
     static function onclick($args) {
-        is_array($args) ? extract($args) : parse_str($args);
-        // $args example: "url="http://techn.com.au&target=_blank&output=echo"
+        $defaults = array(
+                'echo' => true,
+        );
+        extract(wp_parse_args($args, $defaults));
 
-        //set defaults
-        if (!$output) {
-            $output = 'echo'; // valid $outputs include 'echo' and 'return'
-        }
-
-        // the function
-        $location = (!$target) ? "location.href='$url';" : "window.open('$url','$target')";
-        if ($output == 'echo') {
+        $location = empty($target) ? "location.href='$url';" : "window.open('$url','$target');";
+        if ($echo) {
             echo $location;
         } else {
             return $location;
