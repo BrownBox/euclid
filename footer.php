@@ -2,9 +2,10 @@
 bb_theme::section('name=panels-bottom&file=panels-bottom.php&inner_class=row-full');
 bb_theme::section('name=footer&file=footer.php&inner_class=row&type=footer');
 ?>
-				<!-- content goes here -->
-				</section>
-			</div>
+        				</section>
+				    </div><!-- end off-canvas-content -->
+				</div><!-- end off-canvas-wrapper-inner -->
+			</div><!-- end off-canvas-wrapper -->
 		</div><!-- end everything -->
 		<?php wp_footer(); ?>
         <script>

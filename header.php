@@ -24,12 +24,16 @@ wp_head();
     <body <?php body_class(); ?>>
     <!-- start everything -->
     <div class="everything">
-        <header data-swiftype-index='false' class="hide-for-print clearfix">
+		<div class="off-canvas-wrapper">
+			<div class="off-canvas-wrapper-inner" data-off-canvas-wrapper><!-- off-canvas left menu -->
+<?php locate_template(array('sections/offcanvas.php'), true);?>
+				<div class="off-canvas-content" data-off-canvas-content>
+                    <header data-swiftype-index='false' class="hide-for-print clearfix">
 <?php
 locate_template(array('sections/nav.php'), true);
 bb_theme::section('name=top&file=top.php&inner_class=row-full');
 ?>
-        </header>
-        <section class="main-section">
+                    </header>
+                    <section class="main-section">
 <?php
 bb_theme::section('name=panels-top&file=panels-top.php&inner_class=row-full');
