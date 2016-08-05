@@ -12,6 +12,13 @@ Text Domain: bb_theme
 Release Notes
 =============
 
+7.0.1
+New bb_theme::srcset() function        
+Font settings moved to Customizer        
+Returned to offcanvas as default menu style for small screens        
+Replaced Zurb hamburger with FontAwesome  
+Nicer default styling of GF validation errors
+
 7.0
 Euclid is here! Includes Zurb 6.2.3, powerful row-based layout ("panels"), much cleaner CSS media queries than predecessors, and much more
 
