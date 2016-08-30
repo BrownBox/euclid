@@ -69,6 +69,17 @@ function bb_theme_customizer(WP_Customize_Manager $wp_customize) {
             'type' => 'text',
             'priority' => 5,
     ));
+    $wp_customize->add_setting(ns_.'heading_font', array(
+            'default' => 'Raleway',
+            'sanitize_callback' => 'sanitize_text_field',
+            'type' => 'option',
+    ));
+    $wp_customize->add_control(ns_.'heading_font', array(
+            'label' => __('Heading Font', ns_),
+            'section' => ns_.'fonts',
+            'type' => 'text',
+            'priority' => 6,
+    ));
     $wp_customize->add_setting(ns_.'gf', array(
             'default' => esc_url('//fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i|Raleway:400,400i,700,700i'),
             'sanitize_callback' => 'esc_url_raw',
@@ -292,7 +303,9 @@ function bb_get_page_elements() {
 
 function bb_generate_dynamic_styles() {
     $font = bb_get_theme_mod(ns_.'font');
-    $styles = 'body, h1, h2, h3, h4, h5, h6 {font-family: "'.$font.'", sans-serif;}'."\n";
+    $heading_font = bb_get_theme_mod(ns_.'heading_font');
+    $styles = 'body, * {font-family: "'.$font.'", sans-serif;}'."\n";
+    $styles .= 'h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {font-family: "'.$heading_font.'", sans-serif;}'."\n";
     $colour_count = bb_get_theme_mod(ns_.'colours', BB_DEFAULT_COLOUR_COUNT);
     for ($i = 1; $i <= $colour_count; $i++) {
         ${'colour'.$i} = bb_get_theme_mod(ns_.'colour'.$i);
