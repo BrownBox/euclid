@@ -176,7 +176,7 @@ function bb_theme_customizer(WP_Customize_Manager $wp_customize) {
             $setting_name = 'hero_height_'.strtolower($page.'_'.$size);
             $wp_customize->add_setting(ns_.$setting_name, array(
                     'default' => '500px',
-                    'sanitize_callback' => 'absint',
+                    'sanitize_callback' => 'sanitize_text_field',
                     'type' => 'option',
             ));
             $wp_customize->add_control(ns_.$setting_name, array(
