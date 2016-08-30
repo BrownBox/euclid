@@ -12,6 +12,12 @@ Text Domain: bb_theme
 Release Notes
 =============
 
+7.0.2
+Big panels update - 4 new recipes, tiles option and a bunch of other tweaks and improvements
+New hierarchy walker function
+New Customizer option for heading font
+Various bug fixes
+
 7.0.1
 New bb_theme::srcset() function        
 Font settings moved to Customizer        
