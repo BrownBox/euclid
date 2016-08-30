@@ -1,6 +1,6 @@
 <?php
 new bb_theme\cptClass('Panel','Panels', array(
-        'public' => true,
+        'public' => false,
         'has_archive' => false,
         'query_var' => false,
         'show_ui' => true,
@@ -110,20 +110,30 @@ if (function_exists("register_field_group")) {
             'title' => 'Panel Settings',
             'fields' => array(
                     array(
-                            'key' => 'field_56dcb408746ba',
+                            'key' => 'bb_panels_field_panel_name',
                             'label' => 'Panel Name',
                             'name' => 'panel_name',
                             'type' => 'text',
-                            'instructions' => 'Class name (used for styling)',
-                            'default_value' => '',
-                            'placeholder' => '',
-                            'prepend' => '',
-                            'append' => '',
-                            'formatting' => 'html',
-                            'maxlength' => '',
+                            'instructions' => 'Class name (used for styling). Multiple classes can be separated with spaces.',
+                            'formatting' => 'text',
                     ),
                     array(
-                            'key' => 'field_56dcb603746bb',
+                            'key' => 'bb_panels_field_children',
+                            'label' => 'Display Children As',
+                            'name' => 'children',
+                            'type' => 'radio',
+                            'instructions' => 'If this panel has child panels, they can either be displayed as a slider or a series of tiles. Note that if this panel has children most of the following options are ignored.',
+                            'choices' => array(
+                                    'slider' => 'Slider',
+                                    'tiles' => 'Tiles',
+                            ),
+                            'other_choice' => 0,
+                            'save_other_choice' => 0,
+                            'default_value' => 'slider',
+                            'layout' => 'horizontal',
+                    ),
+                    array(
+                            'key' => 'bb_panels_field_recipe',
                             'label' => 'Recipe',
                             'name' => 'recipe',
                             'type' => 'select',
@@ -134,7 +144,7 @@ if (function_exists("register_field_group")) {
                             'multiple' => 0,
                     ),
                     array(
-                            'key' => 'field_56dcb7a7746bf',
+                            'key' => 'bb_panels_field_flavour',
                             'label' => 'Display Style',
                             'name' => 'flavour',
                             'type' => 'radio',
@@ -150,7 +160,7 @@ if (function_exists("register_field_group")) {
                             'layout' => 'horizontal',
                     ),
                     array(
-                            'key' => 'field_56dcb6b4746bc',
+                            'key' => 'bb_panels_field_hide_title',
                             'label' => 'Hide Panel Title?',
                             'name' => 'hide_title',
                             'type' => 'checkbox',
@@ -161,43 +171,123 @@ if (function_exists("register_field_group")) {
                             'layout' => 'horizontal',
                     ),
                     array(
-                            'key' => 'field_56dcb725746bd',
+                            'key' => 'bb_panels_field_bg_colour',
+                            'label' => 'Background Colour',
+                            'name' => 'bg_colour',
+                            'type' => 'select',
+                            'choices' => bb_panels_get_theme_palette(),
+                            'default_value' => 'transparent',
+                            'multiple' => 0,
+                    ),
+                    array(
+                            'key' => 'bb_panels_field_bg_pos_x',
+                            'label' => 'Background Image Anchor (Horizontal)',
+                            'name' => 'bg_pos_x',
+                            'type' => 'radio',
+                            'choices' => array(
+                                    'left' => 'Left',
+                                    '25%' => '25%',
+                                    'center' => 'Centre',
+                                    '75%' => '75%',
+                                    'right' => 'Right',
+                            ),
+                            'other_choice' => 0,
+                            'save_other_choice' => 0,
+                            'default_value' => 'center',
+                            'layout' => 'horizontal',
+                            'conditional_logic' => array(
+                                    'status' => 1,
+                                    'rules' => array(
+                                            array(
+                                                    'field' => 'bb_panels_field_recipe',
+                                                    'operator' => '!=',
+                                                    'value' => 'recent_posts',
+                                            ),
+                                            array(
+                                                    'field' => 'bb_panels_field_recipe',
+                                                    'operator' => '!=',
+                                                    'value' => 'tile_menu',
+                                            ),
+                                            array(
+                                                    'field' => 'bb_panels_field_recipe',
+                                                    'operator' => '!=',
+                                                    'value' => 'tiles',
+                                            ),
+                                    ),
+                                    'allorany' => 'all',
+                            ),
+                    ),
+                    array(
+                            'key' => 'bb_panels_field_bg_pos_y',
+                            'label' => 'Background Image Anchor (Vertical)',
+                            'name' => 'bg_pos_y',
+                            'type' => 'radio',
+                            'choices' => array(
+                                    'top' => 'Top',
+                                    '25%' => '25%',
+                                    'center' => 'Centre',
+                                    '75%' => '75%',
+                                    'bottom' => 'Bottom',
+                            ),
+                            'other_choice' => 0,
+                            'save_other_choice' => 0,
+                            'default_value' => 'center',
+                            'layout' => 'horizontal',
+                            'conditional_logic' => array(
+                                    'status' => 1,
+                                    'rules' => array(
+                                            array(
+                                                    'field' => 'bb_panels_field_recipe',
+                                                    'operator' => '!=',
+                                                    'value' => 'recent_posts',
+                                            ),
+                                            array(
+                                                    'field' => 'bb_panels_field_recipe',
+                                                    'operator' => '!=',
+                                                    'value' => 'tile_menu',
+                                            ),
+                                            array(
+                                                    'field' => 'bb_panels_field_recipe',
+                                                    'operator' => '!=',
+                                                    'value' => 'tiles',
+                                            ),
+                                    ),
+                                    'allorany' => 'all',
+                            ),
+                    ),
+                    // Recipe-specific options
+                    array(
+                            'key' => 'bb_panels_field_image',
                             'label' => 'Additional Image',
                             'name' => 'image',
                             'type' => 'image',
                             'instructions' => 'Some recipes will display an additional image alongside the content',
+                            'save_format' => 'url',
+                            'preview_size' => 'thumbnail',
+                            'library' => 'all',
                             'conditional_logic' => array(
                                     'status' => 1,
                                     'rules' => array(
                                             array(
-                                                    'field' => 'field_56dcb603746bb',
+                                                    'field' => 'bb_panels_field_recipe',
+                                                    'operator' => '==',
+                                                    'value' => 'half_image',
+                                            ),
+                                            array(
+                                                    'field' => 'bb_panels_field_recipe',
                                                     'operator' => '==',
                                                     'value' => 'with_image',
                                             ),
                                     ),
                                     'allorany' => 'any',
                             ),
-                            'save_format' => 'url',
-                            'preview_size' => 'thumbnail',
-                            'library' => 'all',
                     ),
                     array(
-                            'key' => 'field_56dcb7a7746be',
+                            'key' => 'bb_panels_field_image_pos',
                             'label' => 'Image Position',
                             'name' => 'image_pos',
                             'type' => 'radio',
                             'instructions' => 'Position of the additional image',
-                            'conditional_logic' => array(
-                                    'status' => 1,
-                                    'rules' => array(
-                                            array(
-                                                    'field' => 'field_56dcb603746bb',
-                                                    'operator' => '==',
-                                                    'value' => 'with_image',
-                                            ),
-                                    ),
-                                    'allorany' => 'any',
-                            ),
                             'choices' => array(
                                     'left' => 'Left',
                                     'right' => 'Right',
@@ -206,6 +296,188 @@ if (function_exists("register_field_group")) {
                             'save_other_choice' => 0,
                             'default_value' => 'left',
                             'layout' => 'horizontal',
+                            'conditional_logic' => array(
+                                    'status' => 1,
+                                    'rules' => array(
+                                            array(
+                                                    'field' => 'bb_panels_field_recipe',
+                                                    'operator' => '==',
+                                                    'value' => 'half_image',
+                                            ),
+                                            array(
+                                                    'field' => 'bb_panels_field_recipe',
+                                                    'operator' => '==',
+                                                    'value' => 'with_image',
+                                            ),
+                                    ),
+                                    'allorany' => 'any',
+                            ),
+                    ),
+                    array(
+                            'key' => 'bb_panels_field_menu',
+                            'label' => 'Menu',
+                            'name' => 'menu',
+                            'type' => 'select',
+                            'instructions' => 'Each menu item in the selected menu will become a tile, with the description being used as the URL for the background image.',
+                            'choices' => bb_panels_get_menus(),
+                            'other_choice' => 0,
+                            'save_other_choice' => 0,
+                            'conditional_logic' => array(
+                                    'status' => 1,
+                                    'rules' => array(
+                                            array(
+                                                    'field' => 'bb_panels_field_recipe',
+                                                    'operator' => '==',
+                                                    'value' => 'tile_menu',
+                                            ),
+                                    ),
+                                    'allorany' => 'any',
+                            ),
+                    ),
+                    array(
+                            'key' => 'bb_panels_field_post_category',
+                            'label' => 'Category',
+                            'name' => 'post_category',
+                            'type' => 'select',
+                            'choices' => bb_panels_get_post_categories(),
+                            'default_value' => '',
+                            'multiple' => 0,
+                            'conditional_logic' => array(
+                                    'status' => 1,
+                                    'rules' => array(
+                                            array(
+                                                    'field' => 'bb_panels_field_recipe',
+                                                    'operator' => '==',
+                                                    'value' => 'recent_posts',
+                                            ),
+                                    ),
+                                    'allorany' => 'any',
+                            ),
+                    ),
+                    array(
+                            'key' => 'bb_panels_field_num_items',
+                            'label' => 'Maximum Number of Items',
+                            'name' => 'num_items',
+                            'type' => 'number',
+                            'default_value' => '6',
+                            'formatting' => 'text',
+                            'conditional_logic' => array(
+                                    'status' => 1,
+                                    'rules' => array(
+                                            array(
+                                                    'field' => 'bb_panels_field_recipe',
+                                                    'operator' => '==',
+                                                    'value' => 'recent_posts',
+                                            ),
+                                    ),
+                                    'allorany' => 'any',
+                            ),
+                    ),
+                    array(
+                            'key' => 'bb_panels_field_num_per_row_large',
+                            'label' => 'Items Per Row (Large Screen)',
+                            'name' => 'num_per_row_large',
+                            'type' => 'number',
+                            'default_value' => '3',
+                            'formatting' => 'text',
+                            'conditional_logic' => array(
+                                    'status' => 1,
+                                    'rules' => array(
+                                            array(
+                                                    'field' => 'bb_panels_field_recipe',
+                                                    'operator' => '==',
+                                                    'value' => 'recent_posts',
+                                            ),
+                                            array(
+                                                    'field' => 'bb_panels_field_recipe',
+                                                    'operator' => '==',
+                                                    'value' => 'tile_menu',
+                                            ),
+                                            array(
+                                                    'field' => 'bb_panels_field_children',
+                                                    'operator' => '==',
+                                                    'value' => 'tiles',
+                                            ),
+                                    ),
+                                    'allorany' => 'any',
+                            ),
+                    ),
+                    array(
+                            'key' => 'bb_panels_field_num_per_row_medium',
+                            'label' => 'Items Per Row (Medium Screen)',
+                            'name' => 'num_per_row_medium',
+                            'type' => 'number',
+                            'default_value' => '3',
+                            'formatting' => 'text',
+                            'conditional_logic' => array(
+                                    'status' => 1,
+                                    'rules' => array(
+                                            array(
+                                                    'field' => 'bb_panels_field_recipe',
+                                                    'operator' => '==',
+                                                    'value' => 'recent_posts',
+                                            ),
+                                            array(
+                                                    'field' => 'bb_panels_field_recipe',
+                                                    'operator' => '==',
+                                                    'value' => 'tile_menu',
+                                            ),
+                                            array(
+                                                    'field' => 'bb_panels_field_children',
+                                                    'operator' => '==',
+                                                    'value' => 'tiles',
+                                            ),
+                                    ),
+                                    'allorany' => 'any',
+                            ),
+                    ),
+                    array(
+                            'key' => 'bb_panels_field_num_per_row_small',
+                            'label' => 'Items Per Row (Small Screen)',
+                            'name' => 'num_per_row_small',
+                            'type' => 'number',
+                            'default_value' => '1',
+                            'formatting' => 'text',
+                            'conditional_logic' => array(
+                                    'status' => 1,
+                                    'rules' => array(
+                                            array(
+                                                    'field' => 'bb_panels_field_recipe',
+                                                    'operator' => '==',
+                                                    'value' => 'recent_posts',
+                                            ),
+                                            array(
+                                                    'field' => 'bb_panels_field_recipe',
+                                                    'operator' => '==',
+                                                    'value' => 'tile_menu',
+                                            ),
+                                            array(
+                                                    'field' => 'bb_panels_field_children',
+                                                    'operator' => '==',
+                                                    'value' => 'tiles',
+                                            ),
+                                    ),
+                                    'allorany' => 'any',
+                            ),
+                    ),
+                    array(
+                            'key' => 'bb_panels_field_video',
+                            'label' => 'Video URL',
+                            'name' => 'video',
+                            'type' => 'text',
+                            'placeholder' => 'http://',
+                            'formatting' => 'text',
+                            'conditional_logic' => array(
+                                    'status' => 1,
+                                    'rules' => array(
+                                            array(
+                                                    'field' => 'bb_panels_field_recipe',
+                                                    'operator' => '==',
+                                                    'value' => 'video',
+                                            ),
+                                    ),
+                                    'allorany' => 'any',
+                            ),
                     ),
             ),
             'location' => array(
@@ -234,12 +506,13 @@ if (function_exists("register_field_group")) {
             ),
             'menu_order' => 0,
     ));
+
     register_field_group(array(
             'id' => 'acf_call-to-action',
             'title' => 'Call to Action',
             'fields' => array(
                     array(
-                            'key' => 'field_56dcb33f9007b',
+                            'key' => 'bb_panels_cta_field_action_text',
                             'label' => 'Action Text',
                             'name' => 'action_text',
                             'type' => 'text',
@@ -251,7 +524,7 @@ if (function_exists("register_field_group")) {
                             'maxlength' => '',
                     ),
                     array(
-                            'key' => 'field_56dcb3929007c',
+                            'key' => 'bb_panels_cta_field_destination',
                             'label' => 'Destination URL',
                             'name' => 'destination',
                             'type' => 'text',

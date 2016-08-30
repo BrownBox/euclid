@@ -54,10 +54,14 @@ function bb_show_panel(WP_Post $panel) {
             'order' => 'DESC',
             'post_parent' => $panel->ID,
     );
-    $slides = get_posts($args);
-    if (count($slides) > 0) {
-        $slider = $panel;
-        include(get_stylesheet_directory().'/panels/slider.php');
+    $children = get_posts($args);
+    if (count($children) > 0) {
+        $wrapper = $panel;
+        if (get_post_meta($panel->ID, 'children', true) == 'tiles') {
+            include(get_stylesheet_directory().'/panels/tiles.php');
+        } else {
+            include(get_stylesheet_directory().'/panels/slider.php');
+        }
     } else {
         include(get_stylesheet_directory().'/panels/banner.php');
     }
@@ -126,4 +130,39 @@ function bb_panel_title(WP_Post $panel) {
  */
 function bb_panel_content(WP_Post $panel) {
     echo apply_filters('the_content', $panel->post_content);
+}
+
+function bb_panels_get_menus() {
+    $menus = get_terms('nav_menu', array('hide_empty' => false));
+    $menu_choices = array();
+
+    foreach ($menus as $menu) {
+        $menu_choices[$menu->name] = $menu->name;
+    }
+    return $menu_choices;
+}
+
+function bb_panels_get_theme_palette() {
+    $colours = bb_get_theme_mod(ns_.'colours', BB_DEFAULT_COLOUR_COUNT);
+    $palette_options = array(
+            'transparent' => 'None (i.e. transparent)',
+    );
+    for ($i = 1; $i <= $colours; $i++) {
+        $palette_options[$i] = 'Colour '.$i.' ('.bb_get_theme_mod(ns_.'colour'.$i).')';
+    }
+    return $palette_options;
+}
+
+function bb_panels_get_post_categories($taxonomy = 'category') {
+    $args = array(
+            'hide_empty' => false,
+    );
+    $terms = get_terms($taxonomy, $args);
+    $categories = array(
+            '' => 'All',
+    );
+    foreach ($terms as $term) {
+        $categories[$term->term_id] = $term->name;
+    }
+    return $categories;
 }

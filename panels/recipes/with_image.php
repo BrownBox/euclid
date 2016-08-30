@@ -1,3 +1,4 @@
+<div class="column row">
 <?php
 $meta = get_post_meta($panel->ID);
 $img_block = '';
@@ -24,3 +25,5 @@ if (!empty(get_post_meta($panel->ID, 'destination', true))) {
 if($meta["image_pos"][0] == 'right') {
 	echo $img_block;
 }
+?>
+</div>
