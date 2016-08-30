@@ -88,7 +88,7 @@ function bb_theme_customizer(WP_Customize_Manager $wp_customize) {
     $wp_customize->add_control(ns_.'gf', array(
             'label' => __('Google Fonts URL', ns_),
             'section' => ns_.'fonts',
-            'type' => 'text',
+            'type' => 'textarea',
             'priority' => 10,
     ));
     $wp_customize->add_setting(ns_.'typekit', array(
