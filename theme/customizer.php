@@ -275,7 +275,7 @@ function bb_get_dynamic_styles_filename() {
 function bb_get_page_elements() {
     return array(
             'content_background' => 'section.main-section, .callout-wrapper:nth-of-type(2n)',
-            'heading_text' => 'h1, h2, h3, h4, h5, h6',
+            'heading_text' => 'h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6',
             'body_text' => 'body, *',
             'link_text' => 'a:link, a:link:hover, a:visited, a:link:focus',
             'main_menu_background' => 'nav.title-bar, nav.top-bar, nav.top-bar ul',
@@ -293,7 +293,7 @@ function bb_get_page_elements() {
             'panel_background' => '.panel-wrapper',
             'panel_text' => '.panel-wrapper h1, .panel-wrapper h2, .panel-wrapper h3, .panel-wrapper h4, .panel-wrapper h5, .panel-wrapper h6',
             'hero_background' => '.hero',
-            'hero_text' => '.hero h1',
+            'hero_text' => '.hero h1, .hero .h1',
             'click_array_background' => 'body .gform_wrapper .gform_bb.gfield_click_array div.s-html-wrapper',
             'click_array_text' => 'body .gform_wrapper .gform_bb.gfield_click_array div.s-html-wrapper',
             'click_array_active_background' => 'body .gform_wrapper .gform_bb.gfield_click_array div.s-html-wrapper.s-passive:hover, body .gform_wrapper .gform_bb.gfield_click_array div.s-html-wrapper.s-active',
