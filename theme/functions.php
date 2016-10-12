@@ -97,8 +97,8 @@ class bb_theme {
                             if (!empty($item->post_content)) {
                                 $final_content .= '    <a href="'.get_the_permalink($item).'">'."\n";
                             }
-                            $image_data = wp_get_attachment_image_src(get_post_thumbnail_id($item->ID), 'full');
-                            $final_content .= '      <img src="'.$image_data[0].'">'."\n";
+                            $image = get_value_from_hierarchy('featured_image', $item->ID);
+                            $final_content .= '      <img src="'.$image.'">'."\n";
                             $final_content .= $item->post_title."\n";
                             if (!empty($item->post_content)) {
                                 $final_content .= '    </a>';

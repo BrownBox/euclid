@@ -1,6 +1,6 @@
 <?php
 if (has_post_thumbnail($panel->ID)) {
-    $image = wp_get_attachment_image_src(get_post_thumbnail_id($panel->ID), 'full');
+    $image = get_value_from_hierarchy('featured_image', $panel->ID);
     $style .= 'background-image: url('.$image[0].');';
 ?>
 <style>

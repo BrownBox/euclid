@@ -7,7 +7,7 @@
         <meta class='swiftype' name='type' data-type='enum' content='<?php echo ucfirst(get_post_type()); ?>'>
 <?php
 if (has_post_thumbnail()) {
-    $thumbnail = wp_get_attachment_image_src(get_post_thumbnail_id(), 'medium');
+    $thumbnail = bb_get_featured_image_url('medium');
 ?>
         <meta class='swiftype' name='image' data-type='enum' content='<?php echo $thumbnail[0]; ?>'>
 <?php

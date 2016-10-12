@@ -52,6 +52,17 @@ function bb_theme_customizer(WP_Customize_Manager $wp_customize) {
             'section' => ns_.'theme_images_section',
             'priority' => 40,
     )));
+    // default featured image
+    $wp_customize->add_setting(ns_.'default_featured_image', array(
+            'default' => '',
+            'sanitize_callback' => 'esc_url_raw',
+            'type' => 'option',
+    ));
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, ns_.'default_featured_image', array(
+            'label' => ns_.'default_featured_image',
+            'section' => ns_.'theme_images_section',
+            'priority' => 50,
+    )));
 
     // Fonts
     $wp_customize->add_section(ns_.'fonts', array(
