@@ -66,6 +66,10 @@ function bb_get_datetime($datetime = '', DateTimeZone $timezone = null) {
         return bb_get_current_datetime($timezone);
     }
 
+    if (is_int($datetime)) {
+        $datetime = '@'.$datetime;
+    }
+
     if (is_null($timezone)) {
         $timezone = bb_get_timezone();
     }
