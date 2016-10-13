@@ -1,6 +1,7 @@
 <?php
 bb_theme::section('name=panels-bottom&file=panels-bottom.php&inner_class=row-full');
 bb_theme::section('name=footer&file=footer.php&inner_class=row&type=footer');
+bb_theme::section('name=copyright&file=copyright.php&inner_class=row&type=footer');
 ?>
         				</section>
 				    </div><!-- end off-canvas-content -->
