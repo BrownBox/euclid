@@ -11,6 +11,7 @@ add_theme_support('title-tag');
 // Add filters
 add_filter('wp_title', array('bb_theme', 'title'), 10, 2);
 add_filter('template_include', array('bb_theme', 'template_name'), 9999);
+add_filter('automatic_updater_disabled', '__return_true');
 
 // Add actions
 add_action('admin_bar_menu', array('bb_theme', 'custom_adminbar'), 999);
