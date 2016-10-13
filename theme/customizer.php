@@ -41,6 +41,17 @@ function bb_theme_customizer(WP_Customize_Manager $wp_customize) {
             'section' => ns_.'theme_images_section',
             'priority' => 30,
     )));
+    // footer logo
+    $wp_customize->add_setting(ns_.'logo_footer', array(
+            'default' => esc_url(get_template_directory_uri()).'/images/logo_footer.png',
+            'sanitize_callback' => 'esc_url_raw',
+            'type' => 'option',
+    ));
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, ns_.'logo_footer', array(
+            'label' => ns_.'logo_footer',
+            'section' => ns_.'theme_images_section',
+            'priority' => 35,
+    )));
     // favicon
     $wp_customize->add_setting(ns_.'favicon', array(
             'default' => esc_url(get_template_directory_uri()).'/images/favicon.png',
