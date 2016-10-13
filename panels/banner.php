@@ -12,7 +12,7 @@ if (!empty($bg_colour)) {
 }
 if (has_post_thumbnail($panel->ID)) {
     $image = get_value_from_hierarchy('featured_image', $panel->ID);
-    $bg_style .= 'background-image: url('.$image[0].');';
+    $bg_style .= 'background-image: url('.$image.');';
     $bg_pos_x = get_post_meta($panel->ID, 'bg_pos_x', true);
     $bg_pos_y = get_post_meta($panel->ID, 'bg_pos_y', true);
     if (!empty($bg_pos_x)) {
