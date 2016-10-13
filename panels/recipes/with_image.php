@@ -18,7 +18,7 @@ bb_panel_title($panel);
 bb_panel_content($panel);
 if (!empty(get_post_meta($panel->ID, 'destination', true))) {
 ?>
-    <p class="action-button"><a href="<?php echo get_post_meta($panel->ID, 'destination', true); ?>" class="button cta"><?php echo get_post_meta($panel->ID, 'action_text', true); ?></a></p>
+    <p class="action-button"><a href="<?php echo get_post_meta($panel->ID, 'destination', true); ?>" class="button"><?php echo get_post_meta($panel->ID, 'action_text', true); ?></a></p>
 <?php } ?>
 </div>
 <?php

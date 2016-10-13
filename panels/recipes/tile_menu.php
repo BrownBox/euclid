@@ -18,7 +18,7 @@ foreach ((array)$menu_items as $key => $menu_item) {
 ?>
     <div class="column menu-item menu-item-<?php echo $menu_item->ID.' '.$menu_item->classes[0]; ?>">
         <div class="image" style="<?php echo $image_style; ?>">
-            <a class="link" href="<?php echo $menu_item->url; ?>"><span class="h3"><?php echo $menu_item->title; ?></span></a>
+            <a class="link" href="<?php echo $menu_item->url; ?>"><span class="h2"><?php echo $menu_item->title; ?></span></a>
         </div>
     </div>
 <?php
