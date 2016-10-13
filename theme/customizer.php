@@ -15,7 +15,7 @@ function bb_theme_customizer(WP_Customize_Manager $wp_customize) {
             'type' => 'option',
     ));
     $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, ns_.'logo_large', array(
-            'label' => ns_.'logo_large',
+            'label' => 'Large Logo',
             'section' => ns_.'theme_images_section',
             'priority' => 10,
     )));
@@ -26,7 +26,7 @@ function bb_theme_customizer(WP_Customize_Manager $wp_customize) {
             'type' => 'option',
     ));
     $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, ns_.'logo_medium', array(
-            'label' => ns_.'logo_medium',
+            'label' => 'Medium Logo',
             'section' => ns_.'theme_images_section',
             'priority' => 20,
     )));
@@ -37,7 +37,7 @@ function bb_theme_customizer(WP_Customize_Manager $wp_customize) {
             'type' => 'option',
     ));
     $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, ns_.'logo_small', array(
-            'label' => ns_.'logo_small',
+            'label' => 'Small Logo',
             'section' => ns_.'theme_images_section',
             'priority' => 30,
     )));
@@ -48,7 +48,7 @@ function bb_theme_customizer(WP_Customize_Manager $wp_customize) {
             'type' => 'option',
     ));
     $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, ns_.'logo_footer', array(
-            'label' => ns_.'logo_footer',
+            'label' => 'Footer Logo',
             'section' => ns_.'theme_images_section',
             'priority' => 35,
     )));
@@ -59,7 +59,7 @@ function bb_theme_customizer(WP_Customize_Manager $wp_customize) {
             'type' => 'option',
     ));
     $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, ns_.'favicon', array(
-            'label' => ns_.'favicon',
+            'label' => 'Favicon',
             'section' => ns_.'theme_images_section',
             'priority' => 40,
     )));
@@ -70,7 +70,7 @@ function bb_theme_customizer(WP_Customize_Manager $wp_customize) {
             'type' => 'option',
     ));
     $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, ns_.'default_featured_image', array(
-            'label' => ns_.'default_featured_image',
+            'label' => 'Default Featured Image',
             'section' => ns_.'theme_images_section',
             'priority' => 50,
     )));
@@ -149,7 +149,7 @@ function bb_theme_customizer(WP_Customize_Manager $wp_customize) {
                 'type' => 'option',
         ));
         $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, ns_.'colour'.$i, array(
-                'label' => __(ns_.'colour', ns_).$i,
+                'label' => __('Colour', ns_).$i,
                 'section' => ns_.'palette',
                 'priority' => 10 + $i,
         )));
@@ -195,7 +195,7 @@ function bb_theme_customizer(WP_Customize_Manager $wp_customize) {
     ));
     $wp_customize->add_control(ns_.'row_max_width', array(
             'description' => 'Maximum width for content rows. Highly recommended to be entered in rem.',
-            'label' => ns_.'row_max_width',
+            'label' => 'Max Row Width',
             'section' => ns_.'key_dimensions',
             'type' => 'text',
             'priority' => 10,
@@ -230,7 +230,7 @@ function bb_theme_customizer(WP_Customize_Manager $wp_customize) {
             'type' => 'option',
     ));
     $wp_customize->add_control(ns_.'h_base', array(
-            'label' => ns_.'h_base',
+            'label' => 'All Headings',
             'section' => ns_.'heading_styles',
             'type' => 'textarea',
             'priority' => 10,
@@ -241,7 +241,7 @@ function bb_theme_customizer(WP_Customize_Manager $wp_customize) {
                 'type' => 'option',
         ));
         $wp_customize->add_control(ns_.'h'.$i, array(
-                'label' => ns_.'h'.$i,
+                'label' => 'h'.$i,
                 'section' => ns_.'heading_styles',
                 'type' => 'textarea',
                 'priority' => 10+$i,
@@ -258,7 +258,7 @@ function bb_theme_customizer(WP_Customize_Manager $wp_customize) {
             'type' => 'option',
     ));
     $wp_customize->add_control(ns_.'contact_email', array(
-            'label' => ns_.'contact_email',
+            'label' => 'Email',
             'section' => ns_.'contacts_section',
             'type' => 'text',
             'priority' => 10,
@@ -268,7 +268,7 @@ function bb_theme_customizer(WP_Customize_Manager $wp_customize) {
             'type' => 'option',
     ));
     $wp_customize->add_control(ns_.'contact_phone', array(
-            'label' => ns_.'contact_phone',
+            'label' => 'Phone Number',
             'section' => ns_.'contacts_section',
             'type' => 'text',
             'priority' => 20,
@@ -280,12 +280,12 @@ function bb_theme_customizer(WP_Customize_Manager $wp_customize) {
             'priority' => 61,
     ));
     $wp_customize->add_setting(ns_.'copyright', array(
-            'default' => 'Default copyright text',
+            'default' => '&copy; Copyright',
             'sanitize_callback' => 'sanitize_text_field',
             'type' => 'option',
     ));
     $wp_customize->add_control(ns_.'copyright', array(
-            'label' => ns_.'copyright',
+            'label' => 'Copyright Text',
             'section' => ns_.'copyright_section',
             'type' => 'text',
             'priority' => 30,
