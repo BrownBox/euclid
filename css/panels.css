@@ -7,6 +7,10 @@
 .panel-inner-wrapper.no-image {text-align: inherit; color: inherit;}
 .panel-inner-wrapper p.action-button {text-align: center;}
 
+/* Edit link */
+.edit-panel a { background: rgba(0, 0, 0, 1) none repeat scroll 0 0; color: #fff !important; display: table-caption; margin-top: -3rem; opacity: 0.2; padding: 0.5rem 1rem; white-space: nowrap; }
+.edit-panel a i.fa {color:#fff; display: inline; margin-right:0.2rem;}
+
 /* Children as Slider */
 .panel-slider.slick-slider {padding: 0;}
 .panel-slider .panel-inner-wrapper {padding-left: 4rem; padding-right: 4rem;}
