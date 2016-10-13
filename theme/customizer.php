@@ -221,6 +221,33 @@ function bb_theme_customizer(WP_Customize_Manager $wp_customize) {
         }
     }
 
+    // Heading Styles
+    $wp_customize->add_section(ns_.'heading_styles', array(
+            'title' => __('Custom Heading Styles', ns_),
+            'priority' => 55,
+    ));
+    $wp_customize->add_setting(ns_.'h_base', array(
+            'type' => 'option',
+    ));
+    $wp_customize->add_control(ns_.'h_base', array(
+            'label' => ns_.'h_base',
+            'section' => ns_.'heading_styles',
+            'type' => 'textarea',
+            'priority' => 10,
+    ));
+
+    for ($i=1; $i <= 6 ; $i++) {
+        $wp_customize->add_setting(ns_.'h'.$i, array(
+                'type' => 'option',
+        ));
+        $wp_customize->add_control(ns_.'h'.$i, array(
+                'label' => ns_.'h'.$i,
+                'section' => ns_.'heading_styles',
+                'type' => 'textarea',
+                'priority' => 10+$i,
+        ));
+    }
+
     // Contact Details
     $wp_customize->add_section(ns_.'contacts_section', array(
             'title' => __('Contact Details', ns_),
@@ -329,7 +356,15 @@ function bb_generate_dynamic_styles() {
     $font = bb_get_theme_mod(ns_.'font');
     $heading_font = bb_get_theme_mod(ns_.'heading_font');
     $styles = 'body, * {font-family: "'.$font.'", sans-serif;}'."\n";
-    $styles .= 'h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {font-family: "'.$heading_font.'", sans-serif;}'."\n";
+    $styles .= 'h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {font-family: "'.$heading_font.'", sans-serif; '.bb_get_theme_mod('h_base').'}'."\n";
+
+    for ($i=1; $i <= 6; $i++) {
+        ${'h'.$i} = bb_get_theme_mod(ns_.'h'.$i);
+        if (strlen(${'h'.$i}) > 0) {
+            $styles .= 'h'.$i.', .h'.$i.' {'.${'h'.$i}.'}'."\n";
+        }
+    }
+
     $colour_count = bb_get_theme_mod(ns_.'colours', BB_DEFAULT_COLOUR_COUNT);
     for ($i = 1; $i <= $colour_count; $i++) {
         ${'colour'.$i} = bb_get_theme_mod(ns_.'colour'.$i);
