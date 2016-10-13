@@ -63,6 +63,9 @@ img.aligncenter {display: block; margin: 0.25rem auto 0;}
 #wpadminbar #wp-admin-bar-root-default .bb.stable .ab-item, #wpadminbar #wp-admin-bar-root-default .bb.stable .ab-item:hover {background-color: green;}
 .bb.css a::before {content: ""; top: 2px;}
 
+/* Offcanvas Menu */
+.off-canvas button.close-button {z-index: 20;}
+
 /* List Posts */
 .bb_posts_wrapper {list-style: none;}
 .bb_posts_item {text-align: center;}
@@ -81,7 +84,6 @@ body .gform_wrapper li.gfield.gfield_error.gfield_contains_required div.ginput_c
 body .gform_wrapper .validation_message, body .gform_wrapper .gfield_error .gfield_label, body .gform_wrapper li.gfield_error div.ginput_complex.ginput_container label, body .gform_wrapper li.gfield_error ul.gfield_checkbox, body .gform_wrapper li.gfield_error ul.gfield_radio {color: inherit;}
 body .gform_wrapper li.gfield_error input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]), body .gform_wrapper li.gfield_error select, body .gform_wrapper li.gfield_error textarea {border-color: #E02E48; border-width: 1px 1px 1px 5px;}
 body .gform_wrapper .gfield_description.validation_message {padding: 0 0 0.6rem;}
-
 
 /* Add support for multi-column Gravity Forms */
 .gform_wrapper .two-column .gsection:not(.empty), .gform_wrapper .three-column .gsection:not(.empty) {display: none;}
