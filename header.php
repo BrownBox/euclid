@@ -16,12 +16,14 @@ if (has_post_thumbnail()) {
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 <?php
 $favicon = bb_get_theme_mod(ns_.'favicon');
-if($favicon) echo '        <link rel="icon" href="'.$favicon.'" type="image/png">'."\n";
+if ($favicon) {
+    echo '        <link rel="icon" href="'.$favicon.'" type="image/png">'."\n";
+}
 
 wp_head();
 ?>
     </head>
-    <body <?php body_class(); ?>>
+    <body <?php body_class(bb_theme::classes()); ?>>
     <!-- start everything -->
     <div class="everything">
 		<div class="off-canvas-wrapper">
