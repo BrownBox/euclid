@@ -4,13 +4,22 @@ Theme URI: http://brownbox.net.au
 Author: Brown Box
 Author URI: http://brownbox.net.au
 Description: WordPress theme boilerplate based on ZURB Foundation 6
-Version: 7.0.1
+Version: 7.0.3
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: bb_theme
 
 Release Notes
 =============
+
+7.0.3
+Featured image now uses hierarchy with customizer default as fallback
+New edit button to panels on front end
+New copyright row below footer
+Better default styling for offcanvas menu
+New customizer fields for custom heading styles
+Extended handling of archive content
+Various tweaks and bug fixes
 
 7.0.2
 Big panels update - 4 new recipes, tiles option and a bunch of other tweaks and improvements
