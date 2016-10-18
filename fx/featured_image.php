@@ -28,11 +28,11 @@ function bb_get_featured_image_url($size = 'single-post-thumbnail', $post = null
             } else {
                 $image = $images["full"];
             }
-            //Settings the URL
+            // Setting the URL
             $imgURL = $image["url"];
         } else {
-            //Backward compatibility if saved as one URL
-            $imgURL = get_post_meta($post_id, '_ibenic_mufimg_src', true);
+            // Backward compatibility if saved as one URL
+            $imgURL = get_post_meta($post->ID, '_ibenic_mufimg_src', true);
         }
     }
     return $imgURL;

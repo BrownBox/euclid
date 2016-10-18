@@ -1,9 +1,10 @@
 <?php
 /**
  * Works its way up the post hierarchy to find a meta value
- * @param string $field Meta key to look for
+ * @param string $field Key to look for
  * @param integer $id (optional) Post ID to start from
  * @param integer $last_id (optional) Variable to hold the ID of the post the value was found on (or the top-level ancestor if no value found)
+ * @param string $type Type of data to look for. Accepts either "meta" (default) or "taxonomy".
  * @return mixed
  */
 function get_value_from_hierarchy($field, $id = null, &$last_id = null, $type = "meta") {
