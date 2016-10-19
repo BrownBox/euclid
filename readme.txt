@@ -1,10 +1,30 @@
-1. Download the latest version from repository (github)
-2. Load the theme to the Wordpress wp-content/themes folder
-3. Open includes/theme_globals.php and update as required
-4. Rename the theme to represent the client site
-5. Login to wordpress and activate the theme
-6. Navigate to theme customizer and update ALL theme settings. Save the changes
-7. Hook up external fonts (Google, TypeKit) if required.
-8. Build page templates and site content as required
-9. Update static style in css/style.css. Dynamic style is to be updated in css/dynamic.php
-10. Remember to use bb_e and bb_r to call custom elements (see inline comments in includes/theme_globals.php)
+Release Notes
+=============
+
+7.0.4
+Improved performance
+
+7.0.3
+Featured image now uses hierarchy with customizer default as fallback
+New edit button to panels on front end
+New copyright row below footer
+Better default styling for offcanvas menu
+New customizer fields for custom heading styles
+Extended handling of archive content
+Various tweaks and bug fixes
+
+7.0.2
+Big panels update - 4 new recipes, tiles option and a bunch of other tweaks and improvements
+New hierarchy walker function
+New Customizer option for heading font
+Various bug fixes
+
+7.0.1
+New bb_theme::srcset() function        
+Font settings moved to Customizer        
+Returned to offcanvas as default menu style for small screens        
+Replaced Zurb hamburger with FontAwesome  
+Nicer default styling of GF validation errors
+
+7.0
+Euclid is here! Includes Zurb 6.2.3, powerful row-based layout ("panels"), much cleaner CSS media queries than predecessors, and much more

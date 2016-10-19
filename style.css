@@ -4,37 +4,8 @@ Theme URI: http://brownbox.net.au
 Author: Brown Box
 Author URI: http://brownbox.net.au
 Description: WordPress theme boilerplate based on ZURB Foundation 6
-Version: 7.0.3
+Version: 7.0.4
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: bb_theme
-
-Release Notes
-=============
-
-7.0.3
-Featured image now uses hierarchy with customizer default as fallback
-New edit button to panels on front end
-New copyright row below footer
-Better default styling for offcanvas menu
-New customizer fields for custom heading styles
-Extended handling of archive content
-Various tweaks and bug fixes
-
-7.0.2
-Big panels update - 4 new recipes, tiles option and a bunch of other tweaks and improvements
-New hierarchy walker function
-New Customizer option for heading font
-Various bug fixes
-
-7.0.1
-New bb_theme::srcset() function        
-Font settings moved to Customizer        
-Returned to offcanvas as default menu style for small screens        
-Replaced Zurb hamburger with FontAwesome  
-Nicer default styling of GF validation errors
-
-7.0
-Euclid is here! Includes Zurb 6.2.3, powerful row-based layout ("panels"), much cleaner CSS media queries than predecessors, and much more
-
 */
