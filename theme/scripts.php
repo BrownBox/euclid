@@ -1,6 +1,5 @@
 <?php
 add_editor_style('css/foundation-min.css');
-add_editor_style('css/default.css');
 add_editor_style('css/dynamic.css');
 add_editor_style('css/style.css');
 add_editor_style('css/editor.css');
@@ -27,12 +26,9 @@ class bb_enqueue {
         }
 
         // Theme styles
-        wp_enqueue_style('theme_default', get_stylesheet_directory_uri().'/css/default.css', array(), filemtime(get_stylesheet_directory().'/css/default.css'));
-        wp_enqueue_style('theme_dynamic', get_stylesheet_directory_uri().'/css/'.bb_get_dynamic_styles_filename(), array(), filemtime(get_stylesheet_directory().'/css/'.bb_get_dynamic_styles_filename()));
         wp_enqueue_style('theme_style', get_stylesheet_directory_uri().'/css/style.css', array(), filemtime(get_stylesheet_directory().'/css/style.css'));
+        wp_enqueue_style('theme_dynamic', get_stylesheet_directory_uri().'/css/'.bb_get_dynamic_styles_filename(), array(), filemtime(get_stylesheet_directory().'/css/'.bb_get_dynamic_styles_filename()));
     	wp_enqueue_style('slick', get_stylesheet_directory_uri().'/css/vendor/slick.css', array(), '1.5.8');
-    	wp_enqueue_style('panels', get_stylesheet_directory_uri().'/css/panels.css', array(), filemtime(get_stylesheet_directory().'/css/panels.css'));
-        wp_enqueue_style('print', get_stylesheet_directory_uri().'/css/print.css', array(), '', 'print');
 
         // Header scripts
 
