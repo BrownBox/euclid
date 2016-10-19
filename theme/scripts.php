@@ -46,5 +46,11 @@ class bb_enqueue {
             wp_deregister_style('jqueryuiCSS');
             wp_deregister_style('wpclef-main');
         }
+
+        // Remove Simple Site Speed script/CSS if not needed
+        if (!current_user_can('manage_options') && !array_key_exists('debug', $_GET)) {
+            wp_deregister_script('mainscript');
+            wp_deregister_style('mainstyle');
+        }
     }
 }
