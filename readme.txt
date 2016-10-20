@@ -1,6 +1,9 @@
 Release Notes
 =============
 
+7.0.5
+Responsive hero support
+
 7.0.4
 Improved performance
 
