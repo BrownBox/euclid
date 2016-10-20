@@ -36,7 +36,7 @@ class bb_enqueue {
         wp_enqueue_script('what-input', get_template_directory_uri().'/js/vendor/what-input.js', array('jquery'), '1.0.0', true);
         wp_enqueue_script('zurb', get_template_directory_uri().'/js/foundation.min.js', array('jquery'), '1.0.0', true);
         wp_enqueue_script('slick', get_template_directory_uri().'/js/vendor/slick.min.js', array('jquery'), '1.5.8', true);
-        wp_enqueue_script('panels', get_template_directory_uri().'/js/panels.js', array('jquery', 'slick'), '0.0.1', true);
+        wp_enqueue_script('theme_scripts', get_template_directory_uri().'/js/bb.js', array('jquery', 'slick'), '7.0.5', true);
 
         // Remove admin-only styles for front end
         if (!is_admin()) {

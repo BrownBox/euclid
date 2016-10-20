@@ -33,7 +33,7 @@ wp_head();
                     <header data-swiftype-index='false' class="hide-for-print clearfix">
 <?php
 locate_template(array('sections/nav.php'), true);
-bb_theme::section('name=top&file=top.php&inner_class=row-full');
+bb_theme::section('name=hero&file=hero.php&inner_class=row-full');
 ?>
                     </header>
                     <section class="main-section">
