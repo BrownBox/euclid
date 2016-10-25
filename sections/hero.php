@@ -34,7 +34,7 @@ if (!empty($images['large'])) {
     .hero {background-position: <?php echo $bgpos_x_small.' '.$bgpos_y_small; ?>;}
 }
 </style>
-<div class="hero small-24 medium-24 large-24 column" style="background-color: <?php echo $meta['hero_bgcolour'][0]; ?>;" bg-srcset="<?php echo $images['small']; ?> 640w, <?php echo $images['medium']; ?> 1200w, <?php echo $images['large']; ?>">
+<div class="hero small-24 medium-24 large-24 column" style="background-color: <?php echo $meta['hero_bgcolour'][0]; ?>;" bg-srcset="<?php echo $images['small']; ?> 639w, <?php echo $images['medium']; ?> 1023w, <?php echo $images['large']; ?>">
     <div class="row">
         <div class="small-24 medium-24 large-24 column">
    	        <h1><?php echo $title; ?></h1>
