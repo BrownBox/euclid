@@ -8,6 +8,11 @@ function bb_get_panels() {
     $panels = wp_cache_get('bb_panels');
     if (false === $panels) {
         global $post;
+        $post_id = $post->ID;
+        if (is_archive()) {
+            $page = get_page_by_path(get_post_type($post));
+            $post_id = $page->ID;
+        }
         $args = array(
                 'posts_per_page' => -1,
                 'post_type' => 'panel',
@@ -18,7 +23,7 @@ function bb_get_panels() {
                         array(
                                 'taxonomy' => 'pageascategory',
                                 'field' => 'slug',
-                                'terms' => (string)$post->ID,
+                                'terms' => (string)$post_id,
                         ),
                 ),
         );
