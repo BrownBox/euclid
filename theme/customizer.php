@@ -309,7 +309,18 @@ function bb_get_theme_mod($key, $default = '') {
 
 function bb_update_dynamic_styles() {
     $styles = bb_generate_dynamic_styles();
-    file_put_contents(get_stylesheet_directory().'/css/'.bb_get_dynamic_styles_filename(), $styles);
+    $access_type = get_filesystem_method();
+    if ($access_type === 'direct') {
+        $creds = request_filesystem_credentials(site_url().'/wp-admin/', '', false, get_stylesheet_directory().'/css/');
+
+        if (WP_Filesystem($creds)) {
+            global $wp_filesystem;
+            return $wp_filesystem->put_contents(get_stylesheet_directory().'/css/'.bb_get_dynamic_styles_filename(), $styles);
+        }
+    }
+
+    // WP couldn't write to file automatically - we'll just do it directly rather than asking user for FTP details
+    return file_put_contents(get_stylesheet_directory().'/css/'.bb_get_dynamic_styles_filename(), $styles);
 }
 
 function bb_get_dynamic_styles_filename() {
