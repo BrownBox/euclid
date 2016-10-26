@@ -1,6 +1,15 @@
 Release Notes
 =============
 
+7.1
+Added support for panels on archive pages
+Added ability to connect panels to post types
+Map function now supports multiple markers
+Use WP_Filesystem to write dynamic styles
+Extended array to columns logic to support returning a sorted array
+Added support for auto-columnised menus
+Bug fixes
+
 7.0.5
 Responsive hero support
 
