@@ -7,26 +7,36 @@
 function bb_get_panels() {
     $panels = wp_cache_get('bb_panels');
     if (false === $panels) {
-        global $post;
-        $post_id = $post->ID;
-        if (is_archive()) {
-            $page = get_page_by_path(get_post_type($post));
-            $post_id = $page->ID;
-        }
         $args = array(
                 'posts_per_page' => -1,
                 'post_type' => 'panel',
                 'orderby' => 'menu_order',
                 'order' => 'ASC',
                 'post_parent' => 0,
-                'tax_query' => array(
-                        array(
-                                'taxonomy' => 'pageascategory',
-                                'field' => 'slug',
-                                'terms' => (string)$post_id,
-                        ),
-                ),
         );
+        global $post;
+        if ($post->post_type == 'page') {
+            $post_id = $post->ID;
+            if (is_archive()) {
+                $page = get_page_by_path(get_post_type($post));
+                $post_id = $page->ID;
+            }
+            $args['tax_query'] = array(
+                    array(
+                            'taxonomy' => 'pageascategory',
+                            'field' => 'slug',
+                            'terms' => (string)$post_id,
+                    ),
+            );
+        } else {
+            $args['meta_query'] = array(
+                    array(
+                            'key' => 'post_types',
+                            'value' => '"'.$post->post_type.'"', // Values are stored as a serialised array, so we look for the value surrounded by quotes to avoid false positives (e.g. posts and reposts)
+                            'compare' => 'LIKE',
+                    ),
+            );
+        }
         $panels = get_posts($args);
         wp_cache_set('bb_panels', $panels);
     }
@@ -175,4 +185,19 @@ function bb_panels_get_post_categories($taxonomy = 'category') {
         $categories[$term->term_id] = $term->name;
     }
     return $categories;
+}
+
+function bb_panels_get_post_types() {
+    $args = array(
+            'public' => true,
+    );
+    $post_types = get_post_types($args, 'objects');
+    $ignore = array('page', 'attachment');
+    $types = array();
+    foreach ($post_types as $post_type) {
+        if (!in_array($post_type->name, $ignore)) {
+            $types[$post_type->name] = $post_type->label;
+        }
+    }
+    return $types;
 }

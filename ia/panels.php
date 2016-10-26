@@ -554,4 +554,38 @@ if (function_exists("register_field_group")) {
             ),
             'menu_order' => 1,
     ));
+
+    register_field_group(array(
+            'id' => 'acf_panel_post_types',
+            'title' => 'Post Types',
+            'fields' => array(
+                    array(
+                            'key' => 'bb_panels_post_types',
+                            'label' => 'Post Types',
+                            'description' => 'This panel will be displayed on all posts of the selected types',
+                            'name' => 'post_types',
+                            'type' => 'checkbox',
+                            'choices' => bb_panels_get_post_types(),
+                            'default_value' => '',
+                            'layout' => 'vertical',
+                    ),
+            ),
+            'location' => array(
+                    array(
+                            array(
+                                    'param' => 'post_type',
+                                    'operator' => '==',
+                                    'value' => 'panel',
+                                    'order_no' => 0,
+                                    'group_no' => 0,
+                            ),
+                    ),
+            ),
+            'options' => array(
+                    'position' => 'side',
+                    'layout' => 'default',
+                    'hide_on_screen' => array(),
+            ),
+            'menu_order' => 0,
+    ));
 }
