@@ -1,5 +1,24 @@
 <?php
-function bb_map($id, $longitude, $latitude, $width='500px', $height='500px', $class="map", $zoom = 14) {
+/**
+ * Generate and display a Google Map
+ * @param string $id ID to be used for wrapper div
+ * @param float $longitude Longitude for map centre
+ * @param float $latitude Latitude for map centre
+ * @param array $markers Optional. List of markers in format array('lng' => $longitude, 'lat' => $latitude). If empty a single marker will be placed at map centre.
+ * @param string $width Optional. Map width (default '500px').
+ * @param string $height Optional. Map height (default '500px').
+ * @param string $class Optional. Additional CSS class to be added to wrapper div (default 'map').
+ * @param integer $zoom Optional. Zoom level (default 14).
+ */
+function bb_map($id, $longitude, $latitude, $markers = array(), $width='500px', $height='500px', $class="map", $zoom = 14) {
+    if (empty($markers)) {
+        $markers = array(
+                array(
+                        'lng' => $longitude,
+                        'lat' => $latitude,
+                )
+        );
+    }
     $map  = '<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtQ66C6jNfGLN8eaQmMzoIauCODxVYTr0"></script>'."\n";
     $map .= '<script type="text/javascript">'."\n";
     $map .= '    function map_'.$id.'() {'."\n";
@@ -10,10 +29,14 @@ function bb_map($id, $longitude, $latitude, $width='500px', $height='500px', $cl
     $map .= '            mapTypeId: google.maps.MapTypeId.ROADMAP'."\n";
     $map .= '        }'."\n";
     $map .= '        var map = new google.maps.Map(map_canvas, map_options)'."\n";
-    $map .= '        var marker = new google.maps.Marker({'."\n";
-    $map .= '            position: new google.maps.LatLng('.$longitude.', '.$latitude.'),'."\n";
-    $map .= '            map: map'."\n";
-    $map .= '        });'."\n";
+    $i = 1;
+    foreach ($markers as $marker) {
+        $map .= '        var marker'.$i.' = new google.maps.Marker({'."\n";
+        $map .= '            position: new google.maps.LatLng('.$marker['lng'].', '.$marker['lat'].'),'."\n";
+        $map .= '            map: map'."\n";
+        $map .= '        });'."\n";
+        $i++;
+    }
     $map .= '    }'."\n";
     $map .= '    google.maps.event.addDomListener(window, "load", map_'.$id.');'."\n";
     $map .= '</script>'."\n";
