@@ -190,10 +190,12 @@ function bb_panels_get_post_categories($taxonomy = 'category') {
 function bb_panels_get_post_types() {
     $args = array(
             'public' => true,
+            '_builtin' => false,
     );
     $post_types = get_post_types($args, 'objects');
-    $ignore = array('page', 'attachment');
-    $types = array();
+    $types = array(
+            'post' => 'Posts',
+    );
     foreach ($post_types as $post_type) {
         if (!in_array($post_type->name, $ignore)) {
             $types[$post_type->name] = $post_type->label;
