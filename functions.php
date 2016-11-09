@@ -29,6 +29,7 @@ $theme_files = array(
 
     // Information architecture
     array('file' => 'cpt_.php',                 'dir' => 'ia'),
+    array('file' => 'cpt_tax_.php',             'dir' => 'ia'),
 //     array('file' => 'meta_.php',                'dir' => 'ia'), // Meta fields functionality provided by ACF
     array('file' => 'tax_.php',                 'dir' => 'ia'),
     array('file' => 'tax_meta_.php',            'dir' => 'ia'),
