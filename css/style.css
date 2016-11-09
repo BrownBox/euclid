@@ -170,8 +170,8 @@ aside .sticky {background-color: white;}
 
 /* Medium and up */
 @media only screen and (min-width: 40em) { /* <-- min-width 640px - medium screens and up */
-    .panel-wrapper.half_image .image {background-position-x: left; height: 100%; position: absolute; width: 50%; left: 0;}
-    .panel-wrapper.half_image .image-right .image {background-position-x: right; left: auto; right: 0;}
+    .panel-wrapper.half_image .image {background-position-x: left; height: 100%; position: absolute; width: 50%; top: 0; left: 0;}
+    .panel-wrapper.half_image .image-right + .image {background-position-x: right; left: auto; right: 0;}
     .panel-wrapper.half_image .content {float: right; padding: 0.975rem; width: 50%;}
     .panel-wrapper.half_image .image-right .content {float: left;}
     .panel-wrapper.tile_menu .column {border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: none; border-bottom: none;}
