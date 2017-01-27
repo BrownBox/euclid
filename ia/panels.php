@@ -4,6 +4,7 @@ new bb_theme\cptClass('Panel','Panels', array(
         'has_archive' => false,
         'query_var' => false,
         'show_ui' => true,
+        'menu_icon' => 'dashicons-layout',
 ));
 
 new bb_theme\taxClass('Page as Category', 'Pages as Categories', array('panel'));
