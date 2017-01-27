@@ -151,9 +151,7 @@ aside .sticky {background-color: white;}
 .panel-wrapper.half_image .content {padding-top: 0.975rem;padding-bottom: 0.975rem;}
 
 .panel-wrapper.recent_posts .image {display: table; height: 300px; width: 100%; background-position: center center; background-size: cover; background-repeat: no-repeat; text-align: center;}
-
 .panel-wrapper.recent_posts .title {margin-top: 1rem; text-transform: uppercase;}
-
 .panel-wrapper.recent_posts .content {margin-top: 1rem;}
 
 .panel-wrapper.tile_menu .column {display: inline-block; padding: 0; height: 250px; overflow: hidden; position: relative; border: 4px solid transparent;}
@@ -171,7 +169,7 @@ aside .sticky {background-color: white;}
 /* Medium and up */
 @media only screen and (min-width: 40em) { /* <-- min-width 640px - medium screens and up */
     .panel-wrapper.half_image .image {background-position-x: left; height: 100%; position: absolute; width: 50%; top: 0; left: 0;}
-    .panel-wrapper.half_image .image-right + .image {background-position-x: right; left: auto; right: 0;}
+    .panel-wrapper.half_image .image-right > .image {background-position-x: right; left: auto; right: 0;}
     .panel-wrapper.half_image .content {float: right; padding: 0.975rem; width: 50%;}
     .panel-wrapper.half_image .image-right .content {float: left;}
     .panel-wrapper.tile_menu .column {border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: none; border-bottom: none;}
