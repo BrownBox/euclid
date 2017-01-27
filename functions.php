@@ -60,3 +60,9 @@ class bb_init {
         $dir == '' ? locate_template(array($file), true) : locate_template(array($dir. '/' . $file), true);
     }
 }
+
+add_action('customize_register', 'bb_load_customize_controls', 0);
+function bb_load_customize_controls() {
+    require_once(trailingslashit(get_template_directory()).'theme/customizer/checkbox-multiple.php');
+    require_once(trailingslashit(get_template_directory()).'theme/customizer/wp-editor.php');
+}
