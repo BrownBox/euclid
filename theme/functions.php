@@ -43,17 +43,39 @@ class bb_theme {
             $dir = 'sections';
         }
 
+        // More unique variable names to make sure they're not overwritten in included file below
+        $_bb_section_name = $name;
+        $_bb_section_type = $type;
+
         // setup the wrapper
         echo "\n" . '<!-- ' . $name . ' -->' . "\n";
         echo "\n" . '<!-- ' . $file . ' -->' . "\n";
-        echo '<' . $type . ' id="row-' . $name . '" class="row-wrapper ' . $class . '">' . "\n";
-        echo ' <div id="row-inner-' . $name . '" class="row-inner-wrapper ' . $inner_class . '">' . "\n";
+        echo '<' . $_bb_section_type . ' id="row-' . $_bb_section_name . '" class="row-wrapper ' . $class . '">' . "\n";
+        echo ' <div id="row-inner-' . $_bb_section_name . '" class="row-inner-wrapper ' . $inner_class . '">' . "\n";
 
-        locate_template(array($dir . '/' . $file), true);
+        $template_details = array(
+            'directory' => $dir,
+            'file' => $file
+        );
+
+        $matched_section = locate_template( array( implode( '/',  $template_details ) ), true );
+
+        // Check if request section was found in a theme
+        if ( !$matched_section ) {
+
+            // Apply filter that may overwrite the location of tempalte
+            $template_details = apply_filters( 'bb_theme_section_template', $template_details );
+
+            // Check if custom template was located
+            if ( isset( $template_details['custom_location'] ) ) {
+                require $template_details['directory'] . $template_details['file'];
+            }
+
+        }
 
         echo ' </div>' . "\n";
-        echo '</' . $type . '>' . "\n";
-        echo '<!-- end ' . $name . ' -->' . "\n";
+        echo '</' . $_bb_section_type . '>' . "\n";
+        echo '<!-- end ' . $_bb_section_name . ' -->' . "\n";
     }
 
     static function list_posts($args) {
