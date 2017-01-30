@@ -28,7 +28,7 @@ $section_args = array(
         'get_meta'  => true,
 );
 
-$transients = false; // Set this to false to force all transients to refresh
+$transients = defined(WP_BB_ENV) && WP_BB_ENV == 'PRODUCTION'; // Set this to false to force all transients to refresh
 
 // -------------
 // get_post_meta
