@@ -6,9 +6,6 @@ define('SHORT_TERM', 0.25 * HOUR_IN_SECONDS);
 define('MEDIUM_TERM', defined('WP_BB_ENV') && WP_BB_ENV == 'PRODUCTION' ? 4 * HOUR_IN_SECONDS : SHORT_TERM);
 define('LONG_TERM', defined('WP_BB_ENV') && WP_BB_ENV == 'PRODUCTION' ? 24 * HOUR_IN_SECONDS : SHORT_TERM);
 
-define('ROW_MAX_WIDTH', bb_get_theme_mod(ns_.'row_max_width'));
-define('SITE_MAX_WIDTH', bb_get_theme_mod(ns_.'site_max_width'));
-
 $theme_files = array(
     // Theme elements
     array('file' => 'customizer.php',           'dir' => 'theme'), // Our customizer fields & settings
@@ -71,6 +68,9 @@ class bb_init {
         $dir == '' ? locate_template(array($file), true) : locate_template(array($dir. '/' . $file), true);
     }
 }
+
+define('ROW_MAX_WIDTH', bb_get_theme_mod(ns_.'row_max_width'));
+define('SITE_MAX_WIDTH', bb_get_theme_mod(ns_.'site_max_width'));
 
 add_action('customize_register', 'bb_load_customize_controls', 0);
 function bb_load_customize_controls() {
