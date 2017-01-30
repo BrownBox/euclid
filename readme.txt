@@ -1,6 +1,23 @@
 Release Notes
 =============
 
+7.2
+Added support for loading sections from outside the theme (e.g. plugins)
+Better abstraction of pagination logic to allow for use beyond post archives
+Updated hero logic to make better use of hierarchy
+Added helper functions to lighten or darken colours
+Added 2 new custom Customizer controls - Multiple Checkboxes and WP Editor
+Added 3 new Children as... templates - Accordion, Tiles and Tabs
+Added BB_Random_* classes for displaying random items, with caching if desired
+Added funky new search functionality (also replaces 404)
+Added support for child menus
+Added logging helper function
+Added BB_Transients class for easier working with multiple transients
+Added new section boilerplate integrated with transient framework
+Added Site Max Width setting
+Customizer now has support for borders in colour scheme and auto-generated CSS classes
+Various tweaks and bug fixes
+
 7.1
 Added support for panels on archive pages
 Added ability to connect panels to post types
