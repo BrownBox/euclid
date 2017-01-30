@@ -23,7 +23,7 @@ if ($favicon) {
 wp_head();
 ?>
         <style>
-<?php echo clean_transients(array('string' => 'css', 'clean' => array('<style>', '</style>', '  '))); ?>
+<?php echo BB_Transients::clean(array('string' => 'css', 'clean' => array('<style>', '</style>', '  '))); ?>
         </style>
     </head>
     <body <?php body_class(bb_theme::classes()); ?>>
