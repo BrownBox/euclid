@@ -1,6 +1,5 @@
 <?php
 $class = 'small-24 medium-15 large-17 column';
-bb_log($class, 'test');
 if (!is_singular()) {
 ?>
 <div class="<?php echo $class; ?>">
