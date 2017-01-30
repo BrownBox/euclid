@@ -25,7 +25,8 @@ $theme_files = array(
     array('file' => 'time.php',                 'dir' => 'fx'),
 
     // Miscellaneous utilities
-    array('file' => 'cookies.php',              'dir' => 'utils'),
+    array('file' => 'cookies.php',              'dir' => 'utils'), // Handy cookie management
+    array('file' => 'random.php',               'dir' => 'utils'), // Funky logic for displaying random items, with caching if desired
 
     // Information architecture
     array('file' => 'cpt_.php',                 'dir' => 'ia'),
