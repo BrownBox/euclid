@@ -33,26 +33,24 @@ $transients = false; // change this to false to force all transients to refresh
 // get_post_meta
 // -------------
 if( $section_args['get_meta'] === true ){
-        $transient = ns_.'meta_'.$post->ID.'_'.md5( $section_args['filename'] );
+    $transient = ns_.'meta_'.$post->ID.'_'.md5( $section_args['filename'] );
+    if( false === $transients) delete_transient( $transient );
+    if ( false === ( $meta = unserialize( get_transient( $transient ) ) ) ){
+        $meta = get_post_meta( $post->ID );
+        set_transient( $transient, serialize( $meta ), LONG_TERM );
         if( false === $transients) delete_transient( $transient );
-        if ( false === ( $meta = unserialize( get_transient( $transient ) ) ) ){
 
-                $meta = get_post_meta( $post->ID );
-                set_transient( $transient, serialize( $meta ), LONG_TERM );
-                if( false === $transients) delete_transient( $transient );
+    }
+    unset( $transient );
+}
 
-            }
-            unset( $transient );
-        }
-
-        // ---------------------------------------
-        // setup local css transient for this file
-        // ---------------------------------------
-        $transient = ns_.$section_args['namespace'].'_css_'.$section_args['filename'].'_'.md5( $section_args['filename'] );
-        if( false === $transients) delete_transient( $transient );
-        if ( false === ( $ob = get_transient( $transient ) ) ) {
-
-                ob_start(); ?>
+// ---------------------------------------
+// setup local css transient for this file
+// ---------------------------------------
+$transient = ns_.$section_args['namespace'].'_css_'.$section_args['filename'].'_'.md5( $section_args['filename'] );
+if( false === $transients) delete_transient( $transient );
+if ( false === ( $ob = get_transient( $transient ) ) ) {
+    ob_start(); ?>
 <style>
 /* START: <?php echo $section_args['filename'].' - '.date("Y-m-d H:i:s"); ?> */
 @media only screen {}
@@ -64,12 +62,11 @@ if( $section_args['get_meta'] === true ){
 /* END: <?php echo $section_args['filename']; ?> */
 </style>
 <?php
-
     $ob = ob_get_clean();
     set_transient( $transient, $ob, LONG_TERM );
     if( false === $transients) delete_transient( $transient );
-    echo $ob; unset( $ob );
 }
+echo $ob; unset( $ob );
 unset( $transient );
 
 // ---------------------------------------
@@ -78,7 +75,6 @@ unset( $transient );
 $transient = ns_.$section_args['namespace'].'_css_'.$post->ID.'_'.md5( $section_args['filename'] );
 if( false === $transients) delete_transient( $transient );
 if ( false === ( $ob = get_transient( $transient ) ) ) {
-
     ob_start(); ?>
 <style>
 /* START: <?php echo $section_args['filename'].' - '.date("Y-m-d H:i:s"); ?> */
@@ -90,12 +86,11 @@ if ( false === ( $ob = get_transient( $transient ) ) ) {
 /* END: <?php echo $section_args['filename']; ?> */
 </style>
 <?php
-
     $ob = ob_get_clean();
     set_transient( $transient, $ob, LONG_TERM );
     if( false === $transients) delete_transient( $transient );
-    echo $ob; unset( $ob );
 }
+echo $ob; unset( $ob );
 unset( $transient );
 
 // ------------------------
@@ -104,7 +99,6 @@ unset( $transient );
 $transient = ns_.'children_'.$post->ID;
 if( false === $transients) delete_transient( $transient );
 if ( false === ( $children = get_transient( $transient ) ) ) {
-
     $children = bb_get_children($post);
 
     set_transient( $transient, $children, LONG_TERM );
@@ -118,7 +112,6 @@ unset( $transient );
 $transient = ns_.$section_args['namespace'].'_markup_'.$post->ID.'_'.md5($section_args['filename']);
 if (false === $transients) delete_transient($transient);
 if (false === ($ob = get_transient($transient))) {
-
     ob_start();
 
     // section content - start
@@ -159,7 +152,6 @@ if (false === ($ob = get_transient($transient))) {
 ?>
             </div>
         </div>
-
     </div>
 <?php
     // section content - end
