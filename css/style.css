@@ -101,6 +101,15 @@ body .gform_wrapper .gfield_description.validation_message {padding: 0 0 0.6rem;
 aside .menu.vertical > li > a {padding-left: 0; padding-right: 0;}
 aside .sticky {background-color: white;}
 
+/* Children as Tiles */
+.child-tiles .column {display: inline-block; height: 170px; overflow: hidden; position: relative;}
+.child-tiles:not(.small-up-2) .column:not(:nth-child(+n+6)) {margin-bottom: 2rem;}
+.child-tiles .image {position: relative; height: 100%; width: 100%; background-position: center center; background-size: cover; background-repeat: no-repeat;}
+.child-tiles .image::before {content: ''; height: 100%; width: 100%; position: absolute; top: 0; left: 0; background-color: rgba(62, 62, 62, 0.5); transition: background-color 0.1s ease-in;}
+.child-tiles .image:hover::before {background-color: rgba(62, 62, 62, 0.7);}
+.child-tiles .link {display: table; height: 100%; width: 100%; -moz-transform: translateY(-0%); -ms-transform: translateY(-0%); transform: translateY(-0%);}
+.child-tiles span {display: table-cell; vertical-align: middle;}
+
 /* START Panels */
 .panel-wrapper {position: relative;}
 .panel-wrapper a:hover {opacity: 1;}
