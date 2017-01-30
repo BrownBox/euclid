@@ -18,6 +18,7 @@ $theme_files = array(
     array('file' => 'featured_image.php',       'dir' => 'fx'),
     array('file' => 'hero.php',                 'dir' => 'fx'),
     array('file' => 'hierarchy_walker.php',     'dir' => 'fx'),
+    array('file' => 'logging.php',              'dir' => 'fx'),
     array('file' => 'map.php',                  'dir' => 'fx'),
     array('file' => 'pagination.php',           'dir' => 'fx'),
     array('file' => 'panels.php',               'dir' => 'fx'),
