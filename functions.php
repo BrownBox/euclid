@@ -37,6 +37,7 @@ $theme_files = array(
     array('file' => 'fields.php',               'dir' => 'ia'),
     array('file' => 'hero.php',                 'dir' => 'ia'),
     array('file' => 'panels.php',               'dir' => 'ia'),
+    array('file' => 'search.php',               'dir' => 'ia'),
 
     // Custom Gravity Forms pieces
     array('file' => 'australian_states.php',    'dir' => 'gf'), // <-- adds Australia address type

@@ -8,6 +8,9 @@ add_theme_support('automatic-feed-links');
 // Automatically include title tag
 add_theme_support('title-tag');
 
+// Enable HTML for the search form
+add_theme_support('html5', array('search-form'));
+
 // Add filters
 add_filter('wp_title', array('bb_theme', 'title'), 10, 2);
 add_filter('template_include', array('bb_theme', 'template_name'), 9999);
