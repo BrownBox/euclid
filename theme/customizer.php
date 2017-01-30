@@ -5,7 +5,7 @@ add_action('customize_register', 'bb_theme_customizer');
 function bb_theme_customizer(WP_Customize_Manager $wp_customize) {
     // Key Images (Desktop Logo, Mobile Logo and Favicon)
     $wp_customize->add_section(ns_.'theme_images_section', array(
-            'title' => __('Logos', ns_),
+            'title' => __('Images', ns_),
             'priority' => 30,
     ));
     // large screen
@@ -346,20 +346,26 @@ function bb_get_page_elements() {
             'copyright_text' => 'footer#row-copyright, footer#row-copyright *',
             'button_background' => 'button:not(.close-button), .button, a.button:link, a.button:visited, input[type=submit]',
             'button_text' => 'button:not(.close-button), .button, a.button:link, a.button:visited, input[type=submit]',
+            'button_border' => 'button:not(.close-button), .button, a.button:link, a.button:visited, input[type=submit]',
             'button_hover_background' => 'button:not(.close-button):hover, button:not(.close-button):focus, .button:hover, .button:focus, a.button:link:hover, a.button:link:focus, a.button:visited:hover, a.button:visited:focus, input[type=submit]:hover, input[type=submit]:focus, .button.disabled:focus, .button.disabled:hover, .button[disabled]:focus, .button[disabled]:hover',
             'button_hover_text' => 'button:not(.close-button):hover, button:not(.close-button):focus, .button:hover, .button:focus, a.button:link:hover, a.button:link:focus, a.button:visited:hover, a.button:visited:focus, input[type=submit]:hover, input[type=submit]:focus, .button.disabled:focus, .button.disabled:hover, .button[disabled]:focus, .button[disabled]:hover',
+            'button_hover_border' => 'button:not(.close-button):hover, button:not(.close-button):focus, .button:hover, .button:focus, a.button:link:hover, a.button:link:focus, a.button:visited:hover, a.button:visited:focus, input[type=submit]:hover, input[type=submit]:focus, .button.disabled:focus, .button.disabled:hover, .button[disabled]:focus, .button[disabled]:hover',
             'call_to_action_background' => '.cta, button.cta, .button.cta, a.button.cta, a.button.cta::after, .panel-wrapper .action-button a.button',
             'call_to_action_text' => '.cta, button.cta, .button.cta, a.button.cta, .panel-wrapper .action-button a.button',
+            'call_to_action_border' => '.cta, button.cta, .button.cta, a.button.cta, .panel-wrapper .action-button a.button',
             'call_to_action_hover_background' => '.cta:hover, .cta:focus, button.cta:hover, button.cta:focus, .button.cta:hover, .button.cta:focus, a.button.cta:hover, a.button.cta:hover::after, a.button.cta:focus, a.button.cta:focus::after, .panel-wrapper .action-button a.button:hover, .panel-wrapper .action-button a.button:focus',
             'call_to_action_hover_text' => '.cta:hover, .cta:focus, button.cta:hover, button.cta:focus, .button.cta:hover, .button.cta:focus, a.button.cta:hover, a.button.cta:focus, .panel-wrapper .action-button a.button:hover, .panel-wrapper .action-button a.button:focus',
+            'call_to_action_hover_border' => '.cta:hover, .cta:focus, button.cta:hover, button.cta:focus, .button.cta:hover, .button.cta:focus, a.button.cta:hover, a.button.cta:focus, .panel-wrapper .action-button a.button:hover, .panel-wrapper .action-button a.button:focus',
             'panel_background' => '.panel-wrapper',
             'panel_text' => '.panel-wrapper h1, .panel-wrapper h2, .panel-wrapper h3, .panel-wrapper h4, .panel-wrapper h5, .panel-wrapper h6',
             'hero_background' => '.hero',
             'hero_text' => '.hero h1, .hero .h1',
             'click_array_background' => 'body .gform_wrapper .gform_bb.gfield_click_array div.s-html-wrapper',
             'click_array_text' => 'body .gform_wrapper .gform_bb.gfield_click_array div.s-html-wrapper',
+            'click_array_border' => 'body .gform_wrapper .gform_bb.gfield_click_array div.s-html-wrapper',
             'click_array_active_background' => 'body .gform_wrapper .gform_bb.gfield_click_array div.s-html-wrapper.s-passive:hover, body .gform_wrapper .gform_bb.gfield_click_array div.s-html-wrapper.s-active',
             'click_array_active_text' => 'body .gform_wrapper .gform_bb.gfield_click_array div.s-html-wrapper.s-passive:hover div.s-html-value, body .gform_wrapper .gform_bb.gfield_click_array div.s-html-wrapper.s-active',
+            'click_array_active_border' => 'body .gform_wrapper .gform_bb.gfield_click_array div.s-html-wrapper.s-passive:hover, body .gform_wrapper .gform_bb.gfield_click_array div.s-html-wrapper.s-active',
     );
 }
 
@@ -387,8 +393,19 @@ function bb_generate_dynamic_styles() {
     $colour = $colour1; // Fallback default
 
     $elements = bb_get_page_elements();
-    foreach ($elements as $element => $css_selectors) {
-        $rule = strpos($element, 'background') !== false ? 'background-color' : 'color';
+    foreach ($elements as $element => $config) {
+        if (is_array($config)) {
+            $css_selectors = $config['selectors'];
+        } else {
+            $css_selectors = $config;
+        }
+        if (strpos($element, 'background') !== false) {
+            $rule = 'background-color';
+        } elseif (strpos($element, 'border') !== false) {
+            $rule = 'border-color';
+        } else {
+            $rule = 'color';
+        }
         $palette_colour = bb_get_theme_mod(ns_.'element_'.$element);
         $element_colour = ${'colour'.$palette_colour};
         $styles .= $css_selectors.' {'.$rule.': '.$element_colour.';}'."\n";
