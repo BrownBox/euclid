@@ -42,4 +42,13 @@ switch ($flavour) {
     <div id="row-inner-panels-<?php echo $panel->ID; ?>" class="row-inner-wrapper panel-inner-wrapper <?php echo $inner_wrapper_class; ?> clearfix" style="<?php echo $inner_wrapper_style; ?>">
 <?php bb_panel_cook_recipe($panel); ?>
 	</div>
+<?php
+if (current_user_can('edit_pages') && $panel->post_parent == 0) {
+?>
+    <div class="edit-panel">
+        <a title="Edit Panel" target="_edit_panel" href="/wp-admin/post.php?post=<?php echo $panel->ID; ?>&action=edit"><i class="fa fa-pencil" aria-hidden="true"></i> <?php echo $panel->menu_order; ?></a>
+    </div>
+<?php
+}
+?>
 </div>

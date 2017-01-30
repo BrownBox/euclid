@@ -80,11 +80,6 @@ function bb_show_panel(WP_Post $panel) {
     } else {
         include(get_stylesheet_directory().'/panels/banner.php');
     }
-    if (current_user_can('edit_pages')) {
-        echo '<div class="edit-panel">'."\n";
-        echo '    <a title="Edit Panel" target="_edit_panel" href="/wp-admin/post.php?post='.$panel->ID.'&action=edit"><i class="fa fa-pencil" aria-hidden="true"></i> '.$panel->menu_order.'</a>'."\n";
-        echo '</div>'."\n";
-    }
 }
 
 /**

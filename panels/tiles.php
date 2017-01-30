@@ -24,5 +24,12 @@ foreach ($children as $panel) {
     </div>
 <?php
 }
+if (current_user_can('edit_pages') && $wrapper->post_parent == 0) {
+?>
+    <div class="edit-panel">
+        <a title="Edit Panel" target="_edit_panel" href="/wp-admin/post.php?post=<?php echo $wrapper->ID; ?>&action=edit"><i class="fa fa-pencil" aria-hidden="true"></i> <?php echo $wrapper->menu_order; ?></a>
+    </div>
+<?php
+}
 ?>
 </div>
