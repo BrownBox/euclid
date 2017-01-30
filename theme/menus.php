@@ -116,3 +116,22 @@ EOJS;
     }
     return;
 }
+
+/**
+ * Get direct children
+ *
+ * @param mixed $item
+ * @param array $menu_items
+ * @return array
+ */
+function get_direct_children($item, $menu_items) {
+    $sub_items = array();
+
+    foreach ($menu_items as $menu_item) {
+        if ($menu_item->menu_item_parent == $item->ID) {
+            $sub_items[] = $menu_item;
+        }
+    }
+
+    return $sub_items;
+}
