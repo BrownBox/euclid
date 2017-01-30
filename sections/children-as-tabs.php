@@ -38,7 +38,7 @@ if( $section_args['get_meta'] === true ){
         if ( false === ( $meta = unserialize( get_transient( $transient ) ) ) ){
 
                 $meta = get_post_meta( $post->ID );
-                set_transient( $transient, serialize( $meta ), LONG_TERM * HOUR_IN_SECONDS );
+                set_transient( $transient, serialize( $meta ), LONG_TERM );
                 if( false === $transients) delete_transient( $transient );
 
             }
@@ -66,7 +66,7 @@ if( $section_args['get_meta'] === true ){
 <?php
 
     $ob = ob_get_clean();
-    set_transient( $transient, $ob, LONG_TERM * HOUR_IN_SECONDS );
+    set_transient( $transient, $ob, LONG_TERM );
     if( false === $transients) delete_transient( $transient );
     echo $ob; unset( $ob );
 }
@@ -92,7 +92,7 @@ if ( false === ( $ob = get_transient( $transient ) ) ) {
 <?php
 
     $ob = ob_get_clean();
-    set_transient( $transient, $ob, LONG_TERM * HOUR_IN_SECONDS );
+    set_transient( $transient, $ob, LONG_TERM );
     if( false === $transients) delete_transient( $transient );
     echo $ob; unset( $ob );
 }
@@ -107,7 +107,7 @@ if ( false === ( $children = get_transient( $transient ) ) ) {
 
     $children = bb_get_children($post);
 
-    set_transient( $transient, $children, LONG_TERM * HOUR_IN_SECONDS );
+    set_transient( $transient, $children, LONG_TERM );
     if( false === $transients) delete_transient( $transient );
 }
 unset( $transient );
@@ -166,7 +166,7 @@ if (false === ($ob = get_transient($transient))) {
     echo '<!-- END:'.$section_args['filename'].' -->'."\n";
 
     $ob = ob_get_clean();
-    set_transient( $transient, $ob, LONG_TERM * HOUR_IN_SECONDS );
+    set_transient( $transient, $ob, LONG_TERM );
     if( false === $transients) delete_transient( $transient );
 
 }

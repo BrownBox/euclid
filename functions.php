@@ -2,12 +2,16 @@
 define('ns_', 'bb_');
 define('THEME_TEXTDOMAIN', ns_.'theme');
 
+define('SHORT_TERM', 0.25 * HOUR_IN_SECONDS);
+define('MEDIUM_TERM', defined('WP_BB_ENV') && WP_BB_ENV == 'PRODUCTION' ? 4 * HOUR_IN_SECONDS : SHORT_TERM);
+define('LONG_TERM', defined('WP_BB_ENV') && WP_BB_ENV == 'PRODUCTION' ? 24 * HOUR_IN_SECONDS : SHORT_TERM);
+
 $theme_files = array(
     // Theme elements
-    array('file' => 'customizer.php',           'dir' => 'theme'), // <-- our customizer fields & settings
-    array('file' => 'functions.php',            'dir' => 'theme'), // <-- our theme functions
-    array('file' => 'menus.php',                'dir' => 'theme'), // <-- registers our menus
-    array('file' => 'scripts.php',              'dir' => 'theme'), // <-- enqueues our styles and scripts
+    array('file' => 'customizer.php',           'dir' => 'theme'), // Our customizer fields & settings
+    array('file' => 'functions.php',            'dir' => 'theme'), // Our core theme functions
+    array('file' => 'menus.php',                'dir' => 'theme'), // Registers and displays our menus
+    array('file' => 'scripts.php',              'dir' => 'theme'), // Enqueues our styles and scripts
 
     // Helper functions
     array('file' => 'children.php',             'dir' => 'fx'),
@@ -26,8 +30,9 @@ $theme_files = array(
     array('file' => 'time.php',                 'dir' => 'fx'),
 
     // Miscellaneous utilities
-    array('file' => 'cookies.php',              'dir' => 'utils'), // Handy cookie management
-    array('file' => 'random.php',               'dir' => 'utils'), // Funky logic for displaying random items, with caching if desired
+    array('file' => 'cookies.php',              'dir' => 'utils'), // BB_Cookie()       - handy cookie management
+    array('file' => 'random.php',               'dir' => 'utils'), // BB_Random()       - funky logic for displaying random items, with caching if desired
+    array('file' => 'transients.php',           'dir' => 'utils'), // BB_Transients()   - transient management
 
     // Information architecture
     array('file' => 'cpt_.php',                 'dir' => 'ia'),
@@ -41,9 +46,9 @@ $theme_files = array(
     array('file' => 'search.php',               'dir' => 'ia'),
 
     // Custom Gravity Forms pieces
-    array('file' => 'australian_states.php',    'dir' => 'gf'), // <-- adds Australia address type
-    array('file' => 'columns.php',              'dir' => 'gf'), // <-- adds support for multi-column Gravity Forms
-    array('file' => 'enable_fields.php',        'dir' => 'gf'), // <-- enables Credit Card and Password field types
+    array('file' => 'australian_states.php',    'dir' => 'gf'), // Adds Australia address type
+    array('file' => 'columns.php',              'dir' => 'gf'), // Adds support for multi-column Gravity Forms
+    array('file' => 'enable_fields.php',        'dir' => 'gf'), // Enables Credit Card and Password field types
 );
 
 foreach ($theme_files as $theme_file) {

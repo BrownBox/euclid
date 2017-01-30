@@ -1,33 +1,33 @@
-<?php 
+<?php
 
 /**
  * based on @version 1.0.1
- * 
+ *
  * Sidebar for children-as-tabs
  *
  * STEP 2: CODE
- * @todo code the output markup. focus on grids and layouts for Small, Medium and Large Devices. 
- * @todo code the local css. Mobile 1st, then medium and large. 
+ * @todo code the output markup. focus on grids and layouts for Small, Medium and Large Devices.
+ * @todo code the local css. Mobile 1st, then medium and large.
  *
  * STEP 3: SIGN_OFF
- * @todo review code quality (& rework as required) 
+ * @todo review code quality (& rework as required)
  * @todo review and promote css (as required)
  * @todo reset transitents and retest
- * @todo set transients for production. 
+ * @todo set transients for production.
  * @todo leave sign-off name and date
- * 
+ *
  */
 
-global $post;  
+global $post;
 
 $section_args = array(
-    'namespace' => 'sidebar-children-as-tabs', // remember to use keywords like 'section' or 'nav' where practical. 
+    'namespace' => 'sidebar-children-as-tabs', // remember to use keywords like 'section' or 'nav' where practical.
     'filename'  => str_replace(get_stylesheet_directory(), "", __FILE__ ), // relative path from the theme folder
     'get_meta'  => false,
     );
 
 $transients = false; // change this to false to force all transients to refresh
-// reset_transients( $section_args['namespace'] ); // force a reset of all transients for this namespace. 
+// reset_transients( $section_args['namespace'] ); // force a reset of all transients for this namespace.
 
 
 // -------------
@@ -36,11 +36,11 @@ $transients = false; // change this to false to force all transients to refresh
 if( $section_args['get_meta'] === true ){
     $transient = ns_.'meta_'.$post->ID;
     if( false === $transients) delete_transient( $transient );
-    if ( false === ( $meta = unserialize( get_transient( $transient ) ) ) ){ 
+    if ( false === ( $meta = unserialize( get_transient( $transient ) ) ) ){
 
         $meta = get_post_meta( $post->ID );
-        set_transient( $transient, serialize( $meta ), LONG_TERM * HOUR_IN_SECONDS ); 
-        if( false === $transients) delete_transient( $transient );  
+        set_transient( $transient, serialize( $meta ), LONG_TERM );
+        if( false === $transients) delete_transient( $transient );
 
     }
     unset( $transient );
@@ -51,7 +51,7 @@ if( $section_args['get_meta'] === true ){
 // ---------------------------------------
 $transient = ns_.$section_args['namespace'].'_css_'.$section_args['filename'].'_'.md5( $section_args['filename'] );
 if( false === $transients) delete_transient( $transient );
-if ( false === ( $ob = get_transient( $transient ) ) ) { 
+if ( false === ( $ob = get_transient( $transient ) ) ) {
 
     ob_start(); ?>
 <style>
@@ -63,12 +63,12 @@ if ( false === ( $ob = get_transient( $transient ) ) ) {
 @media only screen and (min-width: <?php echo SITE_MAX_WIDTH; ?> ) {}
 /* END: <?php echo $section_args['filename']; ?> */
 </style>
-<?php 
+<?php
 
     $ob = ob_get_clean();
-    set_transient( $transient, $ob, LONG_TERM * HOUR_IN_SECONDS ); 
-    if( false === $transients) delete_transient( $transient );  
-    echo $ob; unset( $ob ); 
+    set_transient( $transient, $ob, LONG_TERM );
+    if( false === $transients) delete_transient( $transient );
+    echo $ob; unset( $ob );
 }
 unset( $transient );
 
@@ -77,7 +77,7 @@ unset( $transient );
 // ---------------------------------------
 $transient = ns_.$section_args['namespace'].'_css_'.$post->ID.'_'.md5( $section_args['filename'] );
 if( false === $transients) delete_transient( $transient );
-if ( false === ( $ob = get_transient( $transient ) ) ) { 
+if ( false === ( $ob = get_transient( $transient ) ) ) {
 
     ob_start(); ?>
 <style>
@@ -89,12 +89,12 @@ if ( false === ( $ob = get_transient( $transient ) ) ) {
 @media only screen and (min-width: <?php echo SITE_MAX_WIDTH; ?> ) {}
 /* END: <?php echo $section_args['filename']; ?> */
 </style>
-<?php 
+<?php
 
     $ob = ob_get_clean();
-    set_transient( $transient, $ob, LONG_TERM * HOUR_IN_SECONDS ); 
-    if( false === $transients) delete_transient( $transient );  
-    echo $ob; unset( $ob ); 
+    set_transient( $transient, $ob, LONG_TERM );
+    if( false === $transients) delete_transient( $transient );
+    echo $ob; unset( $ob );
 }
 unset( $transient );
 
@@ -107,8 +107,8 @@ if ( false === ( $children = get_transient( $transient ) ) ) {
 
     $children = bb_get_children($post);
 
-    set_transient( $transient, $children, LONG_TERM * HOUR_IN_SECONDS ); 
-    if( false === $transients) delete_transient( $transient );  
+    set_transient( $transient, $children, LONG_TERM );
+    if( false === $transients) delete_transient( $transient );
 }
 unset( $transient );
 
@@ -124,7 +124,7 @@ if ( false === ( $ob = get_transient( $transient ) ) ) {
     // section content - start
     echo '<!-- START: '.$section_args['filename'].' -->'."\n";
 
-    // section content 
+    // section content
 
     $has_children = true;
     $menu_items = $children;
@@ -141,7 +141,7 @@ if ( false === ( $ob = get_transient( $transient ) ) ) {
         $menu .= ' </li>'."\n";
         $is_active = true;
     }
- 
+
     foreach ($menu_items as $item) {
         if( $is_active == false ) {
             $class = 'is-active';
@@ -158,7 +158,7 @@ if ( false === ( $ob = get_transient( $transient ) ) ) {
         }
         $menu .= '        </li>'."\n";
     }
-    
+
 
     if (!empty($menu)) {
     ?>
@@ -185,9 +185,9 @@ if ( false === ( $ob = get_transient( $transient ) ) ) {
     echo '<!-- END:'.$section_args['filename'].' -->'."\n";
 
     $ob = ob_get_clean();
-    set_transient( $transient, $ob, LONG_TERM * HOUR_IN_SECONDS ); 
+    set_transient( $transient, $ob, LONG_TERM );
     if( false === $transients) delete_transient( $transient );
-    
+
 }
 unset( $transient );
 echo $ob; unset( $ob );

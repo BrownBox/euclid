@@ -61,7 +61,7 @@ abstract class BB_Random {
         $this->args = $args;
         $this->transient_prefix = get_called_class().'_'.$name;
 
-        $exclusions = get_transients($this->transient_prefix.'_exclusion');
+        $exclusions = BB_Transients::get($this->transient_prefix.'_exclusion');
         foreach ($exclusions as $exclusion) {
             $this->exclusions[$exclusion->value] = $exclusion->value;
         }
@@ -136,7 +136,7 @@ abstract class BB_Random {
      * @return array|boolean List of matching transients if any, otherwise false
      */
     public function reset() {
-        return delete_transients($this->transient_prefix);
+        return BB_Transients::delete($this->transient_prefix);
     }
 }
 

@@ -102,7 +102,7 @@ if ( false === ( $ob = get_transient( $transient ) ) ) {
 <?php
 
     $ob = ob_get_clean();
-    set_transient( $transient, $ob, LONG_TERM * HOUR_IN_SECONDS );
+    set_transient( $transient, $ob, LONG_TERM );
     delete_transient( $transient );
     echo $ob; unset( $ob );
 }
@@ -116,7 +116,7 @@ if ( false === ( $search1 = unserialize( get_transient( $transient ) ) ) ) {
 	$args = array( 's' => $section_args['string'], 'posts_per_page' => -1, 'post_type' => $section_args['post_type'] );
 	$search1 = new WP_Query( $args );
 
-    set_transient( $transient, serialize( $search1 ), SHORT_TERM * HOUR_IN_SECONDS );
+    set_transient( $transient, serialize( $search1 ), SHORT_TERM );
     if( false === $transients) delete_transient( $transient );
 }
 unset( $transient );
@@ -130,7 +130,7 @@ if( count( $search1->posts ) > 0 ) {
 	if( !is_array( $hist[ $section_args['string'] ] ) ) $hist[ $section_args['string'] ] = array();
 	array_push( $hist[ $section_args['string'] ], time() );
 
-	set_transient( $transient, $hist, 2592000 * HOUR_IN_SECONDS ); // 30 days
+	set_transient( $transient, $hist, 30 * DAY_IN_SECONDS ); // 30 days
 	if( false === $track_hist) delete_transient( $transient );
 
 }
@@ -157,7 +157,7 @@ if ( false === ( $search2 = unserialize( get_transient( $transient ) ) ) ) {
 		);
 	$search2 = new WP_Query( $args );
 
-    set_transient( $transient, serialize( $search2 ), SHORT_TERM * HOUR_IN_SECONDS );
+    set_transient( $transient, serialize( $search2 ), SHORT_TERM );
     if( false === $transients) delete_transient( $transient );
 }
 unset( $transient );
@@ -262,7 +262,7 @@ if ( false === ( $ob = get_transient( $transient ) ) ) {
 	}
 
     $ob = ob_get_clean();
-    set_transient( $transient, $ob, SHORT_TERM * HOUR_IN_SECONDS );
+    set_transient( $transient, $ob, SHORT_TERM );
     if( false === $transients) delete_transient( $transient );
 
 }
