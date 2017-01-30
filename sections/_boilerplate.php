@@ -71,9 +71,9 @@ if (false === ($ob = get_transient($transient))) {
     if (true === $transients) {
         set_transient($transient, $ob, LONG_TERM * HOUR_IN_SECONDS);
     }
+    echo $ob;
+    unset($ob);
 }
-echo $ob;
-unset($ob);
 unset($transient);
 
 // ---------------------------------------
@@ -89,13 +89,9 @@ if (false === ($ob = get_transient($transient))) {
 <style>
 /* START: <?php echo $section_args['filename'].' - '.date("Y-m-d H:i:s"); ?> */
 @media only screen {}
-
 @media only screen and (min-width: 40em) { /* <-- min-width 640px - medium screens and up */ }
-
 @media only screen and (min-width: 64em) { /* <-- min-width 1024px - large screens and up */ }
-
 @media only screen and (min-width: <?php echo ROW_MAX_WIDTH; ?> ) {}
-
 @media only screen and (min-width: <?php echo SITE_MAX_WIDTH; ?> ) {}
 /* END: <?php echo $section_args['filename']; ?> */
 </style>
@@ -104,9 +100,9 @@ if (false === ($ob = get_transient($transient))) {
     if (true === $transients) {
         set_transient($transient, $ob, LONG_TERM * HOUR_IN_SECONDS);
     }
+    echo $ob;
+    unset($ob);
 }
-echo $ob;
-unset($ob);
 unset($transient);
 
 // ------------------------

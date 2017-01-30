@@ -65,8 +65,8 @@ if ( false === ( $ob = get_transient( $transient ) ) ) {
     $ob = ob_get_clean();
     set_transient( $transient, $ob, LONG_TERM );
     if( false === $transients) delete_transient( $transient );
+    echo $ob; unset( $ob );
 }
-echo $ob; unset( $ob );
 unset( $transient );
 
 // ---------------------------------------
@@ -89,8 +89,8 @@ if ( false === ( $ob = get_transient( $transient ) ) ) {
     $ob = ob_get_clean();
     set_transient( $transient, $ob, LONG_TERM );
     if( false === $transients) delete_transient( $transient );
+    echo $ob; unset( $ob );
 }
-echo $ob; unset( $ob );
 unset( $transient );
 
 // ------------------------
