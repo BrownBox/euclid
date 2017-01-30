@@ -1,5 +1,5 @@
 <div class="column">
-    <div class="wrapper text-center">
+    <div class="wrapper">
 <?php
 $destination = get_post_meta($panel->ID, 'destination', true);
 if (!empty($destination)) {
