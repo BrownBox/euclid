@@ -1,6 +1,8 @@
 /* Default Styles - DO NOT EDIT */
 body {position: static !important;}
 
+.everything {border-left: 1px solid rgba(0, 0, 0, 0.1); border-right: 1px solid rgba(0, 0, 0, 0.1); margin-left: auto; margin-right: auto;}
+
 a:link:hover {opacity: 0.75;}
 
 .hero {min-height: 350px; background-size: cover; background-position: center center;}

@@ -188,6 +188,18 @@ function bb_theme_customizer(WP_Customize_Manager $wp_customize) {
             'title' => __('Key Dimensions', ns_),
             'priority' => 52,
     ));
+    $wp_customize->add_setting(ns_.'site_max_width', array(
+            'default' => '130rem',
+            'sanitize_callback' => 'sanitize_text_field',
+            'type' => 'option',
+    ));
+    $wp_customize->add_control(ns_.'site_max_width', array(
+            'description' => 'Maximum width for the entire site. Highly recommended to be entered in rem.',
+            'label' => 'Max Site Width',
+            'section' => ns_.'key_dimensions',
+            'type' => 'text',
+            'priority' => 10,
+    ));
     $wp_customize->add_setting(ns_.'row_max_width', array(
             'default' => '100rem',
             'sanitize_callback' => 'sanitize_text_field',
@@ -198,7 +210,7 @@ function bb_theme_customizer(WP_Customize_Manager $wp_customize) {
             'label' => 'Max Row Width',
             'section' => ns_.'key_dimensions',
             'type' => 'text',
-            'priority' => 10,
+            'priority' => 15,
     ));
 
     $pages = array('Home', 'Other');
@@ -412,6 +424,7 @@ function bb_generate_dynamic_styles() {
     }
 
     $row_max_width = bb_get_theme_mod(ns_.'row_max_width');
+    $site_max_width = bb_get_theme_mod(ns_.'site_max_width');
     $pages = array('Home', 'Other');
     $sizes = array('Small', 'Medium', 'Large');
     foreach ($pages as $page) {
@@ -433,6 +446,10 @@ body.home div.hero {height: $hero_height_home_small;}
 @media only screen and (min-width: 64em) { /* <-- min-width 1024px - large screens and up */
     div.hero {height: $hero_height_other_large;}
     body.home div.hero {height: $hero_height_home_large;}
+}
+@media only screen and (min-width: $row_max_width) {
+}
+@media only screen and (min-width: $site_max_width) {
 }
 
 EOS;
