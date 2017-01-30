@@ -397,12 +397,7 @@ function bb_generate_dynamic_styles() {
     $colour_count = bb_get_theme_mod(ns_.'colours', BB_DEFAULT_COLOUR_COUNT);
     for ($i = 1; $i <= $colour_count; $i++) {
         ${'colour'.$i} = bb_get_theme_mod(ns_.'colour'.$i);
-        $styles .= '.text'.$i.' {color: '.${'colour'.$i}.';}'."\n";
-        $styles .= '.bg'.$i.' {background-color: '.${'colour'.$i}.';}'."\n";
-        $styles .= '.htext'.$i.':hover {color: '.${'colour'.$i}.';}'."\n";
-        $styles .= '.hbg'.$i.':hover {background-color: '.${'colour'.$i}.';} '."\n";
     }
-    $colour = $colour1; // Fallback default
 
     $elements = bb_get_page_elements();
     foreach ($elements as $element => $config) {
@@ -421,6 +416,15 @@ function bb_generate_dynamic_styles() {
         $palette_colour = bb_get_theme_mod(ns_.'element_'.$element);
         $element_colour = ${'colour'.$palette_colour};
         $styles .= $css_selectors.' {'.$rule.': '.$element_colour.';}'."\n";
+    }
+
+    for ($i = 1; $i <= $colour_count; $i++) {
+        $styles .= '.text'.$i.' {color: '.${'colour'.$i}.';}'."\n";
+        $styles .= '.bg'.$i.' {background-color: '.${'colour'.$i}.';}'."\n";
+        $styles .= '.border'.$i.' {border-color: '.${'colour'.$i}.';}'."\n";
+        $styles .= '.htext'.$i.':hover {color: '.${'colour'.$i}.';}'."\n";
+        $styles .= '.hbg'.$i.':hover {background-color: '.${'colour'.$i}.';} '."\n";
+        $styles .= '.hborder'.$i.':hover {border-color: '.${'colour'.$i}.';}'."\n";
     }
 
     $row_max_width = bb_get_theme_mod(ns_.'row_max_width');
