@@ -33,13 +33,10 @@ foreach ($children as $post) {
         $content = apply_filters('the_content', $post->post_content);
     }
 
-    $images = bb_get_hero_images($post->ID);
+    $image = get_value_from_hierarchy('featured_image', $post->ID);
 
-    if (!empty($images['small'])) {
-        $meta = get_post_meta($post->ID);
-        $bgpos_x = !empty($meta['hero_bgpos_x_small'][0]) ? $meta['hero_bgpos_x_small'][0] : $meta['hero_bgpos_x'][0];
-        $bgpos_y = !empty($meta['hero_bgpos_y_small'][0]) ? $meta['hero_bgpos_y_small'][0] : $meta['hero_bgpos_y'][0];
-        $image_style = 'background-image: url('.$images['small'].'); background-position: '.$bgpos_x_small.' '.$bgpos_y_small.';';
+    if (!empty($image)) {
+        $image_style = 'background-image: url('.$image.'); background-position: center center;';
 ?>
         <article id="<?php echo $slug; ?>" <?php post_class('child column', $post->ID); ?>>
             <div class="image" style="<?php echo $image_style; ?>">
