@@ -14,31 +14,33 @@ function bb_get_panels() {
                 'order' => 'ASC',
                 'post_parent' => 0,
         );
-        global $post;
-        if ($post->post_type == 'page') {
-            $post_id = $post->ID;
-            if (is_archive()) {
-                $page = get_page_by_path(get_post_type($post));
-                $post_id = $page->ID;
+        if (!is_search()) {
+            global $post;
+            if ($post->post_type == 'page') {
+                $post_id = $post->ID;
+                if (is_archive()) {
+                    $page = get_page_by_path(get_post_type($post));
+                    $post_id = $page->ID;
+                }
+                $args['tax_query'] = array(
+                        array(
+                                'taxonomy' => 'pageascategory',
+                                'field' => 'slug',
+                                'terms' => (string)$post_id,
+                        ),
+                );
+            } else {
+                $args['meta_query'] = array(
+                        array(
+                                'key' => 'post_types',
+                                'value' => '"'.$post->post_type.'"', // Values are stored as a serialised array, so we look for the value surrounded by quotes to avoid false positives (e.g. posts and reposts)
+                                'compare' => 'LIKE',
+                        ),
+                );
             }
-            $args['tax_query'] = array(
-                    array(
-                            'taxonomy' => 'pageascategory',
-                            'field' => 'slug',
-                            'terms' => (string)$post_id,
-                    ),
-            );
-        } else {
-            $args['meta_query'] = array(
-                    array(
-                            'key' => 'post_types',
-                            'value' => '"'.$post->post_type.'"', // Values are stored as a serialised array, so we look for the value surrounded by quotes to avoid false positives (e.g. posts and reposts)
-                            'compare' => 'LIKE',
-                    ),
-            );
+            $panels = get_posts($args);
+            wp_cache_set('bb_panels', $panels);
         }
-        $panels = get_posts($args);
-        wp_cache_set('bb_panels', $panels);
     }
     return $panels;
 }
