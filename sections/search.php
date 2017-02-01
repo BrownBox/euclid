@@ -40,9 +40,8 @@ $section_args = array(
 if( is_user_logged_in() ) array_push( $section_args['post_type'] , array() ); // add private post types here
 if( isset( $_GET['post_type'] ) ) $section_args['post_type'] = array( $_GET['post_type'] );
 
-$transients = false; // change this to false to force all transients to refresh
+$transients = defined(WP_BB_ENV) && WP_BB_ENV == 'PRODUCTION'; // Set this to false to force all transients to refresh
 $track_hist = true; // change this to false to force $hist transients to refresh
-// reset_transients( $section_args['namespace'].'_hist_' ); // force a reset of all transients for this namespace.
 
 if( isset( $section_args['msg'][$_GET['msg']] ) ) echo '<span class="h1 msg">'.$section_args['msg'][$_GET['msg']].'</span>'."\n";
 

@@ -20,14 +20,12 @@
 global $post;
 
 $section_args = array(
-            'namespace' => 'section_tabs', // remember to use keywords like 'section' or 'nav' where practical.
-            'filename'  => str_replace(get_stylesheet_directory(), "", __FILE__ ), // relative path from the theme folder
-            'get_meta'  => true,
-        );
+        'namespace' => 'section_tabs', // remember to use keywords like 'section' or 'nav' where practical.
+        'filename'  => str_replace(get_stylesheet_directory(), "", __FILE__ ), // relative path from the theme folder
+        'get_meta'  => true,
+);
 
-$transients = false; // change this to false to force all transients to refresh
-// reset_transients( $section_args['namespace'] ); // force a reset of all transients for this namespace.
-
+$transients = defined(WP_BB_ENV) && WP_BB_ENV == 'PRODUCTION'; // Set this to false to force all transients to refresh
 
 // -------------
 // get_post_meta
