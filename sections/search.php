@@ -1,7 +1,5 @@
 <div class="small-24 columns">
 <?php
-get_search_form();
-
 /**
  * based on @version 1.0.0
  *
@@ -24,17 +22,19 @@ get_search_form();
  *
  */
 
+get_search_form();
+
 global $query_string;
 
 $section_args = array(
-    'namespace' => 'search', // remember to use keywords like 'section', 'nav' or 'css' where practical.
-    'filename'  => str_replace(get_stylesheet_directory(), "", __FILE__ ), // relative path from the theme folder
-    'string' => strtolower( $_GET['s'] ),
-    'post_type' => array( 'post', 'page' ),
-    'popular_search' => 'Can\'t find what you are looking for, try one of these popular searches...',
-    'msg' => array(
-    	'404' => 'We can\'t find what you are looking for, was it one of these pages...',
-	),
+        'namespace' => 'search', // remember to use keywords like 'section', 'nav' or 'css' where practical.
+        'filename'  => str_replace(get_stylesheet_directory(), "", __FILE__ ), // relative path from the theme folder
+        'string' => strtolower( $_GET['s'] ),
+        'post_type' => array( 'post', 'page' ),
+        'popular_search' => 'Can\'t find what you are looking for? Try one of these popular searches...',
+        'msg' => array(
+        	   '404' => 'We can\'t find what you are looking for. Was it one of these pages?',
+    	),
 );
 
 if( is_user_logged_in() ) array_push( $section_args['post_type'] , array() ); // add private post types here
@@ -49,8 +49,8 @@ if( isset( $section_args['msg'][$_GET['msg']] ) ) echo '<span class="h1 msg">'.$
 $transient = ns_.$section_args['namespace'].'_css_'.md5( $section_args['filename'] );
 delete_transient( $transient );
 if ( false === ( $ob = get_transient( $transient ) ) ) {
-
-    ob_start(); ?>
+    ob_start();
+?>
 <style>
 /* START: <?php echo $section_args['filename'].' - '.date("Y-m-d H:i:s"); ?> */
 @media only screen {
@@ -105,7 +105,7 @@ if ( false === ( $ob = get_transient( $transient ) ) ) {
     delete_transient( $transient );
     echo $ob; unset( $ob );
 }
-unset( $transient );
+unset($transient);
 
 // setup search results
 $transient = ns_.$section_args['namespace'].'_results_'.$section_args['string'].'_'.md5( $section_args['filename'] );
@@ -135,31 +135,32 @@ if( count( $search1->posts ) > 0 ) {
 }
 unset( $transient );
 
-
-// setup search results
-$transient = ns_.$section_args['namespace'].'_results_'.$section_args['string'].'_'.md5( $section_args['filename'] );
-if( false === $transients) delete_transient( $transient );
-if ( false === ( $search2 = unserialize( get_transient( $transient ) ) ) ) {
-
-	$args = array(
-		'posts_per_page' => -1,
-		'post_type' => $section_args['post_type'],
-
-		'meta_query' => array(
-			array(
-				'key'     => 'keywords',
-				'value'   => $section_args['string'],
-				'compare' => 'LIKE',
-			),
-		),
-
-		);
-	$search2 = new WP_Query( $args );
-
-    set_transient( $transient, serialize( $search2 ), SHORT_TERM );
+if (defined('BB_SUPER_SEARCH') && BB_SUPER_SEARCH) {
+    // setup search results
+    $transient = ns_.$section_args['namespace'].'_results_'.$section_args['string'].'_'.md5( $section_args['filename'] );
     if( false === $transients) delete_transient( $transient );
+    if ( false === ( $search2 = unserialize( get_transient( $transient ) ) ) ) {
+
+    	$args = array(
+    		'posts_per_page' => -1,
+    		'post_type' => $section_args['post_type'],
+
+    		'meta_query' => array(
+    			array(
+    				'key'     => 'keywords',
+    				'value'   => $section_args['string'],
+    				'compare' => 'LIKE',
+    			),
+    		),
+
+    		);
+    	$search2 = new WP_Query( $args );
+
+        set_transient( $transient, serialize( $search2 ), SHORT_TERM );
+        if( false === $transients) delete_transient( $transient );
+    }
+    unset( $transient );
 }
-unset( $transient );
 
 $transient = ns_.$section_args['namespace'].'_markup_'.$section_args['string'].'_'.md5( $section_args['filename'] );
 if( false === $transients) delete_transient( $transient );
@@ -167,6 +168,7 @@ if ( false === ( $ob = get_transient( $transient ) ) ) {
 
     ob_start();
 
+    $markup = '';
     if( count( $search1->posts ) > 0 ){
 		$markup .= '<span class="h1">We found '.count( $search1->posts ).' page/s that match your search request</span>'."\n";
 		$markup .= '<div class="row small-up-1 medium-up-2 large-up-3">'."\n";
@@ -204,7 +206,8 @@ if ( false === ( $ob = get_transient( $transient ) ) ) {
 			echo '</ul>';
 		}
 		unset( $post_types );
-
+	} elseif (!defined('BB_SUPER_SEARCH') || !BB_SUPER_SEARCH) {
+		$markup .= '<span class="h1">No pages were found that match your search request. Please try a different search term, or use the menus to find what you\'re looking for.</span>'."\n";
 	}
 	echo $markup;
 	unset( $markup );
@@ -268,30 +271,30 @@ if ( false === ( $ob = get_transient( $transient ) ) ) {
 unset( $transient );
 echo $ob; unset( $ob );
 
-// $variable = get_field('field_name');
+if (defined('BB_SUPER_SEARCH') && BB_SUPER_SEARCH) {
+    // other popular searches
+    $strings = array();
+    foreach ($hist as $key => $value) $strings[$key] = count( $hist[$key] );
+    echo '<span class="h1 pop-searches">'.$section_args['popular_search'].'</span>'."\n";
+    echo '<ul class="pop-searches">';
+    arsort($strings);
+    $count = 0;
+    foreach ($strings as $string => $count) {
+    	if( strlen( $string) > 0 ) echo '<li><a href="/?s='.$string.'">'.$string.'</a></li>';
+    }
+    echo '</ul>';
 
-// other popular searches
-$strings = array();
-foreach ($hist as $key => $value) $strings[$key] = count( $hist[$key] );
-echo '<span class="h1 pop-searches">'.$section_args['popular_search'].'</span>'."\n";
-echo '<ul class="pop-searches">';
-arsort($strings);
-$count = 0;
-foreach ($strings as $string => $count) {
-	if( strlen( $string) > 0 ) echo '<li><a href="/?s='.$string.'">'.$string.'</a></li>';
-}
-echo '</ul>';
-
-$logfile = get_template_directory() . '/logs/search.log';
-if( strlen( $section_args['string'] ) > 1 && file_exists( $logfile ) ) {
-	$log = array(
-		'exact' 	=> str_pad( count( $search1->posts ), 3, '0', STR_PAD_LEFT ),
-		'related' 	=> str_pad( count( $search2->posts ), 3, '0', STR_PAD_LEFT ),
-		'string'	=> str_pad( $section_args['string'], 30, ' ', STR_PAD_RIGHT ),
-		'query' 	=> $_SERVER["QUERY_STRING"],
-	);
-	$log = implode( ' | ', $log );
-	file_put_contents( $logfile, date("Y-m-d H:i:s" ) . " | " . $log . "\n", FILE_APPEND );
+    $logfile = get_template_directory() . '/logs/search.log';
+    if( strlen( $section_args['string'] ) > 1 && file_exists( $logfile ) ) {
+    	$log = array(
+    		'exact' 	=> str_pad( count( $search1->posts ), 3, '0', STR_PAD_LEFT ),
+    		'related' 	=> str_pad( count( $search2->posts ), 3, '0', STR_PAD_LEFT ),
+    		'string'	=> str_pad( $section_args['string'], 30, ' ', STR_PAD_RIGHT ),
+    		'query' 	=> $_SERVER["QUERY_STRING"],
+    	);
+    	$log = implode( ' | ', $log );
+    	file_put_contents( $logfile, date("Y-m-d H:i:s" ) . " | " . $log . "\n", FILE_APPEND );
+    }
 }
 ?>
 </div>
