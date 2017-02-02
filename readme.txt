@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+7.2.1
+New search functionality can now be turned on or off as desired
+New bb_get_post_meta() for nicer meta handling
+Major refactoring of section boilerplate, particularly around transient naming conventions 
+Relevant transients are now auto-refreshed when saving/deleting posts, saving menus or any time dynamic styles are generated
+All default sections now use section boilerplate
+Bug fixes
+
 7.2
 Added support for loading sections from outside the theme (e.g. plugins)
 Better abstraction of pagination logic to allow for use beyond post archives

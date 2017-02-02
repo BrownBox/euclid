@@ -81,26 +81,15 @@ function bb_theme_customizer(WP_Customize_Manager $wp_customize) {
             'priority' => 45,
     ));
     $wp_customize->add_setting(ns_.'font', array(
-            'default' => 'Raleway',
+            'default' => 'Raleway,Open Sans',
             'sanitize_callback' => 'sanitize_text_field',
             'type' => 'option',
     ));
     $wp_customize->add_control(ns_.'font', array(
-            'label' => __('Primary Font', ns_),
+            'label' => __('Fonts', ns_),
             'section' => ns_.'fonts',
             'type' => 'text',
             'priority' => 5,
-    ));
-    $wp_customize->add_setting(ns_.'heading_font', array(
-            'default' => 'Raleway',
-            'sanitize_callback' => 'sanitize_text_field',
-            'type' => 'option',
-    ));
-    $wp_customize->add_control(ns_.'heading_font', array(
-            'label' => __('Heading Font', ns_),
-            'section' => ns_.'fonts',
-            'type' => 'text',
-            'priority' => 6,
     ));
     $wp_customize->add_setting(ns_.'gf', array(
             'default' => esc_url('//fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i|Raleway:400,400i,700,700i'),
@@ -113,16 +102,16 @@ function bb_theme_customizer(WP_Customize_Manager $wp_customize) {
             'type' => 'textarea',
             'priority' => 10,
     ));
-    $wp_customize->add_setting(ns_.'typekit', array(
-            'sanitize_callback' => 'sanitize_text_field',
-            'type' => 'option',
-    ));
-    $wp_customize->add_control(ns_.'typekit', array(
-            'label' => __('Adobe TypeKit ID', ns_),
-            'section' => ns_.'fonts',
-            'type' => 'text',
-            'priority' => 15,
-    ));
+//     $wp_customize->add_setting(ns_.'typekit', array(
+//             'sanitize_callback' => 'sanitize_text_field',
+//             'type' => 'option',
+//     ));
+//     $wp_customize->add_control(ns_.'typekit', array(
+//             'label' => __('Adobe TypeKit ID', ns_),
+//             'section' => ns_.'fonts',
+//             'type' => 'text',
+//             'priority' => 15,
+//     ));
 
     // Palette
     $wp_customize->add_section(ns_.'palette', array(
@@ -149,38 +138,95 @@ function bb_theme_customizer(WP_Customize_Manager $wp_customize) {
                 'type' => 'option',
         ));
         $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, ns_.'colour'.$i, array(
-                'label' => __('Colour', ns_).$i,
+                'label' => __('Colour ', ns_).$i,
+                'description' => 'bg'.$i.', hbg'.$i.', text'.$i.', htext'.$i.', border'.$i.', hborder'.$i.'<br>bb_get_theme_mod(\''.ns_.'colour'.$i.'\');',
                 'section' => ns_.'palette',
                 'priority' => 10 + $i,
         )));
     }
-
-    // Colour Scheme
-    $wp_customize->add_section(ns_.'colour_scheme', array(
-            'title' => __('Colour Scheme', ns_),
-            'description' => 'Select which colour from the palette to use for each page element. You should generally configure the theme palette first.',
-            'priority' => 51,
+    $wp_customize->add_setting(ns_.'gradient_start', array(
+            'default' => '#FFFFFF',
+            'sanitize_callback' => 'sanitize_hex_color',
+            'type' => 'option',
     ));
-    $palette_options = array();
-    for ($i = 1; $i <= $colours; $i++) {
-        $palette_options[$i] = 'Colour '.$i.' ('.bb_get_theme_mod(ns_.'colour'.$i).')';
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, ns_.'gradient_start', array(
+            'label' => 'Gradient Start',
+            'section' => ns_.'palette',
+            'priority' => 20 + $i++,
+    )));
+    $wp_customize->add_setting(ns_.'gradient_end', array(
+            'default' => '#FFFFFF',
+            'sanitize_callback' => 'sanitize_hex_color',
+            'type' => 'option',
+    ));
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, ns_.'gradient_end', array(
+            'label' => 'Gradient End',
+            'section' => ns_.'palette',
+            'priority' => 20 + $i++,
+    )));
+    $wp_customize->add_setting(ns_.'gradient_start_percent', array(
+            'default' => '0%',
+            'sanitize_callback' => 'sanitize_text_field',
+            'type' => 'option',
+    ));
+    $wp_customize->add_control(ns_.'gradient_start_percent', array(
+            'label' => 'Gradient Start %',
+            'section' => ns_.'palette',
+            'priority' => 20 + $i++,
+            'type' => 'text',
+    ));
+    $wp_customize->add_setting(ns_.'gradient_end_percent', array(
+            'default' => '100%',
+            'sanitize_callback' => 'sanitize_text_field',
+            'type' => 'option',
+    ));
+    $wp_customize->add_control(ns_.'gradient_end_percent', array(
+            'label' => 'Gradient End %',
+            'section' => ns_.'palette',
+            'priority' => 20 + $i++,
+            'type' => 'text',
+    ));
+    if (current_user_can('administrator')) {
+        $wp_customize->add_setting(ns_.'colour_scheme_check', array(
+                'type' => 'option',
+                'capability' => 'administrator',
+        ));
+        $wp_customize->add_control(ns_.'colour_scheme_check', array(
+                'label' => 'Enable Color Scheme?',
+                'section' => ns_.'palette',
+                'type' => 'checkbox',
+                'priority' => 90,
+        ));
     }
 
-    $elements = bb_get_page_elements();
-    $e = 1;
-    foreach ($elements as $element => $css_selectors) {
-        $wp_customize->add_setting(ns_.'element_'.$element, array(
-                'default' => '1',
-                'sanitize_callback' => 'absint',
-                'type' => 'option',
+    // Colour Scheme
+    if (true == bb_get_theme_mod(ns_.'colour_scheme_check')) {
+        $wp_customize->add_section(ns_.'colour_scheme', array(
+                'title' => __('Colour Scheme', ns_),
+                'description' => 'Select which colour from the palette to use for each page element. You should generally configure the theme palette first.',
+                'priority' => 51,
         ));
-        $wp_customize->add_control(ns_.'element_'.$element, array(
-                'label' => __(ucwords(str_replace('_', ' ', $element)), ns_),
-                'section' => ns_.'colour_scheme',
-                'type' => 'select',
-                'choices' => $palette_options,
-                'priority' => $e++,
-        ));
+        $palette_options = array();
+        for ($i = 1; $i <= $colours; $i++) {
+            $palette_options[$i] = 'Colour '.$i.' ('.bb_get_theme_mod(ns_.'colour'.$i).')';
+        }
+
+        $elements = bb_get_page_elements();
+        $e = 1;
+        foreach ($elements as $element => $css_selectors) {
+            $wp_customize->add_setting(ns_.'element_'.$element, array(
+                    'default' => '1',
+                    'sanitize_callback' => 'absint',
+                    'type' => 'option',
+            ));
+            $wp_customize->add_control(ns_.'element_'.$element, array(
+                    'label' => __(ucwords(str_replace('_', ' ', $element)), ns_),
+                    'section' => ns_.'colour_scheme',
+                    'type' => 'select',
+                    'choices' => $palette_options,
+                    'priority' => $e++,
+            ));
+        }
     }
 
     // Key Dimensions
@@ -392,42 +438,68 @@ function bb_get_page_elements() {
 }
 
 function bb_generate_dynamic_styles() {
-    $font = bb_get_theme_mod(ns_.'font');
-    $heading_font = bb_get_theme_mod(ns_.'heading_font');
-    $styles = 'body, * {font-family: "'.$font.'", sans-serif;}'."\n";
-    $styles .= 'h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {font-family: "'.$heading_font.'", sans-serif; '.bb_get_theme_mod('h_base').'}'."\n";
+    $styles = '';
 
+    // Font styles
+    // Depending on number of fonts, will produce something like ... body, *, h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, .gf1 {font-family: "Raleway", sans-serif;}
+    $font = bb_get_theme_mod(ns_.'font');
+    if (!empty($font)) {
+        $fonts = explode(',', $font);
+        for ($i=1; $i <=6; $i++) {
+            $heading_selectors .= 'h'.$i.', .h'.$i.', ';
+        }
+        for ($i = 0; $i < count($fonts); $i++) {
+            if ($i == 0) {
+                $styles .= 'body, *, ';
+                if (count($fonts) == 1) {
+                    $styles .= $heading_selectors;
+                }
+            } elseif ($i == 1) {
+                $styles .= $heading_selectors;
+            }
+            $styles .= '.gf'.($i+1).' {font-family: "'.$fonts[$i].'", sans-serif;}'."\n";
+        }
+    }
+
+    // Custom Heading Styles
+    $h_base = bb_get_theme_mod('h_base');
+    $styles .= substr($heading_selectors, 0, -2).' {'.$h_base.'}'."\n";
     for ($i=1; $i <= 6; $i++) {
         ${'h'.$i} = bb_get_theme_mod(ns_.'h'.$i);
-        if (strlen(${'h'.$i}) > 0) {
+        if (!empty(${'h'.$i})) {
             $styles .= 'h'.$i.', .h'.$i.' {'.${'h'.$i}.'}'."\n";
         }
     }
 
+    // Set up theme palette variables
     $colour_count = bb_get_theme_mod(ns_.'colours', BB_DEFAULT_COLOUR_COUNT);
     for ($i = 1; $i <= $colour_count; $i++) {
         ${'colour'.$i} = bb_get_theme_mod(ns_.'colour'.$i);
     }
 
-    $elements = bb_get_page_elements();
-    foreach ($elements as $element => $config) {
-        if (is_array($config)) {
-            $css_selectors = $config['selectors'];
-        } else {
-            $css_selectors = $config;
+    // Apply theme palette to colour scheme
+    if (true == bb_get_theme_mod(ns_.'colour_scheme_check')) {
+        $elements = bb_get_page_elements();
+        foreach ($elements as $element => $config) {
+            if (is_array($config)) {
+                $css_selectors = $config['selectors'];
+            } else {
+                $css_selectors = $config;
+            }
+            if (strpos($element, 'background') !== false) {
+                $rule = 'background-color';
+            } elseif (strpos($element, 'border') !== false) {
+                $rule = 'border-color';
+            } else {
+                $rule = 'color';
+            }
+            $palette_colour = bb_get_theme_mod(ns_.'element_'.$element);
+            $element_colour = ${'colour'.$palette_colour};
+            $styles .= $css_selectors.' {'.$rule.': '.$element_colour.';}'."\n";
         }
-        if (strpos($element, 'background') !== false) {
-            $rule = 'background-color';
-        } elseif (strpos($element, 'border') !== false) {
-            $rule = 'border-color';
-        } else {
-            $rule = 'color';
-        }
-        $palette_colour = bb_get_theme_mod(ns_.'element_'.$element);
-        $element_colour = ${'colour'.$palette_colour};
-        $styles .= $css_selectors.' {'.$rule.': '.$element_colour.';}'."\n";
     }
 
+    // Helper classes for text, background and border colours
     for ($i = 1; $i <= $colour_count; $i++) {
         $styles .= '.text'.$i.' {color: '.${'colour'.$i}.';}'."\n";
         $styles .= '.bg'.$i.' {background-color: '.${'colour'.$i}.';}'."\n";
@@ -437,6 +509,27 @@ function bb_generate_dynamic_styles() {
         $styles .= '.hborder'.$i.':hover {border-color: '.${'colour'.$i}.';}'."\n";
     }
 
+    // Gradients by http://www.colorzilla.com/gradient-editor/
+    $gradient = array();
+    $gradient['start'] = 'rgba('.bb_convert_colour( bb_get_theme_mod( ns_.'gradient_start' ) ).',1)';
+    $gradient['end'] = 'rgba('.bb_convert_colour( bb_get_theme_mod( ns_.'gradient_end' ) ).',1)';
+    $gradient['start_percent'] = bb_get_theme_mod( ns_.'gradient_start_percent' );
+    $gradient['end_percent'] = bb_get_theme_mod( ns_.'gradient_end_percent' );
+
+    // pick your direction
+    // $direction = 'top'; $direction2 = 'to bottom';
+    // $direction = '-45deg'; $direction2 = '135deg';
+    // $direction = '45deg'; $direction2 = '45deg';
+    $direction = 'left'; $direction2 = 'to right';
+
+    $styles .= '.gradient {
+background: -moz-linear-gradient('.$direction.', '.$gradient['start'].' '.$gradient['start_percent'].' '.$gradient['end'].' '.$gradient['end_percent'].'); /* FF3.6-15 */
+background: -webkit-linear-gradient('.$direction.', '.$gradient['start'].' '.$gradient['start_percent'].', '.$gradient['end'].' '.$gradient['end_percent'].'); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient('.$direction2.', '.$gradient['start'].' '.$gradient['start_percent'].', '.$gradient['end'].' '.$gradient['end_percent'].'); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="'.$colour1.'", endColorstr="'.$colour1.'",GradientType=1 ); /* IE6-9 */
+}'."\n";
+
+    // Key dimensions
     $row_max_width = bb_get_theme_mod(ns_.'row_max_width');
     $site_max_width = bb_get_theme_mod(ns_.'site_max_width');
     $pages = array('Home', 'Other');
@@ -448,6 +541,7 @@ function bb_generate_dynamic_styles() {
         }
     }
 
+    // Custom styles including key dimensions
     $styles .= <<<EOS
 .row {max-width: $row_max_width;}
 div.hero {height: $hero_height_other_small;}
