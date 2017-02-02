@@ -446,7 +446,7 @@ function bb_generate_dynamic_styles() {
     if (!empty($font)) {
         $fonts = explode(',', $font);
         for ($i=1; $i <=6; $i++) {
-            $heading_selectors .= 'h'.$i.', .h'.$i.', ';
+            $heading_selectors .= 'body h'.$i.', body .h'.$i.', ';
         }
         for ($i = 0; $i < count($fonts); $i++) {
             if ($i == 0) {
@@ -467,7 +467,7 @@ function bb_generate_dynamic_styles() {
     for ($i=1; $i <= 6; $i++) {
         ${'h'.$i} = bb_get_theme_mod(ns_.'h'.$i);
         if (!empty(${'h'.$i})) {
-            $styles .= 'h'.$i.', .h'.$i.' {'.${'h'.$i}.'}'."\n";
+            $styles .= 'body h'.$i.', body .h'.$i.' {'.${'h'.$i}.'}'."\n";
         }
     }
 

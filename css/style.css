@@ -1,5 +1,11 @@
 /* Default Styles - DO NOT EDIT */
 body {position: static !important;}
+body h1 {font-size: 2rem;}
+body h2 {font-size: 1.75rem;}
+body h3 {font-size: 1.5rem;}
+body h4 {font-size: 1.25rem;}
+body h5 {font-size: 1.1rem;}
+body h6 {font-size: 1rem;}
 
 .everything {border-left: 1px solid rgba(0, 0, 0, 0.1); border-right: 1px solid rgba(0, 0, 0, 0.1); margin-left: auto; margin-right: auto;}
 
@@ -178,7 +184,7 @@ aside .sticky {background-color: white;}
 .panel-wrapper.video .link .fa {display: table-cell; vertical-align: middle; color: #E62117;}
 
 /* Medium and up */
-@media only screen and (min-width: 40em) { /* <-- min-width 640px - medium screens and up */
+@media only screen and (min-width: 40em) { /* <-- min-width 640px - medium screens and up */	
     .panel-wrapper.half_image .image {background-position-x: left; height: 100%; position: absolute; width: 50%; top: 0; left: 0;}
     .panel-wrapper.half_image .image-right > .image {background-position-x: right; left: auto; right: 0;}
     .panel-wrapper.half_image .content {float: right; padding: 0.975rem; width: 50%;}
