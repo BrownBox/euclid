@@ -1,6 +1,6 @@
 <?php
 /**
- * Based on @version 1.0.2
+ * Based on @version 1.0.3
  *
  * STEP 1: SETUP
  * @todo describe the purpose of this file
@@ -15,43 +15,46 @@
  * STEP 3: SIGN_OFF
  * @todo review code quality (& rework as required)
  * @todo review and promote css (as required)
- * @todo reset transitents and retest
- * @todo set transients for production.
+ * @todo reset transients and retest
+ * @todo set transients for production
  * @todo leave sign-off name and date
  *
  */
+
 global $post;
+
+if (is_page() || is_single()) {
+    $meta = bb_get_post_meta($post->ID);
+
+    $ancestors = get_ancestors($post->ID, get_post_type($post));
+    $ancestor_string = '';
+    if (!empty($ancestors)) {
+        $ancestor_string = '_'.implode('_', $ancestors);
+    }
+    $transient_suffix = $ancestor_string.'_'.$post->ID;
+} else {
+    $meta = array();
+    if (is_archive()) {
+        $transient_suffix = '_'.$post->post_type;
+    }
+}
+
+$filename = str_replace(get_stylesheet_directory(), "", __FILE__); // Relative path from the theme folder
+$transient_suffix .= '_'.md5($filename);
 
 $section_args = array(
         'namespace' => basename(__FILE__, '.php').'_', // Remember to use keywords like 'section' or 'nav' where logical
-        'filename'  => str_replace(get_stylesheet_directory(), "", __FILE__), // Relative path from the theme folder
-        'get_meta'  => true,
+        'filename'  => $filename,
+        'transients' => defined(WP_BB_ENV) && WP_BB_ENV == 'PRODUCTION', // Set this to false to force all transients to refresh
+        'transient_suffix' => $transient_suffix,
+        'meta' => $meta,
 );
-
-$transients = defined(WP_BB_ENV) && WP_BB_ENV == 'PRODUCTION'; // Set this to false to force all transients to refresh
-
-// -------------
-// get_post_meta
-// -------------
-if ($section_args['get_meta'] === true) {
-    $transient = ns_.'meta_'.$post->ID.'_'.md5($section_args['filename']);
-    if (false === $transients) {
-        delete_transient($transient);
-    }
-    if (false === ($meta = unserialize(get_transient($transient)))) {
-        $meta = get_post_meta($post->ID);
-        if (true === $transients) {
-            set_transient($transient, serialize($meta), LONG_TERM * HOUR_IN_SECONDS);
-        }
-    }
-    unset($transient);
-}
 
 // ---------------------------------------
 // setup local css transient for this file
 // ---------------------------------------
-$transient = ns_ . $section_args['namespace'].'_css_'.$section_args['filename'].'_'.md5($section_args['filename']);
-if (false === $transients) {
+$transient = ns_.$section_args['namespace'].'css_'.$section_args['filename'].'_'.md5($section_args['filename']);
+if (false === $section_args['transients']) {
     delete_transient($transient);
 }
 if (false === ($ob = get_transient($transient))) {
@@ -68,10 +71,10 @@ if (false === ($ob = get_transient($transient))) {
 </style>
 <?php
     $ob = ob_get_clean();
-    if (true === $transients) {
-        set_transient($transient, $ob, LONG_TERM * HOUR_IN_SECONDS);
+    if (true === $section_args['transients']) {
+        set_transient($transient, $ob, LONG_TERM);
     }
-    echo $ob;
+    echo $ob; // Intentionally inside transient check as if transient exists, will be output in header.php
     unset($ob);
 }
 unset($transient);
@@ -79,8 +82,8 @@ unset($transient);
 // ---------------------------------------
 // setup local css transient for this post
 // ---------------------------------------
-$transient = ns_.$section_args['namespace'].'_css_'. $post->ID . '_' . md5($section_args['filename']);
-if (false === $transients) {
+$transient = ns_.$section_args['namespace'].'css'.$section_args['transient_suffix'];
+if (false === $section_args['transients']) {
     delete_transient($transient);
 }
 if (false === ($ob = get_transient($transient))) {
@@ -97,10 +100,10 @@ if (false === ($ob = get_transient($transient))) {
 </style>
 <?php
     $ob = ob_get_clean();
-    if (true === $transients) {
-        set_transient($transient, $ob, LONG_TERM * HOUR_IN_SECONDS);
+    if (true === $section_args['transients']) {
+        set_transient($transient, $ob, LONG_TERM);
     }
-    echo $ob;
+    echo $ob; // Intentionally inside transient check as if transient exists, will be output in header.php
     unset($ob);
 }
 unset($transient);
@@ -108,8 +111,8 @@ unset($transient);
 // ------------------------
 // setup output transient/s
 // ------------------------
-$transient = ns_.$section_args['namespace'].'_markup_'.$post->ID.'_'.md5( $section_args['filename'] );
-if (false === $transients) {
+$transient = ns_.$section_args['namespace'].'markup'.$section_args['transient_suffix'];
+if (false === $section_args['transients']) {
     delete_transient($transient);
 }
 if (false === ($ob = get_transient($transient))) {
@@ -125,8 +128,8 @@ if (false === ($ob = get_transient($transient))) {
     echo '<!-- END:'.$section_args['filename'].' -->'."\n";
 
     $ob = ob_get_clean();
-    if (true === $transients) {
-        set_transient($transient, $ob, LONG_TERM * HOUR_IN_SECONDS);
+    if (true === $section_args['transients']) {
+        set_transient($transient, $ob, LONG_TERM);
     }
 }
 echo $ob;
