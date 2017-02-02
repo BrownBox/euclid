@@ -3,9 +3,16 @@
  * Simplifying working with multiple transients
  * @version 1.0.0
  * @author Chris Chatterton <chris@brownbox.net.au> - Base functionality
- * @author Mark Parnell <markparnell@brownbox.net.au> - Class wrapper
+ * @author Mark Parnell <markparnell@brownbox.net.au> - Class wrapper and auto-refresh functionality
  */
 class BB_Transients {
+    /**
+     * Constructor. Sets up necessary hooks etc.
+     */
+    public function __construct() {
+        add_action('save_post', array($this, 'save_post'), 10, 3);
+    }
+
     /**
      * @param array $args {
      *     Optional. Arguments used to find matching transients. If empty, will return all transients.
@@ -14,7 +21,7 @@ class BB_Transients {
      * }
      * @return array The matching transients.
      */
-    static function get($args) {
+    public static function get($args) {
         is_array($args) ? extract($args) : parse_str($args);
         if (!isset($string)) {
             $string = (is_string($args)) ? $args : "";
@@ -53,7 +60,7 @@ class BB_Transients {
      * }
      * @return array List of deleted transients
      */
-    static function delete($args) {
+    public static function delete($args) {
         is_array($args) ? extract($args) : parse_str($args);
         $matching = array();
 
@@ -90,7 +97,7 @@ class BB_Transients {
      * }
      * @return array List of cleaned transient values
      */
-    static function clean($args) {
+    public static function clean($args) {
         is_array($args) ? extract($args) : parse_str($args);
 
         // Test for required variables and set defaults
@@ -122,4 +129,29 @@ class BB_Transients {
         $results = implode("  ", $results);
         return $results;
     }
+
+    /**
+     * Fires on save_post hook to clear all transients associated with that post
+     * @param integer $post_id
+     * @param WP_Post $post
+     * @param boolean $update
+     */
+    public function save_post($post_id, WP_Post $post, $update) {
+        // No point in doing anything if it's new
+        if ($update) {
+            // Delete transients for current post
+            self::delete('_'.$post_id.'_');
+
+            // Delete transients for archives
+            $post_type = get_post_type($post_id);
+            self::delete('_'.$post_type.'_');
+
+            // Have to also remove transients for ancestors or we may run into issues with "children as..." templates
+            $ancestors = get_ancestors($post_id, $post_type);
+            foreach ($ancestors as $ancestor_id) {
+                self::delete('_'.$ancestor_id.'_');
+            }
+        }
+    }
 }
+new BB_Transients();
