@@ -7,6 +7,7 @@ New bb_get_post_meta() for nicer meta handling
 Major refactoring of section boilerplate, particularly around transient naming conventions 
 Relevant transients are now auto-refreshed when saving/deleting posts, saving menus or any time dynamic styles are generated
 All default sections now use section boilerplate
+Customizer updates around headings and fonts, as well as a new set of Gradient settings
 Bug fixes
 
 7.2
