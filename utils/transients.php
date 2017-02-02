@@ -11,6 +11,7 @@ class BB_Transients {
      */
     public function __construct() {
         add_action('save_post', array($this, 'save_post'), 10, 3);
+        add_action('delete_post', array($this, 'delete_post'));
     }
 
     /**
@@ -139,18 +140,30 @@ class BB_Transients {
     public function save_post($post_id, WP_Post $post, $update) {
         // No point in doing anything if it's new
         if ($update) {
-            // Delete transients for current post
-            self::delete('_'.$post_id.'_');
+            $this->clear_post_transients($post_id);
+        }
+    }
 
-            // Delete transients for archives
-            $post_type = get_post_type($post_id);
-            self::delete('_'.$post_type.'_');
+    /**
+     * Fires on delete_post hook to clear all transients associated with that post
+     * @param integer $post_id
+     */
+    public function delete_post($post_id) {
+        $this->clear_post_transients($post_id);
+    }
 
-            // Have to also remove transients for ancestors or we may run into issues with "children as..." templates
-            $ancestors = get_ancestors($post_id, $post_type);
-            foreach ($ancestors as $ancestor_id) {
-                self::delete('_'.$ancestor_id.'_');
-            }
+    private function clear_post_transients($post_id) {
+        // Delete transients for current post
+        self::delete('_'.$post_id.'_');
+
+        // Delete transients for archives
+        $post_type = get_post_type($post_id);
+        self::delete('_'.$post_type.'_');
+
+        // Have to also remove transients for ancestors or we may run into issues with "children as..." templates
+        $ancestors = get_ancestors($post_id, $post_type);
+        foreach ($ancestors as $ancestor_id) {
+            self::delete('_'.$ancestor_id.'_');
         }
     }
 }
