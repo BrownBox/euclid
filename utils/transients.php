@@ -1,7 +1,7 @@
 <?php
 /**
  * Simplifying working with multiple transients
- * @version 1.0.0
+ * @version 1.0.1
  * @author Chris Chatterton <chris@brownbox.net.au> - Base functionality
  * @author Mark Parnell <markparnell@brownbox.net.au> - Class wrapper and auto-refresh functionality
  */
@@ -11,7 +11,8 @@ class BB_Transients {
      */
     public function __construct() {
         add_action('save_post', array($this, 'save_post'), 10, 3);
-        add_action('delete_post', array($this, 'delete_post'));
+        add_action('delete_post', array($this, 'delete_post'), 10, 1);
+        add_action('wp_update_nav_menu', array($this, 'wp_update_nav_menu'), 10, 2);
     }
 
     /**
@@ -152,6 +153,19 @@ class BB_Transients {
         $this->clear_post_transients($post_id);
     }
 
+    /**
+     * Fires on saving menu to clear all nav transients
+     * @param integer $menu_id
+     * @param array $menu_data
+     */
+    public function wp_update_nav_menu($menu_id, $menu_data) {
+        self::delete('nav');
+    }
+
+    /**
+     * Removes all transients associated with the specified post, including parent posts and archives
+     * @param integer $post_id
+     */
     private function clear_post_transients($post_id) {
         // Delete transients for current post
         self::delete('_'.$post_id.'_');
