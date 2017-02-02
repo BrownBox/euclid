@@ -125,7 +125,7 @@ if (false === ($ob = get_transient($transient))) {
             <?php get_sidebar('children-as-tabs'); ?>
         </aside>
         <div class="small-22 medium-14 large-17 float-left column">
-            <h1 class="text3"><?php echo $post->post_title; ?></h1>
+            <h1><?php echo $post->post_title; ?></h1>
             <div class="tabs-content vertical" data-tabs-content="about-us-tabs">
 <?php
     $is_active = false;
@@ -145,7 +145,7 @@ if (false === ($ob = get_transient($transient))) {
         }
         $slug = get_the_slug($child->ID);
         echo '<div class="tabs-panel '.$class.'" id="'. $slug .'" data-equalizer-watch>'."\n";
-        echo '<h2 class="text3">'.$child->post_title.'</h2>'."\n";
+        echo '<h2>'.$child->post_title.'</h2>'."\n";
         echo apply_filters('the_content', $child->post_content);
         echo '</div>'."\n";
         unset($class);

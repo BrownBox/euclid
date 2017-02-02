@@ -23,20 +23,22 @@
 
 global $post;
 
-if (is_page() || is_single()) {
-    $meta = bb_get_post_meta($post->ID);
-
+if (is_archive()) {
+    $archive_page = get_page_by_path(get_post_type($post));
+    $meta = bb_get_post_meta($archive_page->ID);
+    $transient_suffix = '_'.get_post_type($post);
+} elseif (is_home() && !is_front_page()) {
+    $blog_page = get_option('page_for_posts', true);
+    $meta = bb_get_post_meta($blog_page);
+    $transient_suffix = '_'.get_post_type($post);
+} else {
     $ancestors = get_ancestors($post->ID, get_post_type($post));
     $ancestor_string = '';
     if (!empty($ancestors)) {
         $ancestor_string = '_'.implode('_', $ancestors);
     }
     $transient_suffix = $ancestor_string.'_'.$post->ID;
-} else {
-    $meta = array();
-    if (is_archive()) {
-        $transient_suffix = '_'.$post->post_type;
-    }
+    $meta = bb_get_post_meta($post->ID);
 }
 
 $filename = str_replace(get_stylesheet_directory(), "", __FILE__); // Relative path from the theme folder

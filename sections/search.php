@@ -3,11 +3,7 @@
 /**
  * based on @version 1.0.0
  *
- * STEP 1: SETUP
- * @todo describe the purpose of this file
- * @todo define $sections_args & @todo set transients to false
- * @todo define local css $transient & @todo set burn time as SHORT_TERM, MEDIUM_TERM or LONG_TERM
- * @todo define the output $transient & @todo set burn time as SHORT_TERM, MEDIUM_TERM or LONG_TERM
+ * Search results
  *
  * STEP 2: CODE
  * @todo code the output markup. focus on grids and layouts for Small, Medium and Large Devices.
