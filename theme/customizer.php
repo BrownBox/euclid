@@ -349,7 +349,6 @@ function bb_theme_customizer(WP_Customize_Manager $wp_customize) {
             'priority' => 30,
     ));
 }
-add_action('customize_save_after', 'bb_update_dynamic_styles');
 
 function bb_get_theme_mod($key, $default = '') {
     if (strpos($key, ns_) !== 0) {
@@ -365,6 +364,21 @@ function bb_get_theme_mod($key, $default = '') {
     return $value;
 }
 
+add_action('customize_save_after', 'bb_save_default_customizer_values');
+function bb_save_default_customizer_values(WP_Customize_Manager $wp_customize) {
+    $settings = $wp_customize->settings();
+    $mods = get_theme_mods();
+    foreach ($settings as $setting) {
+        /** @var WP_Customize_Setting $setting */
+        if ($setting->type == 'option') {
+            add_option($setting->id, $setting->default);
+        } elseif (!isset($mods[$setting->id])) {
+            set_theme_mod($setting->id, $setting->default);
+        }
+    }
+}
+
+add_action('customize_save_after', 'bb_update_dynamic_styles');
 function bb_update_dynamic_styles() {
     $result = false;
     $styles = bb_generate_dynamic_styles();
