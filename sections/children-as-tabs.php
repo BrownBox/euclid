@@ -148,6 +148,14 @@ if (false === ($ob = get_transient($transient))) {
         echo '<h2>'.$child->post_title.'</h2>'."\n";
         echo apply_filters('the_content', $child->post_content);
         echo '</div>'."\n";
+        if (bb_has_children($child->ID)) { // If child page has children of its own, add them too
+            foreach (bb_get_children($child) as $grandchild) {
+                echo '<div class="tabs-panel" id="'.get_the_slug($grandchild->ID).'" data-equalizer-watch>'."\n";
+                echo '<h2 class="text3">'.$grandchild->post_title.'</h2>'."\n";
+                echo apply_filters('the_content', $grandchild->post_content);
+                echo '</div>'."\n";
+            }
+        }
         unset($class);
     }
 ?>

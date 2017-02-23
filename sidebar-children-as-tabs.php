@@ -56,7 +56,10 @@ if ( false === ( $ob = get_transient( $transient ) ) ) {
     ob_start(); ?>
 <style>
 /* START: <?php echo $section_args['filename'].' - '.date("Y-m-d H:i:s"); ?> */
-@media only screen {}
+@media only screen {
+    li.sub-menu-item {padding-left: 1rem;}
+    li.sub-menu-item > a {max-width: 100%;}
+}
 @media only screen and (min-width: 40em) { /* <-- min-width 640px - medium screens and up */ }
 @media only screen and (min-width: 64em) { /* <-- min-width 1024px - large screens and up */ }
 @media only screen and (min-width: <?php echo ROW_MAX_WIDTH; ?> ) {}
@@ -149,12 +152,17 @@ if ( false === ( $ob = get_transient( $transient ) ) ) {
         }
         $menu .= '        <li class="menu-item tabs-title '.$class.'">'."\n";
         unset($class);
-        if (bb_has_children($item->ID) || !empty($item->post_excerpt)) { // If page has children or excerpt, link to the actual page
-            $menu .= '            <a class="text3 htext9" href="#'.get_the_slug($item->ID).'">'.$item->post_title.'</a>'."\n";
-        } elseif (!$has_children) { // If we're showing siblings (and not linking to the full page), link to the anchor on the parent page
+        if (!$has_children) { // If we're showing siblings (and not linking to the full page), link to the anchor on the parent page
             $menu .= '            <a class="text3 htext9" href="'.get_the_permalink($post->post_parent).'#'.get_the_slug($item->ID).'">'.$item->post_title.'</a>'."\n";
         } else { // Otherwise just link to the anchor on the current page
             $menu .= '            <a class="text3 htext9" href="#'.get_the_slug($item->ID).'">'.$item->post_title.'</a>'."\n";
+            if (bb_has_children($item->ID)) { // If child page has children of its own, add links to them
+                foreach (bb_get_children($item) as $grandchild) {
+                    $menu .= '        </li>'."\n";
+                    $menu .= '        <li class="menu-item sub-menu-item tabs-title '.$class.'">'."\n";
+                    $menu .= '            <a class="text3 htext9" href="#'.get_the_slug($grandchild->ID).'">'.$grandchild->post_title.'</a>'."\n";
+                }
+            }
         }
         $menu .= '        </li>'."\n";
     }
