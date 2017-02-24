@@ -2,7 +2,7 @@
 /**
  * Gets the URL for the post featured image. Works with Multisite Featured Image plugin as well as native WP.
  * @param string $size
- * @param string $post
+ * @param int|WP_Post $post
  * @return boolean|NULL|string False on error, null if no thumbnail, else string image URL
  */
 function bb_get_featured_image_url($size = 'single-post-thumbnail', $post = null) {
