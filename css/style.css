@@ -182,9 +182,9 @@ aside .sticky {background-color: white;}
 
 .panel-wrapper.video {height: 300px;}
 .panel-wrapper.video .column {display: inline-block; padding: 0; height: 100%; overflow: hidden; position: relative; text-align: center;}
-.panel-wrapper.video .wrapper {display: table; height: 100%; width: 100%; min-height: inherit;}
-.panel-wrapper.video .link {display: table-row;}
-.panel-wrapper.video .link .fa {display: table-cell; vertical-align: middle; color: #E62117;}
+.panel-wrapper.video .wrapper {display: block; position: absolute; width: 100%; height: 100%;}
+.panel-wrapper.video .link {display: block; position: absolute; width: 100%; height: 100%;}
+.panel-wrapper.video .link .fa {color: #E62117; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);}
 
 /* Medium and up */
 @media only screen and (min-width: 40em) { /* <-- min-width 640px - medium screens and up */	
