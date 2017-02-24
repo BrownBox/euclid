@@ -42,7 +42,7 @@ class BB_Transients {
 
         // filter by $string (if provided)
         foreach ($transients as $transient) {
-            if (false !== strpos($transient->name, $string)) {
+            if (empty($string) || false !== strpos($transient->name, $string)) {
                 $matching[] = $transient;
             }
         }
@@ -76,7 +76,7 @@ class BB_Transients {
 
         // loop through and delete matching transients
         foreach ($transients as $transient) {
-            if(false !== strpos($transient->name, $string)) {
+            if (empty($string) || false !== strpos($transient->name, $string)) {
                 $matching[] = str_replace('_transient_', '', $transient->name);
                 delete_transient(str_replace('_transient_', '', $transient->name));
             }
