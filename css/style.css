@@ -1,11 +1,11 @@
 /* Default Styles - DO NOT EDIT */
 body {position: static !important;}
-body h1 {font-size: 2rem;}
-body h2 {font-size: 1.75rem;}
-body h3 {font-size: 1.5rem;}
-body h4 {font-size: 1.25rem;}
-body h5 {font-size: 1.1rem;}
-body h6 {font-size: 1rem;}
+body h1, .h1 {font-size: 2rem;}
+body h2, .h2 {font-size: 1.75rem;}
+body h3, .h3 {font-size: 1.5rem;}
+body h4, .h4 {font-size: 1.25rem;}
+body h5, .h5 {font-size: 1.1rem;}
+body h6, .h6 {font-size: 1rem;}
 
 .everything {border-left: 1px solid rgba(0, 0, 0, 0.1); border-right: 1px solid rgba(0, 0, 0, 0.1); margin-left: auto; margin-right: auto;}
 
