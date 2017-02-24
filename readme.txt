@@ -1,6 +1,17 @@
 Release Notes
 =============
 
+7.2.2
+Default customizer values now save automatically
+Children as tabs now includes grandchildren
+Added new function for post extract with support for both excerpt and <!--more--> with fallback to auto-generated excerpt
+Added background size CSS helper classes
+Zurb tabs now play nicely with equalizer and you can now link directly to a specific tab
+Added background opacity option for panels
+Admin bar refresh button now clears transients as well
+Smarter hero logic
+Bug fixes and performance improvements
+
 7.2.1
 New search functionality can now be turned on or off as desired
 New bb_get_post_meta() for nicer meta handling
