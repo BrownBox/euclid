@@ -1,20 +1,8 @@
 <div class="small-24 columns">
 <?php
 /**
- * based on @version 1.0.0
- *
- * Search results
- *
- * STEP 2: CODE
- * @todo code the output markup. focus on grids and layouts for Small, Medium and Large Devices.
- * @todo code the local css. Mobile 1st, then medium and large.
- *
- * STEP 3: SIGN_OFF
- * @todo review code quality (& rework as required)
- * @todo review and promote css (as required)
- * @todo reset transitents and retest
- * @todo set transients for production.
- * @todo leave sign-off name and date
+ * BB Search @version 1.0.2
+ * @author Chris Chatterton
  *
  */
 
@@ -36,8 +24,21 @@ $section_args = array(
 if( is_user_logged_in() ) array_push( $section_args['post_type'] , array() ); // add private post types here
 if( isset( $_GET['post_type'] ) ) $section_args['post_type'] = array( $_GET['post_type'] );
 
-$transients = defined(WP_BB_ENV) && WP_BB_ENV == 'PRODUCTION'; // Set this to false to force all transients to refresh
-$track_hist = true; // change this to false to force $hist transients to refresh
+if(is_user_logged_in()) {
+    $transients = false;
+    $track_hist = false;
+    if ($_GET['s'] == 'reset search history transient') reset_transients( $section_args['namespace'].'_hist_' );
+    $strstr = strpos( $section_args['string'], 'reset search transient for');
+    if ( false !== $strstr ){
+        $section_args['string'] = trim( strtolower( substr($section_args['string'], 26 ) ) );
+        reset_transients( $section_args['namespace'].'_results_'.$section_args['string'] );
+    }
+    if ($_GET['s'] == 'reset all search transients please') reset_transients( $section_args['namespace'] );
+} else {
+    $transients = defined(WP_BB_ENV) && WP_BB_ENV == 'PRODUCTION'; // Set this to false to force all transients to refresh
+    $track_hist = true; // change this to false to force $hist transients to refresh
+}
+// reset_transients( 'search' ); // force a reset of all transients for this namespace
 
 if( isset( $section_args['msg'][$_GET['msg']] ) ) echo '<span class="h1 msg">'.$section_args['msg'][$_GET['msg']].'</span>'."\n";
 
@@ -118,16 +119,12 @@ unset( $transient );
 
 // track search strings
 $transient = ns_.$section_args['namespace'].'_hist_'.md5( $section_args['filename'] );
-if( false === $track_hist) delete_transient( $transient );
 if ( false === ( $hist = get_transient( $transient ) ) ) $hist = array();
 // var_dump( count( $search1->posts ) );
 if( count( $search1->posts ) > 0 ) {
-	if( !is_array( $hist[ $section_args['string'] ] ) ) $hist[ $section_args['string'] ] = array();
-	array_push( $hist[ $section_args['string'] ], time() );
-
-	set_transient( $transient, $hist, 30 * DAY_IN_SECONDS ); // 30 days
-	if( false === $track_hist) delete_transient( $transient );
-
+    if( !is_array( $hist[ $section_args['string'] ] ) ) $hist[ $section_args['string'] ] = array();
+    array_push( $hist[ $section_args['string'] ], time() );
+    if( false !== $track_hist) set_transient( $transient, $hist, 2592000 * HOUR_IN_SECONDS ); // 30 days
 }
 unset( $transient );
 
@@ -181,8 +178,8 @@ if ( false === ( $ob = get_transient( $transient ) ) ) {
 			$markup .= '  	<span class="h1">'.$post->post_title.'</span>'."\n";
 
 			if( function_exists( 'bb_extract' ) ) {
-				$markup .= '  	<span class="hide-for-medium-only">'.strip_tags( bb_extract( $post->post_content, 220 ) ).'</span>'."\n";
-				$markup .= '  	<span class="show-for-medium-only">'.strip_tags( bb_extract( $post->post_content, 120 ) ).'</span>'."\n";
+			    $markup .= '  	<span class="hide-for-medium-only">'.strip_tags( fx_extract( strip_shortcodes($post->post_content, 220 ) ) ).'</span>'."\n";
+			    $markup .= '  	<span class="show-for-medium-only">'.strip_tags( fx_extract( strip_shortcodes($post->post_content, 120 ) ) ).'</span>'."\n";
 			}
 			if( $post->post_type !== 'page' ) $markup .= '  	<span class="post_type">'.$post->post_type.'</span>'."\n";
 
@@ -233,8 +230,8 @@ if ( false === ( $ob = get_transient( $transient ) ) ) {
 				$markup .= '  	<span class="h1">'.$post->post_title.'</span>'."\n";
 
 				if( function_exists( 'bb_extract' ) ) {
-					$markup .= '  	<span class="hide-for-medium-only">'.strip_tags( bb_extract( $post->post_content, 220 ) ).'</span>'."\n";
-					$markup .= '  	<span class="show-for-medium-only">'.strip_tags( bb_extract( $post->post_content, 120 ) ).'</span>'."\n";
+				    $markup .= '  	<span class="hide-for-medium-only">'.strip_tags( bb_extract( strip_shortcodes( $post->post_content, 220 ) ) ).'</span>'."\n";
+				    $markup .= '  	<span class="show-for-medium-only">'.strip_tags( bb_extract( strip_shortcodes( $post->post_content, 120 ) ) ).'</span>'."\n";
 				}
 				if( $post->post_type !== 'page' ) $markup .= '  	<span class="post_type">'.$post->post_type.'</span>'."\n";
 
