@@ -27,14 +27,14 @@ if (is_archive()) {
         $term = get_term_by('slug', get_query_var('term'), get_query_var('taxonomy'));
         $title = $term->name;
     }
-    $images = bb_get_hero_images($archive_page);
     $meta = bb_get_post_meta($archive_page->ID);
+    $images = bb_get_hero_images($archive_page);
     $transient_suffix = '_'.get_post_type($post);
 } elseif (is_home() && !is_front_page()) {
     $blog_page = get_option('page_for_posts', true);
     $title = get_the_title($blog_page);
-    $images = bb_get_hero_images($blog_page);
     $meta = bb_get_post_meta($blog_page);
+    $images = bb_get_hero_images($blog_page);
     $transient_suffix = '_'.get_post_type($post);
 } else {
     $ancestors = get_ancestors($post->ID, get_post_type($post));
@@ -44,8 +44,8 @@ if (is_archive()) {
     }
     $transient_suffix = $ancestor_string.'_'.$post->ID;
     $title = get_the_title();
-    $images = bb_get_hero_images();
     $meta = bb_get_post_meta($post->ID);
+    $images = bb_get_hero_images();
 }
 
 $filename = str_replace(get_stylesheet_directory(), "", __FILE__); // Relative path from the theme folder
