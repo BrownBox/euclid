@@ -20,9 +20,13 @@
 global $post;
 
 if (is_archive()) {
-    $term = get_term_by('slug', get_query_var('term'), get_query_var('taxonomy'));
-    $title = $term->name;
     $archive_page = get_page_by_path(get_post_type($post));
+    if (is_post_type_archive()) {
+        $title = $archive_page->post_title;
+    } else {
+        $term = get_term_by('slug', get_query_var('term'), get_query_var('taxonomy'));
+        $title = $term->name;
+    }
     $images = bb_get_hero_images($archive_page);
     $meta = bb_get_post_meta($archive_page->ID);
     $transient_suffix = '_'.get_post_type($post);
