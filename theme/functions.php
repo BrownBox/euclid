@@ -348,10 +348,11 @@ class bb_theme {
         );
         $wp_admin_bar->add_node($args);
 
+        $refresh_link = is_admin() ? '/?bb=refresh' : '?bb=refresh';
         $args = array(
                 'id' => 'bb-css',
                 'title' => 'Refresh',
-                'href' => '?bb=refresh',
+                'href' => $refresh_link,
                 'meta' => array(
                         'class' => 'bb css',
                 ),
