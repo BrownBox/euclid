@@ -1,5 +1,5 @@
 <?php
-$panel_name = !empty(bb_get_post_meta($panel->ID, 'panel_name')) ? bb_get_post_meta($panel->ID, 'panel_name') : '';
+$panel_name = bb_get_post_meta($panel->ID, 'panel_name');
 $flavour = bb_get_post_meta($panel->ID, 'flavour');
 $bg_opacity = bb_get_post_meta($panel->ID, 'bg_opacity');
 $outer_wrapper_style = '';

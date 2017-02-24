@@ -1,8 +1,8 @@
 <?php
-$panel_name = (!empty(get_post_meta($wrapper->ID, 'panel_name', true))) ? get_post_meta($wrapper->ID, 'panel_name', true) : '';
-$flavour = get_post_meta($wrapper->ID, 'flavour', true);
+$panel_name = bb_get_post_meta($wrapper->ID, 'panel_name');
+$flavour = bb_get_post_meta($wrapper->ID, 'flavour');
 $bg_style = '';
-$bg_colour = get_post_meta($wrapper->ID, 'bg_colour', true);
+$bg_colour = bb_get_post_meta($wrapper->ID, 'bg_colour');
 if (is_numeric($bg_colour)) {
     $bg_colour = bb_get_theme_mod('colour'.$bg_colour);
 }
