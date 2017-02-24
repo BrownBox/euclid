@@ -1,15 +1,48 @@
-/* Panels */
 jQuery(document).ready(function() {
+    /* Panels */
     jQuery('.panel-slider').slick({
-    	dots: false,
-    	infinite: true,
-    	speed: 1500,
-    	slidesToShow: 1,
-    	adaptiveHeight: true,
-    	autoplay: true,
-    	autoplaySpeed: 8000,
-    	arrows: true
+        dots: false,
+        infinite: true,
+        speed: 1500,
+        slidesToShow: 1,
+        adaptiveHeight: true,
+        autoplay: true,
+        autoplaySpeed: 8000,
+        arrows: true
     });
+    
+    /* Make equalizer and tabs play nicely together */
+    jQuery('.tabs').on('change.zf.tabs', function() {
+        Foundation.reInit('equalizer');
+    });
+    
+    /* Add ability to link directly to a specific tab */
+    function bb_tab_deep_link(selector) {
+        jQuery(selector).each(function() {
+            var tabs = jQuery(this);
+
+            // append the hash on click
+            tabs.on('change.zf.tabs', function() {
+                Foundation.reInit('equalizer');
+                var anchor = tabs.find('.tabs-title.is-active a').attr('href');
+                history.pushState({}, "", anchor);
+            });
+
+            // match page load anchor
+            var anchor = window.location.hash;
+            if (anchor.length && tabs.find('[href="'+anchor+'"]').length) {
+                tabs.foundation('selectTab', jQuery(anchor));
+                // roll up a little to show the header
+                var offset = tabs.offset();
+                jQuery(window).load(function() {
+                    jQuery('html, body').animate({ scrollTop: offset.top }, 300);
+                });
+            }
+        });
+    }
+
+    /* Turn this on for all the tabs or a subset */
+    bb_tab_deep_link('[data-tabs]');
 });
 
 /* BG Srcset 1.0 - https://codepen.io/jessekernaghan/pen/wGjtC */
