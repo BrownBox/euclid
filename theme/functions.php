@@ -350,15 +350,17 @@ class bb_theme {
 
         $args = array(
                 'id' => 'bb-css',
-                'title' => 'CSS',
-                'href' => '?css=refresh',
+                'title' => 'Refresh',
+                'href' => '?bb=refresh',
                 'meta' => array(
                         'class' => 'bb css',
                 ),
         );
         $wp_admin_bar->add_node($args);
-        if ($_GET['css'] == 'refresh') {
+        if (isset($_GET['bb']) && $_GET['bb'] == 'refresh') {
             bb_update_dynamic_styles();
+            $transients = new BB_Transients();
+            $transients->delete();
         }
     }
 
