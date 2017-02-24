@@ -558,22 +558,22 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="'.$colour1.'"
     // Custom styles including key dimensions
     $styles .= <<<EOS
 .row {max-width: $row_max_width;}
-div.hero {height: $hero_height_other_small;}
-body.home div.hero {height: $hero_height_home_small;}
+.everything {max-width: $site_max_width;}
+.hero-height {height: $hero_height_other_small; overflow: hidden;}
+.home .hero-height {height: $hero_height_home_small;}
 
 @media only screen and (min-width: 40em) { /* <-- min-width 640px - medium screens and up */
-    div.hero {height: $hero_height_other_medium;}
-    body.home div.hero {height: $hero_height_home_medium;}
+    .hero-height {height: $hero_height_other_medium; overflow: hidden;}
+    .home .hero-height {height: $hero_height_home_medium;}
 }
 @media only screen and (min-width: 64em) { /* <-- min-width 1024px - large screens and up */
-    div.hero {height: $hero_height_other_large;}
-    body.home div.hero {height: $hero_height_home_large;}
+    .hero-height {height: $hero_height_other_large; overflow: hidden;}
+    .home .hero-height {height: $hero_height_home_large;}
 }
 @media only screen and (min-width: $row_max_width) {
 }
 @media only screen and (min-width: $site_max_width) {
 }
-
 EOS;
     return $styles;
 }

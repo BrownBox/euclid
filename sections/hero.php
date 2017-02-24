@@ -145,7 +145,7 @@ if (false === ($ob = get_transient($transient))) {
     // section content
     if (!empty($section_args['images']['large'])) {
 ?>
-<div class="hero small-24 medium-24 large-24 column" bg-srcset="<?php echo $section_args['images']['small']; ?> 639w, <?php echo $section_args['images']['medium']; ?> 1023w, <?php echo $section_args['images']['large']; ?>">
+<div class="hero hero-height small-24 medium-24 large-24 column" bg-srcset="<?php echo $section_args['images']['small']; ?> 639w, <?php echo $section_args['images']['medium']; ?> 1023w, <?php echo $section_args['images']['large']; ?>">
     <div class="row">
         <div class="small-24 medium-24 large-24 column">
    	        <h1><?php echo $section_args['title']; ?></h1>
