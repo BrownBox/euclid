@@ -1,7 +1,7 @@
 <?php
-$panel_name = (!empty(get_post_meta($panel->ID, 'panel_name', true))) ? get_post_meta($panel->ID, 'panel_name', true) : '';
-$flavour = get_post_meta($panel->ID, 'flavour', true);
-$inner_wrapper_style = $outer_wrapper_style = '';
+$panel_name = !empty(bb_get_post_meta($panel->ID, 'panel_name')) ? bb_get_post_meta($panel->ID, 'panel_name') : '';
+$flavour = bb_get_post_meta($panel->ID, 'flavour');
+$outer_wrapper_style = '';
 $bg_style = '';
 $bg_colour = get_post_meta($panel->ID, 'bg_colour', true);
 if (is_numeric($bg_colour)) {
@@ -13,8 +13,8 @@ if (!empty($bg_colour)) {
 if (has_post_thumbnail($panel->ID)) {
     $image = get_value_from_hierarchy('featured_image', $panel->ID);
     $bg_style .= 'background-image: url('.$image.');';
-    $bg_pos_x = get_post_meta($panel->ID, 'bg_pos_x', true);
-    $bg_pos_y = get_post_meta($panel->ID, 'bg_pos_y', true);
+    $bg_pos_x = bb_get_post_meta($panel->ID, 'bg_pos_x');
+    $bg_pos_y = bb_get_post_meta($panel->ID, 'bg_pos_y');
     if (!empty($bg_pos_x)) {
         $bg_style .= 'background-position-x: '.$bg_pos_x.';';
     }
