@@ -147,6 +147,17 @@ function bb_panel_meta() {
                                 'multiple' => 0,
                         ),
                         array(
+                                'key' => 'bb_panels_field_hide_title',
+                                'label' => 'Hide Panel Title?',
+                                'name' => 'hide_title',
+                                'type' => 'checkbox',
+                                'choices' => array(
+                                        'true' => 'Hide Title',
+                                ),
+                                'default_value' => '',
+                                'layout' => 'horizontal',
+                        ),
+                        array(
                                 'key' => 'bb_panels_field_flavour',
                                 'label' => 'Display Style',
                                 'name' => 'flavour',
@@ -163,15 +174,16 @@ function bb_panel_meta() {
                                 'layout' => 'horizontal',
                         ),
                         array(
-                                'key' => 'bb_panels_field_hide_title',
-                                'label' => 'Hide Panel Title?',
-                                'name' => 'hide_title',
-                                'type' => 'checkbox',
-                                'choices' => array(
-                                        'true' => 'Hide Title',
-                                ),
-                                'default_value' => '',
-                                'layout' => 'horizontal',
+                                'key' => 'bb_panels_bg_opacity',
+                                'label' => 'Background Image Opacity',
+                                'instructions' => 'Enter a number between 0 (completely transparent) and 1 (completely opaque).',
+                                'name' => 'bg_opacity',
+                                'type' => 'number',
+                                'default_value' => '1',
+                                'formatting' => 'text',
+                                'min' => 0,
+                                'max' => 1,
+                                'step' => 0.01,
                         ),
                         array(
                                 'key' => 'bb_panels_field_bg_colour',
