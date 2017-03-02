@@ -58,7 +58,8 @@ function bb_menu($args, $echo = true) {
                         if (strpos($menu_item->url, $modal) > 0) {
                             $ourmenu .= '<a data-reveal-id="'.$modal.'_'.$menu_item->object_id.'" href="#">'.$menu_item->title.'</a>';
                         } else {
-                            $ourmenu .= '<a class="'.$class.'" href="'.$menu_item->url.'">'.$menu_item->title.'</a>';
+                            $target = empty($menu_item->target) ? '' : ' target="'.$menu_item->target.'"';
+                            $ourmenu .= '<a class="'.$class.'" href="'.$menu_item->url.'"'.$target.'>'.$menu_item->title.'</a>';
                         }
 
                         // Add child menu items if they exist
@@ -75,7 +76,8 @@ function bb_menu($args, $echo = true) {
                                 if (strpos( $direct_child->url, $modal ) > 0) {
                                     $ourmenu .= '<a data-reveal-id="'.$modal.'_'.$direct_child->object_id.'" href="#">'.$direct_child->title.'</a>';
                                 } else {
-                                    $ourmenu .= '<a class="'.$class.'" href="'.$direct_child->url.'">'.$direct_child->title.'</a>';
+                                    $target = empty($direct_child->target) ? '' : ' target="'.$direct_child->target.'"';
+                                    $ourmenu .= '<a class="'.$class.'" href="'.$direct_child->url.'"'.$target.'>'.$direct_child->title.'</a>';
                                 }
                                 $ourmenu .= '</li>';
                             }
