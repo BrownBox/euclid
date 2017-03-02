@@ -1,26 +1,30 @@
 <?php
 /**
  * Gets meta for a post
- * @param integer $post_id Post ID to retrieve meta for
+ * @param integer|WP_Post $post Optional. Post to retrieve meta for
  * @param string $key Optional. Meta key to retrieve value for
  * @return array|mixed If key is empty will return array of meta values already single-ised, else will return value for the specified key
  */
-function bb_get_post_meta($post_id, $key = '') {
-    $transients = defined(WP_BB_ENV) && WP_BB_ENV == 'PRODUCTION'; // Set this to false to force all transients to refresh
-    $transient = ns_.'meta_'.$post->ID.'_';
-    if (false === $transients) {
-        delete_transient($transient);
-    }
-    if (false === ($meta = get_transient($transient))) {
-        $meta = bb_rationalise_meta(get_post_meta($post_id));
-        if (true === $transients) {
-            set_transient($transient, $meta, LONG_TERM);
+function bb_get_post_meta($post = null, $key = '') {
+    $post = get_post($post);
+    $meta = false;
+    if ($post instanceof WP_Post) {
+        $transients = defined(WP_BB_ENV) && WP_BB_ENV == 'PRODUCTION'; // Set this to false to force all transients to refresh
+        $transient = ns_.'meta_'.$post->ID.'_';
+        if (false === $transients) {
+            delete_transient($transient);
         }
-    }
-    unset($transient);
+        if (false === ($meta = get_transient($transient))) {
+            $meta = bb_rationalise_meta(get_post_meta($post->ID));
+            if (true === $transients) {
+                set_transient($transient, $meta, LONG_TERM);
+            }
+        }
+        unset($transient);
 
-    if (!empty($key)) {
-        return $meta[$key];
+        if (!empty($key)) {
+            return $meta[$key];
+        }
     }
 
     return $meta;
