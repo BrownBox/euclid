@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+7.2.3
+Added support for opening menu items in new tab
+Better logic for hero images and other hierarchy-driven values
+Bug fixes
+
 7.2.2
 Default customizer values now save automatically
 Children as tabs now includes grandchildren
