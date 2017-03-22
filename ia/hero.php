@@ -19,6 +19,17 @@ if (function_exists("register_field_group")) {
                             'default_value' => 'transparent',
                     ),
                     array(
+                            'key' => 'bb_hero_hide_title',
+                            'label' => 'Hide Title?',
+                            'name' => 'hide_title',
+                            'type' => 'checkbox',
+                            'choices' => array(
+                                    'true' => 'Hide Title',
+                            ),
+                            'default_value' => '',
+                            'layout' => 'horizontal',
+                    ),
+                    array(
                             'key' => 'bb_hero_image',
                             'label' => 'Hero Image',
                             'name' => 'hero_image',

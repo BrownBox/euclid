@@ -110,7 +110,15 @@ if (false === ($ob = get_transient($transient))) {
 <style>
 /* START: <?php echo $section_args['filename'].' - '.date("Y-m-d H:i:s"); ?> */
 @media only screen {
-    .hero {background-position: <?php echo $bgpos_x_small.' '.$bgpos_y_small; ?>; background-color: <?php echo $section_args['meta']['hero_bgcolour']; ?>;}
+    #row-hero {background-color: <?php echo bb_get_theme_mod('colour'.$section_args['meta']['hero_bgcolour']); ?>;}
+    #row-hero:before {background-image: url(<?php echo $section_args['images']['small']; ?>); background-position: <?php echo $bgpos_x_small.' '.$bgpos_y_small; ?>; opacity: <?php echo $section_args['meta']['bg_opacity']; ?>;}
+<?php
+    if ($section_args['meta']['hide_title']) {
+?>
+    .page-title {display: none;}
+<?php
+    }
+?>
 }
 @media only screen and (min-width: 40em) { /* <-- min-width 640px - medium screens and up */
     .hero {background-position: <?php echo $bgpos_x_medium.' '.$bgpos_y_medium; ?>;}
