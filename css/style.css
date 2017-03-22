@@ -37,6 +37,8 @@ hr.clear {background: rgba(0, 0, 0, 0) none repeat scroll 0 0; border: medium no
 .hbg-white:hover {background-color:#fff;} 
 .hbg-black:hover {background-color:#000;}
 
+.absolute {position: absolute;}
+.relative {position: relative;}
 .background-contain, .background-contain .row-bg-wrapper {background-size: contain;}
 .background-cover, .background-cover .row-bg-wrapper {background-size: cover;}
 
