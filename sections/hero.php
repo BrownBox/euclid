@@ -73,7 +73,9 @@ if (false === ($ob = get_transient($transient))) {
     ?>
 <style>
 /* START: <?php echo $section_args['filename'].' - '.date("Y-m-d H:i:s"); ?> */
-@media only screen {}
+@media only screen {
+    #row-hero {color: <?php echo bb_get_theme_mod('bb_colour1'); ?>; text-shadow: 0.125rem 0.125rem 0.125rem #555;}
+}
 @media only screen and (min-width: 40em) { /* <-- min-width 640px - medium screens and up */ }
 @media only screen and (min-width: 64em) { /* <-- min-width 1024px - large screens and up */ }
 @media only screen and (min-width: <?php echo ROW_MAX_WIDTH; ?> ) {}
@@ -121,10 +123,10 @@ if (false === ($ob = get_transient($transient))) {
 ?>
 }
 @media only screen and (min-width: 40em) { /* <-- min-width 640px - medium screens and up */
-    .hero {background-position: <?php echo $bgpos_x_medium.' '.$bgpos_y_medium; ?>;}
+    #row-hero:before {background-image: url(<?php echo $section_args['images']['medium']; ?>); background-position: <?php echo $bgpos_x_medium.' '.$bgpos_y_medium; ?>;}
 }
 @media only screen and (min-width: 64em) { /* <-- min-width 1024px - large screens and up */
-    .hero {background-position: <?php echo $bgpos_x_large.' '.$bgpos_y_large; ?>;}
+    #row-hero:before {background-image: url(<?php echo $section_args['images']['large']; ?>); background-position: <?php echo $bgpos_x_large.' '.$bgpos_y_large; ?>;}
 }
 @media only screen and (min-width: <?php echo ROW_MAX_WIDTH; ?> ) {}
 @media only screen and (min-width: <?php echo SITE_MAX_WIDTH; ?> ) {}
@@ -157,19 +159,9 @@ if (false === ($ob = get_transient($transient))) {
     // section content
     if (!empty($section_args['images']['large'])) {
 ?>
-<div class="hero hero-height small-24 medium-24 large-24 column" bg-srcset="<?php echo $section_args['images']['small']; ?> 639w, <?php echo $section_args['images']['medium']; ?> 1023w, <?php echo $section_args['images']['large']; ?>">
-    <div class="row">
-        <div class="small-24 medium-24 large-24 column">
-   	        <h1><?php echo $section_args['title']; ?></h1>
-   	    </div>
-    </div>
+<div class="small-24 medium-24 large-24 column">
+    <h1><?php echo $section_args['title']; ?></h1>
 </div>
-<script>
-jQuery(document).ready(function() {
-    var bgss = new bgsrcset();
-    bgss.init('.hero');
-});
-</script>
 <?php
     }
 
