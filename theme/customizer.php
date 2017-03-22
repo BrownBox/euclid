@@ -75,6 +75,37 @@ function bb_theme_customizer(WP_Customize_Manager $wp_customize) {
             'priority' => 50,
     )));
 
+    // Patterns
+    $wp_customize->add_section(ns_.'pattern', array(
+            'title' => __('Theme Patterns', ns_),
+            'description' => 'Enter number of patterns. Click save and reload the page.',
+            'priority' => 40,
+    ));
+    $wp_customize->add_setting(ns_.'patterns', array(
+            'default' => 2,
+            'sanitize_callback' => 'absint',
+            'type' => 'option',
+    ));
+    $wp_customize->add_control(ns_.'patterns', array(
+            'label' => __('Number of Patterns used in the theme', ns_),
+            'section' => ns_.'pattern',
+            'type' => 'text',
+            'priority' => 10,
+    ));
+    $patterns = bb_get_theme_mod(ns_.'patterns',2);
+    for ($i = 1; $i <= $patterns; $i++) {
+        $wp_customize->add_setting(ns_.'pattern'.$i, array(
+                'default' => '',
+                'sanitize_callback' => 'esc_url_raw',
+                'type' => 'option',
+        ));
+        $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, ns_.'pattern'.$i, array(
+                'label' => ns_.'pattern'.$i,
+                'section' => ns_.'pattern',
+                'priority' => 50,
+        )));
+    }
+
     // Fonts
     $wp_customize->add_section(ns_.'fonts', array(
             'title' => __('Fonts', ns_),
