@@ -40,6 +40,18 @@ if (function_exists("register_field_group")) {
                             'library' => 'all',
                     ),
                     array(
+                            'key' => 'bb_hero_bg_opacity',
+                            'label' => 'Background Image Opacity',
+                            'instructions' => 'Enter a number between 0 (completely transparent) and 1 (completely opaque).',
+                            'name' => 'bg_opacity',
+                            'type' => 'number',
+                            'default_value' => '1',
+                            'formatting' => 'text',
+                            'min' => 0,
+                            'max' => 1,
+                            'step' => 0.01,
+                    ),
+                    array(
                             'key' => 'bb_hero_bgpos_y',
                             'label' => 'Background Image Anchor (Vertical)',
                             'name' => 'hero_bgpos_y',
