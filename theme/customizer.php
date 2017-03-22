@@ -518,6 +518,7 @@ function bb_generate_dynamic_styles() {
     }
 
     // Set up theme palette variables
+    $colour0 = 'transparent';
     $colour_count = bb_get_theme_mod(ns_.'colours', BB_DEFAULT_COLOUR_COUNT);
     for ($i = 1; $i <= $colour_count; $i++) {
         ${'colour'.$i} = bb_get_theme_mod(ns_.'colour'.$i);
@@ -546,11 +547,11 @@ function bb_generate_dynamic_styles() {
     }
 
     // Helper classes for text, background and border colours
-    for ($i = 1; $i <= $colour_count; $i++) {
-        $styles .= '.text'.$i.' {color: '.${'colour'.$i}.';}'."\n";
+    for ($i = 0; $i <= $colour_count; $i++) {
+        $styles .= '.text'.$i.', .panel-wrapper.text'.$i.' * {color: '.${'colour'.$i}.';}'."\n";
         $styles .= '.bg'.$i.' {background-color: '.${'colour'.$i}.';}'."\n";
         $styles .= '.border'.$i.' {border-color: '.${'colour'.$i}.';}'."\n";
-        $styles .= '.htext'.$i.':hover {color: '.${'colour'.$i}.';}'."\n";
+        $styles .= '.htext'.$i.':hover, .panel-wrapper.text'.$i.':hover * {color: '.${'colour'.$i}.';}'."\n";
         $styles .= '.hbg'.$i.':hover {background-color: '.${'colour'.$i}.';} '."\n";
         $styles .= '.hborder'.$i.':hover {border-color: '.${'colour'.$i}.';}'."\n";
     }
