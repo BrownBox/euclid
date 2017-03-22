@@ -42,6 +42,14 @@ hr.clear {background: rgba(0, 0, 0, 0) none repeat scroll 0 0; border: medium no
 .background-contain, .background-contain .row-bg-wrapper {background-size: contain;}
 .background-cover, .background-cover .row-bg-wrapper {background-size: cover;}
 
+#logo {max-height: 5rem;}
+#small-logo {max-height: 4rem; padding: 0.5rem 0;}
+nav.top-bar {position: relative;}
+nav.top-bar .top-bar-right {top: 0.5rem; position: absolute; right: 0.5rem;}
+nav.top-bar .top-bar-left {top: 0.5rem; position: absolute; left: 0.5rem;}
+nav.top-bar .menu > li > a {margin-left: 0.25rem; border-radius: 0rem; padding:0.5rem 0.75rem; font-size: 0.8rem;}
+nav.top-bar, nav.top-bar ul {background-color:transparent;}
+
 #template-name {background-color: rgba(255, 255, 255, 0.25); bottom: 0; display: inline-block; opacity: 0.5; padding: 1rem; position: fixed; right: 0;}
 
 .notouch {background:transparent; position:relative; z-index: 10;}
@@ -211,7 +219,7 @@ aside .sticky {background-color: white;}
 
 /* Medium and up */
 @media only screen and (min-width: 40em) { /* <-- min-width 640px - medium screens and up */
-
+    nav.top-bar {min-height: 6rem;}
 }
 
 /* Large and up */
