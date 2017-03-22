@@ -107,6 +107,10 @@ function bb_p_link($i, $querystring = false, $title = '') {
         default:
             $readabletitle = sprintf(_x("Page %d", 'pagination page number', THEME_TEXTDOMAIN), $i);
     }
-    $link = $querystring ? '?n='.$i : esc_html(get_pagenum_link($i));
+    if ($querystring) {
+        $link = add_query_arg('n', $i);
+    } else {
+        $link = esc_html(get_pagenum_link($i));
+    }
     return '<li><a href="'.$link.'" '.$rel.' title="'.$readabletitle.'">'.$linktext.'</a></li>';
 }
