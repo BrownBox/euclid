@@ -413,6 +413,7 @@ add_action('customize_save_after', 'bb_update_dynamic_styles');
 function bb_update_dynamic_styles() {
     $result = false;
     $styles = bb_generate_dynamic_styles();
+    require_once(ABSPATH.'wp-admin/includes/file.php');
     $access_type = get_filesystem_method();
     if ($access_type === 'direct') {
         $creds = request_filesystem_credentials(site_url().'/wp-admin/', '', false, get_stylesheet_directory().'/css/');
