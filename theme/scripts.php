@@ -28,6 +28,7 @@ class bb_enqueue {
         // Theme styles
         wp_enqueue_style('theme_style', get_stylesheet_directory_uri().'/css/style.css', array(), filemtime(get_stylesheet_directory().'/css/style.css'));
         wp_enqueue_style('theme_dynamic', get_stylesheet_directory_uri().'/css/'.bb_get_dynamic_styles_filename(), array(), filemtime(get_stylesheet_directory().'/css/'.bb_get_dynamic_styles_filename()));
+        wp_enqueue_style('fontawesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css', array(), '4.6.3');
     	wp_enqueue_style('slick', get_stylesheet_directory_uri().'/css/vendor/slick.css', array(), '1.5.8');
 
         // Header scripts
