@@ -137,7 +137,7 @@ function bb_panel_show_title(WP_Post $panel) {
  */
 function bb_panel_title(WP_Post $panel) {
     if (bb_panel_show_title($panel)) {
-        echo '<h1>'.$panel->post_title.'</h1>'."\n";
+        echo '<p class="h1">'.$panel->post_title.'</p>'."\n";
     }
 }
 
