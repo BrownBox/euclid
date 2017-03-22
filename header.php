@@ -28,12 +28,13 @@ wp_head();
     <div class="everything">
 		<div class="off-canvas-wrapper">
 			<div class="off-canvas-wrapper-inner" data-off-canvas-wrapper><!-- off-canvas left menu -->
-<?php locate_template(array('sections/offcanvas.php'), true);?>
+<?php locate_template(array('sections/offcanvas.php'), true); ?>
 				<div class="off-canvas-content" data-off-canvas-content>
                     <header data-swiftype-index='false' class="hide-for-print clearfix">
 <?php
-locate_template(array('sections/nav.php'), true);
-bb_theme::section('name=hero&file=hero.php&inner_class=row-full');
+bb_theme::section('name=top&file=top.php&inner_class=row&class=bg1 gradient'); // includes logo and top menu by default
+bb_theme::section('name=menu&file=menu.php&inner_class=row&class=bg5 show-for-medium');
+bb_theme::section('name=hero&file=hero.php&inner_class=row relative hero-height');
 ?>
                     </header>
                     <section class="main-section">

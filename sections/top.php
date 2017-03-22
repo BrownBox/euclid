@@ -62,8 +62,17 @@ if (false === ($ob = get_transient($transient))) {
 ?>
 <style>
 /* START: <?php echo $section_args['filename'].' - '.date("Y-m-d H:i:s"); ?> */
-@media only screen {}
-@media only screen and (min-width: 40em) { /* <-- min-width 640px - medium screens and up */ }
+@media only screen {
+    nav.top-bar .menu > li > a{color:<?php echo bb_get_theme_mod('bb_colour1'); ?>;}
+    nav.top-bar .menu > li:not(.active) > a {background-color: <?php echo bb_get_theme_mod('bb_colour2'); ?>;}
+    nav.top-bar .menu > li.active > a {background-color: rgb(<?php echo bb_colour_darker(bb_get_theme_mod('bb_colour2')); ?>);}
+    nav.top-bar .menu > li > a:hover {background-color: rgb(<?php echo bb_colour_lighter(bb_get_theme_mod('bb_colour2')); ?>);opacity:1;}
+    nav.top-bar {padding: 0 0 0 0.9375rem;}
+    nav.top-bar .fa.fa-bars {display: inline-block; font-size: 2rem; padding: 1rem;}
+}
+@media only screen and (min-width: 40em) { /* <-- min-width 640px - medium screens and up */
+    nav.top-bar {padding: 0 0.9375rem;}
+}
 @media only screen and (min-width: 64em) { /* <-- min-width 1024px - large screens and up */ }
 @media only screen and (min-width: <?php echo ROW_MAX_WIDTH; ?> ) {}
 @media only screen and (min-width: <?php echo SITE_MAX_WIDTH; ?> ) {}
@@ -123,15 +132,15 @@ if (false === ($ob = get_transient($transient))) {
 
     // section content
 ?>
-<nav class="title-bar" data-responsive-toggle="top_menu" data-hide-for="medium">
+<nav class="top-bar hide-for-medium">
 <?php
     $small_logo = bb_get_theme_mod(ns_.'logo_small');
 ?>
-    <a href="#" class="float-left" type="button" data-toggle><i class="fa fa-bars" aria-hidden="true"></i></a>
+    <a href="#" class="float-right" type="button" data-open="offCanvasRight"><i class="fa fa-bars bg1 text3 hbg3 htext1" aria-hidden="true"></i></a>
     <div class="title-bar-title"><a href="<?php echo site_url(); ?>"><img class="logo" id="small-logo" src="<?php echo $small_logo; ?>" alt=""></a></div>
 </nav>
-<nav class="top-bar" id="top_menu">
-    <section class="top-bar-left hide-for-small">
+<nav class="top-bar show-for-medium">
+    <section class="top-bar-left">
 <?php
     $logo = bb_get_theme_mod(ns_.'logo_large');
 ?>
@@ -139,7 +148,7 @@ if (false === ($ob = get_transient($transient))) {
     </section>
     <section class="top-bar-right">
         <ul class="menu">
-<?php bb_menu('main'); ?>
+<?php bb_menu('top'); ?>
         </ul>
     </section>
 </nav>
