@@ -68,7 +68,7 @@ function bb_show_panel(WP_Post $panel) {
             'posts_per_page' => -1,
             'post_type' => 'panel',
             'orderby' => 'menu_order',
-            'order' => 'DESC',
+            'order' => 'ASC',
             'post_parent' => $panel->ID,
     );
     $children = get_posts($args);
