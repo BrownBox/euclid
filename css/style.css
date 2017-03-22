@@ -9,7 +9,7 @@ body h6, .h6 {font-size: 1rem;}
 
 .everything {border-left: 1px solid rgba(0, 0, 0, 0.1); border-right: 1px solid rgba(0, 0, 0, 0.1); margin-left: auto; margin-right: auto;}
 
-a:link:hover {opacity: 0.75;}
+a:not(.cta):not(.button):link:hover {opacity: 0.75;}
 
 .hero {min-height: 350px; background-size: cover; background-position: center center;}
 
