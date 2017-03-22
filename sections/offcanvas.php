@@ -123,7 +123,7 @@ if (false === ($ob = get_transient($transient))) {
 
     // section content
 ?>
-<div class="off-canvas position-left" id="offCanvasLeft" data-off-canvas>
+<div class="off-canvas position-right" id="offCanvasRight" data-off-canvas data-position="right">
     <button class="close-button" aria-label="Close menu" type="button" data-close>
         <i class="fa fa-close" aria-hidden="true"></i>
     </button>
