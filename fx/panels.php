@@ -27,6 +27,7 @@ function bb_get_panels() {
                                 'taxonomy' => 'pageascategory',
                                 'field' => 'slug',
                                 'terms' => (string)$post_id,
+                                'include_children' => false,
                         ),
                 );
             } else {
