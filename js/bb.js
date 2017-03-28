@@ -11,6 +11,11 @@ jQuery(document).ready(function() {
         arrows: true
     });
     
+    /* Close sticky menu when menu item clicked */
+    jQuery('.sticky .menu[data-accordion-menu] ul.nested a').click(function() {
+        jQuery(this).closest('.menu[data-accordion-menu]').foundation('hideAll');
+    });
+    
     /* Make equalizer and tabs play nicely together */
     jQuery('.tabs').on('change.zf.tabs', function() {
         Foundation.reInit('equalizer');
