@@ -1,6 +1,13 @@
 Release Notes
 =============
 
+7.2.4
+More options for hero background position
+New customizer settings for patterns
+Several new hero configuration options
+Various bits of code cleanup and general polish
+Bug fixes
+
 7.2.3
 Added support for opening menu items in new tab
 Better logic for hero images and other hierarchy-driven values
