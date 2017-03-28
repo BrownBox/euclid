@@ -114,13 +114,6 @@ if (false === ($ob = get_transient($transient))) {
 @media only screen {
     #row-hero {background-color: <?php echo bb_get_theme_mod('colour'.$section_args['meta']['hero_bgcolour']); ?>;}
     #row-hero:before {background-image: url(<?php echo $section_args['images']['small']; ?>); background-position: <?php echo $bgpos_x_small.' '.$bgpos_y_small; ?>; opacity: <?php echo $section_args['meta']['bg_opacity']; ?>;}
-<?php
-    if ($section_args['meta']['hide_title']) {
-?>
-    .page-title {display: none;}
-<?php
-    }
-?>
 }
 @media only screen and (min-width: 40em) { /* <-- min-width 640px - medium screens and up */
     #row-hero:before {background-image: url(<?php echo $section_args['images']['medium']; ?>); background-position: <?php echo $bgpos_x_medium.' '.$bgpos_y_medium; ?>;}
@@ -160,7 +153,17 @@ if (false === ($ob = get_transient($transient))) {
     if (!empty($section_args['images']['large'])) {
 ?>
 <div class="small-24 medium-24 large-24 column">
-    <h1><?php echo $section_args['title']; ?></h1>
+<?php
+    if ($section_args['meta']['hide_title']) {
+        echo '<h1>'.$section_args['title'].'</h1>'."\n";
+    }
+    if (!empty($section_args['meta']['hero_tagline'])) {
+        echo '<p class="tagline">'.$section_args['meta']['tagline'].'</p>'."\n";
+    }
+    if (!empty($section_args['meta']['hero_destination']) && !empty($section_args['meta']['hero_action_text'])) {
+        echo '<a class="button cta border1 text1 bg0 hbg2 hborder2" href="'.$section_args['meta']['hero_destination'].'">'.$section_args['meta']['hero_action_text'].'</a>'."\n";
+    }
+?>
 </div>
 <?php
     }
