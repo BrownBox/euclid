@@ -75,6 +75,7 @@ if (false === ($ob = get_transient($transient))) {
 /* START: <?php echo $section_args['filename'].' - '.date("Y-m-d H:i:s"); ?> */
 @media only screen {
     #row-hero {color: <?php echo bb_get_theme_mod('bb_colour1'); ?>; text-shadow: 0.125rem 0.125rem 0.125rem #555;}
+    #row-hero .hero-content {bottom: 0.5rem; left: 0; position: absolute; margin: 0 0.9375rem;}
 }
 @media only screen and (min-width: 40em) { /* <-- min-width 640px - medium screens and up */ }
 @media only screen and (min-width: 64em) { /* <-- min-width 1024px - large screens and up */ }
@@ -152,7 +153,7 @@ if (false === ($ob = get_transient($transient))) {
     // section content
     if (!empty($section_args['images']['large'])) {
 ?>
-<div class="small-24 medium-24 large-24 column">
+<div class="hero-content">
 <?php
     if ($section_args['meta']['hide_title']) {
         echo '<h1>'.$section_args['title'].'</h1>'."\n";
