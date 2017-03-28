@@ -22,32 +22,14 @@
  */
 
 global $post;
-
-if (is_page() || is_single()) {
-    $meta = bb_get_post_meta($post->ID);
-
-    $ancestors = get_ancestors($post->ID, get_post_type($post));
-    $ancestor_string = '';
-    if (!empty($ancestors)) {
-        $ancestor_string = '_'.implode('_', $ancestors);
-    }
-    $transient_suffix = $ancestor_string.'_'.$post->ID;
-} else {
-    $meta = array();
-    if (is_archive()) {
-        $transient_suffix = '_'.$post->post_type;
-    }
-}
-
 $filename = str_replace(get_stylesheet_directory(), "", __FILE__); // Relative path from the theme folder
-$transient_suffix .= '_'.md5($filename);
 
 $section_args = array(
         'namespace' => basename(__FILE__, '.php').'_', // Remember to use keywords like 'section' or 'nav' where logical
         'filename'  => $filename,
         'transients' => defined(WP_BB_ENV) && WP_BB_ENV == 'PRODUCTION', // Set this to false to force all transients to refresh
-        'transient_suffix' => $transient_suffix,
-        'meta' => $meta,
+        'transient_suffix' => '_'.md5($filename),
+        'meta' => bb_get_post_meta($post->ID),
 );
 
 // ---------------------------------------
@@ -122,28 +104,10 @@ if (false === ($ob = get_transient($transient))) {
     echo '<!-- START: '.$section_args['filename'].' -->'."\n";
 
     // section content
-?>
-<nav class="title-bar hide-for-medium">
-<?php
-    $small_logo = bb_get_theme_mod(ns_.'logo_small');
-?>
-    <a href="#" class="float-left" type="button" data-open="offCanvasLeft"><i class="fa fa-bars" aria-hidden="true"></i></a>
-    <div class="title-bar-title"><a href="<?php echo site_url(); ?>"><img class="logo" id="small-logo" src="<?php echo $small_logo; ?>" alt=""></a></div>
-</nav>
-<nav class="top-bar show-for-medium" id="top_menu">
-    <section class="top-bar-left">
-<?php
-    $logo = bb_get_theme_mod(ns_.'logo_large');
-?>
-        <a href="/"><img id="logo" src="<?php echo $logo; ?>" alt=""></a>
-    </section>
-    <section class="top-bar-right">
-        <ul class="menu">
-<?php bb_menu('main'); ?>
-        </ul>
-    </section>
-</nav>
-<?php
+    echo '<ul class="menu">'."\n";
+    bb_menu('main');
+    echo '</ul>'."\n";
+
     // section content - end
     echo '<!-- END:'.$section_args['filename'].' -->'."\n";
 
@@ -155,3 +119,4 @@ if (false === ($ob = get_transient($transient))) {
 echo $ob;
 unset($ob);
 unset($transient);
+        
