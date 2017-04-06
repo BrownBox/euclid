@@ -12,8 +12,11 @@ bb_theme::section('name=copyright&file=copyright.php&inner_class=row&type=footer
         <script>
             var zurb = jQuery.noConflict();
             zurb(document).foundation();
-        </script>
-        <script>
+
+            if (typeof ajaxurl === 'undefined') {
+                var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
+            }
+
         	var $buoop = {c:2};
         	function $buo_f() {
             	var e = document.createElement("script");

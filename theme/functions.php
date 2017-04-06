@@ -26,6 +26,8 @@ add_shortcode('list_posts', array('bb_theme', 'list_posts'));
 
 // The master class
 class bb_theme {
+    static $lazy_load_sections = array();
+
     static function section($args) {
         is_array($args) ? extract($args) : parse_str($args);
 
@@ -34,7 +36,7 @@ class bb_theme {
             return;
         }
         if (!isset($inner_class)) {
-            $inner_class = 'full-row'; // other options include 'row'
+            $inner_class = 'row'; // other options include 'row'
         }
         if (!isset($type)) {
             $type = 'div'; // other options include 'section', 'footer', etc...
@@ -45,40 +47,87 @@ class bb_theme {
         if (!isset($dir)) {
             $dir = 'sections';
         }
-
-        // More unique variable names to make sure they're not overwritten in included file below
-        $_bb_section_name = $name;
-        $_bb_section_type = $type;
+        if (isset($lazy_load) && $lazy_load == true) {
+            $inner_class .= ' lazy-load';
+        }
 
         // setup the wrapper
         echo "\n" . '<!-- ' . $name . ' -->' . "\n";
         echo "\n" . '<!-- ' . $file . ' -->' . "\n";
-        echo '<' . $_bb_section_type . ' id="row-' . $_bb_section_name . '" class="row-wrapper ' . $class . '">' . "\n";
-        echo ' <div id="row-inner-' . $_bb_section_name . '" class="row-inner-wrapper ' . $inner_class . '">' . "\n";
+        echo '<' . $type . ' id="row-' . $name . '" class="row-wrapper ' . $class . '">' . "\n";
+        echo '    <div id="row-inner-' . $name . '" class="row-inner-wrapper ' . $inner_class . '" data-section_name="'.$file.'">' . "\n";
 
         $template_details = array(
-            'directory' => $dir,
-            'file' => $file
+                'directory' => $dir,
+                'file' => $file,
         );
 
-        $matched_section = locate_template( array( implode( '/',  $template_details ) ), true );
-
-        // Check if request section was found in a theme
-        if ( !$matched_section ) {
-
-            // Apply filter that may overwrite the location of tempalte
-            $template_details = apply_filters( 'bb_theme_section_template', $template_details );
-
-            // Check if custom template was located
-            if ( isset( $template_details['custom_location'] ) ) {
-                require $template_details['directory'] . $template_details['file'];
-            }
-
+        if (isset($lazy_load) && $lazy_load == true) {
+            echo '<p class="text-center"><i class="fa fa-3x fa-spin fa-spinner"></i></p>'."\n";
+            self::$lazy_load_sections[$name] = $template_details;
+        } else {
+            self::load_section($template_details);
         }
 
-        echo ' </div>' . "\n";
-        echo '</' . $_bb_section_type . '>' . "\n";
-        echo '<!-- end ' . $_bb_section_name . ' -->' . "\n";
+        echo '    </div>' . "\n";
+        echo '</' . $type . '>' . "\n";
+        echo '<!-- end ' . $name . ' -->' . "\n";
+    }
+
+    static private function load_section($template_details) {
+        $matched_section = locate_template(array(implode('/',  $template_details)), true);
+
+        // Check if request section was found in a theme
+        if (!$matched_section) {
+            // Apply filter that may overwrite the location of tempalte
+            $template_details = apply_filters('bb_theme_section_template', $template_details);
+
+            // Check if custom template was located
+            if (isset($template_details['custom_location'])) {
+                require $template_details['directory'].$template_details['file'];
+            }
+        }
+    }
+
+    static function ajax_lazy_load_section() {
+        $filename = basename($_POST['filename']);
+        $template_details = array(
+                'directory' => 'sections',
+                'file' => $filename,
+        );
+        self::load_section($template_details);
+        die();
+    }
+
+    static function lazy_load_script() {
+        if (!empty(self::$lazy_load_sections)) {
+?>
+    <script>
+        var lazy_loaded = false;
+        jQuery(document).ready(function() {
+            bb_lazy_load_sections();
+            jQuery(document).scroll(function() {
+                bb_lazy_load_sections();
+            });
+        });
+        function bb_lazy_load_sections() {
+            if (!lazy_loaded && jQuery(window).scrollTop() >= 250) {
+                lazy_loaded = true;
+                jQuery('div.row-inner-wrapper.lazy-load').each(function() {
+                    var section = jQuery(this);
+                    var filename = section.data('section_name');
+                    jQuery.post(ajaxurl, {
+                        action: 'bb_lazy_load',
+                        filename: filename
+                    }, function(data) {
+                        section.html(data);
+                    });
+                });
+            }
+        }
+    </script>
+<?php
+        }
     }
 
     static function list_posts($args) {
