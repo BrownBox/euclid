@@ -20,6 +20,9 @@ add_filter('automatic_updater_disabled', '__return_true');
 add_action('admin_bar_menu', array('bb_theme', 'custom_adminbar'), 999);
 add_action('widgets_init', array('bb_theme', 'register_widgets'));
 add_action('admin_init', array('bb_theme', 'imagelink_default'));
+add_action('wp_footer', array('bb_theme', 'lazy_load_script'));
+add_action('wp_ajax_bb_lazy_load', array('bb_theme', 'ajax_lazy_load_section'));
+add_action('wp_ajax_nopriv_bb_lazy_load', array('bb_theme', 'ajax_lazy_load_section'));
 
 // Shortcodes
 add_shortcode('list_posts', array('bb_theme', 'list_posts'));
