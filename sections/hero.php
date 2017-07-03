@@ -74,11 +74,35 @@ if (false === ($ob = get_transient($transient))) {
 <style>
 /* START: <?php echo $section_args['filename'].' - '.date("Y-m-d H:i:s"); ?> */
 @media only screen {
+    #row-hero a:hover { opacity:1;}
     #row-hero {color: <?php echo bb_get_theme_mod('bb_colour1'); ?>; text-shadow: 0.125rem 0.125rem 0.125rem #555;}
     #row-hero .hero-content {bottom: 0.5rem; left: 0; position: absolute; margin: 0 0.9375rem;}
+
+    #row-hero .logo { position:absolute; z-index:999; top:-15px; background-color: <?php echo bb_get_theme_mod('bb_colour6');?>;}
+    #row-hero .navigation { position:relative; z-index:99; top:30px; padding:0.5rem 1rem; background-color:<?php echo bb_get_theme_mod('bb_colour1');?>;}
+    #row-hero .announcement { position:absolute; z-index:99; right:0; top:94px; background-color: <?php echo bb_get_theme_mod('bb_colour6');?>; right:15px;}
+    #row-hero .announcement p { margin-bottom:0;}
+    #row-hero .announcement a { padding:0.5rem;}
+    #row-hero .cta { position:relative; z-index:99; margin-top:6rem;}
+    #row-hero .cta-wrapper { padding:0;}
+    #row-hero .cta h1 { font-weight:700; }
+    #row-hero .cta p { border:2px solid <?php echo bb_get_theme_mod('bb_colour1');?>; border-bottom:none; padding:0.5rem; margin-bottom:0;}
+
+    #row-hero .announcement-on-small { position:relative; z-index:99; background-color: <?php echo bb_get_theme_mod('bb_colour6');?>;}
+    #row-hero .announcement-on-small p { margin-bottom:0;}
+    #row-hero .announcement-on-small a { padding:0.5rem;}
+
+    #row-hero .off-canvas-menu a.button { padding:0.5rem 1.5rem; margin-bottom:0.8rem;}
+     #row-hero .off-canvas-menu a {padding: 0 1rem;}
 }
-@media only screen and (min-width: 40em) { /* <-- min-width 640px - medium screens and up */ }
-@media only screen and (min-width: 64em) { /* <-- min-width 1024px - large screens and up */ }
+@media only screen and (min-width: 40em) { /* <-- min-width 640px - medium screens and up */
+    #row-hero .navigation { top:40px;}
+    #row-hero .logo { top:-25px; }
+    #row-hero .cta { margin-top:8rem;}
+}
+@media only screen and (min-width: 64em) { /* <-- min-width 1024px - large screens and up */
+    #row-hero .logo { top:-35px; }
+}
 @media only screen and (min-width: <?php echo ROW_MAX_WIDTH; ?> ) {}
 @media only screen and (min-width: <?php echo SITE_MAX_WIDTH; ?> ) {}
 /* END: <?php echo $section_args['filename']; ?> */
@@ -151,22 +175,41 @@ if (false === ($ob = get_transient($transient))) {
     echo '<!-- START: '.$section_args['filename'].' -->'."\n";
 
     // section content
-    if (!empty($section_args['images']['large'])) {
-?>
-<div class="hero-content">
-<?php
-    if ($section_args['meta']['hide_title']) {
-        echo '<h1>'.$section_args['title'].'</h1>'."\n";
-    }
-    if (!empty($section_args['meta']['hero_tagline'])) {
-        echo '<p class="tagline">'.$section_args['meta']['tagline'].'</p>'."\n";
-    }
-    if (!empty($section_args['meta']['hero_destination']) && !empty($section_args['meta']['hero_action_text'])) {
-        echo '<a class="button cta border1 text1 bg0 hbg2 hborder2" href="'.$section_args['meta']['hero_destination'].'">'.$section_args['meta']['hero_action_text'].'</a>'."\n";
-    }
-?>
-</div>
-<?php
+    $logo = bb_get_theme_mod(ns_.'logo_small');
+
+    echo '<div class="announcement-on-small text-center small-24 show-for-small-only column">'."\n";
+        echo '<p><a class="text1" href="'.bb_get_theme_mod(ns_.'announcement_link').'">'.bb_get_theme_mod(ns_.'announcement_text').'</a></p>'."\n";
+    echo '</div>'."\n";
+
+    echo '<div class="navigation small-24 column">'."\n";
+    echo '  <div class="logo small-12 medium-8 large-6 column">'."\n";
+    echo '      <a href="/"><img src="'.$logo.'"></a>'."\n";
+    echo '  </div>'."\n";
+    echo '  <ul class="menu show-for-large clearfix float-right">'."\n";
+                bb_menu('main');
+    echo '  </ul>'."\n";
+    echo '  <div class="off-canvas-menu hide-for-large text-right">'."\n";
+    echo '      <a class="search" href=""><i class="fa fa-search fa-2x" aria-hidden="true"></i></a>'."\n";
+    echo '      <a href="/donate" class="button">Donate</a>'."\n";
+    echo '      <a class="hamburger" data-open="offCanvasRight">'."\n";
+    echo '          <i class="fa fa-bars fa-2x" aria-hidden="true"></i>'."\n";
+    echo '      </a>'."\n";
+    echo '  </div>'."\n";
+    echo '</div>'."\n";
+
+    echo '<div class="announcement show-for-medium">'."\n";
+        echo '<p><a class="text1" href="'.bb_get_theme_mod(ns_.'announcement_link').'">'.bb_get_theme_mod(ns_.'announcement_text').'</a></p>'."\n";
+    echo '</div>'."\n";
+
+    if(!empty($meta['hero_title']) && !empty($meta['hero_tagline_desc'])){
+        echo '<div class="cta small-24 column">'."\n";
+        echo '  <div class="cta-wrapper small-24 medium-10 large-8 column">'."\n";
+            echo '  <a href="'.$meta['hero_tagline_link'].'">'."\n";
+            echo '      <h1 class="text1">'.strtoupper($meta['hero_title']).'</h1>'."\n";
+            echo '      <p class="text1">'.$meta['hero_tagline_desc'].'</p>'."\n";
+            echo '  </a>'."\n";
+        echo '  </div>'."\n";
+        echo '</div>'."\n";
     }
 
     // section content - end

@@ -86,6 +86,24 @@ if (function_exists("register_field_group")) {
                             'layout' => 'horizontal',
                     ),
                     array(
+                            'key' => 'bb_hero_title',
+                            'label' => 'Hero Title',
+                            'name' => 'hero_title',
+                            'type' => 'text',
+                    ),
+                    array(
+                            'key' => 'bb_hero_tagline_desc',
+                            'label' => 'Hero Tagline Description',
+                            'name' => 'hero_tagline_desc',
+                            'type' => 'textarea',
+                    ),
+                    array(
+                            'key' => 'bb_hero_tagline_link',
+                            'label' => 'Hero Tagline Link',
+                            'name' => 'hero_tagline_link',
+                            'type' => 'text',
+                    ),
+                    array(
                             'key' => 'bb_hero_tab_medium',
                             'label' => 'Medium Screens',
                             'name' => 'hero_tab_medium',

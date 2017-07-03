@@ -32,8 +32,6 @@ wp_head();
 				<div class="off-canvas-content" data-off-canvas-content>
                     <header data-swiftype-index='false' class="hide-for-print clearfix">
 <?php
-bb_theme::section('name=top&file=top.php&inner_class=row&class=bg1 gradient'); // includes logo and top menu by default
-bb_theme::section('name=menu&file=menu.php&inner_class=row&class=bg5 show-for-medium');
 bb_theme::section('name=hero&file=hero.php&inner_class=row relative hero-height');
 ?>
                     </header>
