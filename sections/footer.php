@@ -121,7 +121,8 @@ if (false === ($ob = get_transient($transient))) {
     // section content - start
     echo '<!-- START: '.$section_args['filename'].' -->'."\n";
 
-    // section content$logo_footer = bb_get_theme_mod(ns_.'logo_footer');
+    // section content
+    $logo_footer = bb_get_theme_mod(ns_.'logo_footer');
     $email = bb_get_theme_mod(ns_.'contact_email');
     $phone = bb_get_theme_mod(ns_.'contact_phone');
     $address = bb_get_theme_mod(ns_.'contact_address');
