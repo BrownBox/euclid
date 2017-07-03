@@ -23,6 +23,7 @@ $theme_files = array(
     array('file' => 'hero.php',                 'dir' => 'fx'),
     array('file' => 'hierarchy_walker.php',     'dir' => 'fx'),
     array('file' => 'logging.php',              'dir' => 'fx'),
+    array('file' => 'mail.php',                 'dir' => 'fx'),
     array('file' => 'map.php',                  'dir' => 'fx'),
     array('file' => 'meta.php',                 'dir' => 'fx'),
     array('file' => 'pagination.php',           'dir' => 'fx'),
@@ -77,4 +78,10 @@ add_action('customize_register', 'bb_load_customize_controls', 0);
 function bb_load_customize_controls() {
     require_once(trailingslashit(get_template_directory()).'theme/customizer/checkbox-multiple.php');
     require_once(trailingslashit(get_template_directory()).'theme/customizer/wp-editor.php');
+}
+
+add_filter('bbx_best_before_post_types_covered', 'bb_add_best_before_post_types');
+function bb_add_best_before_post_types(array $post_types) {
+    $post_types[] = 'panel';
+    return $post_types;
 }
