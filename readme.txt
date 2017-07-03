@@ -1,6 +1,10 @@
 Release Notes
 =============
 
+7.3
+New hero layout
+Set envelope ID on outgoing emails to avoid spam filters
+
 7.2.4
 More options for hero background position
 New customizer settings for patterns
