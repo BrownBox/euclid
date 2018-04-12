@@ -7,12 +7,15 @@
  */
 function bb_convert_colour($colour, $as = 'string') {
     // do we have what we need for this function?
-    if (strpos($colour, ','))
+    if (strpos($colour, ',')) {
         $colour = explode(',', $colour);
-    if (strpos($colour, '#') === false || (is_array($colour) && count($colour) != 3))
+    }
+    if (strpos($colour, '#') === false || (is_array($colour) && count($colour) != 3)) {
         return;
-    if ($as != 'string' && $as != 'array')
+    }
+    if ($as != 'string' && $as != 'array') {
         return;
+    }
 
     if (strpos($colour, '#') !== false) {
         $hex = str_replace("#", "", $colour);
@@ -29,23 +32,22 @@ function bb_convert_colour($colour, $as = 'string') {
         $rgb = array(
                 $r,
                 $g,
-                $b
+                $b,
         );
 
-        if ($as == 'string')
+        if ($as == 'string') {
             return implode(",", $rgb); // returns the rgb values separated by commas
-        if ($as == 'array')
+        }
+        if ($as == 'array') {
             return $rgb; // returns an array with the rgb values
+        }
     } // end $from = hex
 
     if (is_array($colour) && count($colour) == 3) {
-
-        $rgb = explode(',', $colour);
-
         $hex = "#";
-        $hex .= str_pad(dechex($rgb[0]), 2, "0", STR_PAD_LEFT);
-        $hex .= str_pad(dechex($rgb[1]), 2, "0", STR_PAD_LEFT);
-        $hex .= str_pad(dechex($rgb[2]), 2, "0", STR_PAD_LEFT);
+        $hex .= str_pad(dechex($colour[0]), 2, "0", STR_PAD_LEFT);
+        $hex .= str_pad(dechex($colour[1]), 2, "0", STR_PAD_LEFT);
+        $hex .= str_pad(dechex($colour[2]), 2, "0", STR_PAD_LEFT);
 
         return $hex; // returns the hex value including the number sign (#)
     }
@@ -70,7 +72,7 @@ function bb_colour_opacity($hex, $opacity){
  * @return array|null RGB array or null, based on value of $echo
  */
 function bb_colour_darker($colour, $change = 30, $echo = true) {
-    bb_colour_change($colour, -($change), $echo);
+    return bb_colour_change($colour, -($change), $echo);
 }
 
 /**
@@ -81,7 +83,7 @@ function bb_colour_darker($colour, $change = 30, $echo = true) {
  * @return array|null RGB array or null, based on value of $echo
  */
 function bb_colour_lighter($colour, $change = 30, $echo = true) {
-    bb_colour_change($colour, $change, $echo);
+    return bb_colour_change($colour, $change, $echo);
 }
 
 /**
@@ -103,8 +105,8 @@ function bb_colour_change($colour, $change = 30, $echo = true) {
             $colour[$i] = 255;
         }
     }
-    $colour = implode(',', $colour);
     if ($echo) {
+        $colour = implode(',', $colour);
         echo $colour;
     } else {
         return $colour;
