@@ -23,7 +23,6 @@ $theme_files = array(
     array('file' => 'hero.php',                 'dir' => 'fx'),
     array('file' => 'hierarchy_walker.php',     'dir' => 'fx'),
     array('file' => 'logging.php',              'dir' => 'fx'),
-    array('file' => 'mail.php',                 'dir' => 'fx'),
     array('file' => 'map.php',                  'dir' => 'fx'),
     array('file' => 'meta.php',                 'dir' => 'fx'),
     array('file' => 'pagination.php',           'dir' => 'fx'),
